@@ -16,7 +16,9 @@ $size: 20vw;
   display: inline-block;
   width: $size;
   height: $size;
-  margin: 2px;
+  margin: 1px;
+  background-image: url('../img/dirt.svg');
+  background-position: center;
 }
 
 .x-1 {
@@ -24,13 +26,49 @@ $size: 20vw;
 }
 
 .trees {
-  background-color: #aaffaa;
+  background-color: #836B32;
+  background-image: url('../img/tree.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%
 }
 
 .camp {
-  background-color: #aaaaff;
+  background-color: #836B32;
+  background-image: url('../img/tent.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%
 }
 
 .path {
   background-color: #ddffdd;
+}
+
+.player {
+  margin: 30% 35%;
+}
+
+.player-top{
+  background-color:red;
+  height:2.5vw;
+  width:5vw;
+  border-radius:100px 100px 0 0;
+  animation: spin1 0.5s infinite linear;
+}
+
+.player-bottom{
+  background-color:yellow;
+  height:2.5vw;
+  width:5vw;
+  border-radius:0 0 100px 100px;
+  animation: spin2 0.5s infinite linear;
+}
+
+.player-feet{
+  background-color:brown;
+  height:2.5vw;
+  width:5vw;
+  border-radius:100px 100px 0 0;
+  animation: spin2 0.5s infinite linear;
 }
