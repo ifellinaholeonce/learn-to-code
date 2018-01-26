@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import CommandInput from './Answer_Options.jsx';
+import CommandInput from './AnswerOptions.jsx';
 
 class StudentInput extends Component {
   constructor(props) {

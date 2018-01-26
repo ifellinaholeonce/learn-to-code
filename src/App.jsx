@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import Puzzle from './Puzzle.jsx'
 import HintList from './HintList.jsx'
 import Question from './Question.jsx'
 import Answer from './Answer.jsx'
 import Display from './display.jsx';
-import Puzzle from './Puzzle.jsx';
 import StudentInput from './StudentInput.jsx';
 
 class App extends Component {
@@ -21,11 +19,10 @@ class App extends Component {
     return (
       <div>
         <h1>Student View Puzzle</h1>
-        <Puzzle/>
+        <Display/>
         <HintList hints={this.state.hints} numHints={this.state.numHints}/>
         <Question/>
         <Answer/>
-        <Display/>
         <StudentInput/>
       </div>
     );
