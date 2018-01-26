@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import Hint from './Hint.jsx'
-import Puzzle from './Puzzle.jsx'
+import Hint from './Hint.jsx';
+import Puzzle from './Puzzle.jsx';
+import StudentInput from './StudentInput.jsx';
 
 class App extends Component {
   render() {
@@ -8,6 +9,7 @@ class App extends Component {
       <div>
         <h1>Hello React :)</h1>
         <Puzzle/>
+        <StudentInput/>
         <Hint/>
       </div>
     );
