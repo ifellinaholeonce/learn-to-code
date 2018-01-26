@@ -1,3 +1,36 @@
 h1 {
   color: tomato;
 }
+
+$size: 20vw;
+
+.board {
+  width: 75vw;
+  height: 75vw;
+  // display: flex;
+  margin: 10px 10vw;
+}
+
+.square {
+  // flex: 0 1 auto;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  margin: 2px;
+}
+
+.x-1 {
+
+}
+
+.trees {
+  background-color: #aaffaa;
+}
+
+.camp {
+  background-color: #aaaaff;
+}
+
+.path {
+  background-color: #ddffdd;
+}

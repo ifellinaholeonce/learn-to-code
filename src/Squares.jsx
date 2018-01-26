@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 
-function Square({type}) {
+function Square({type, x, y}) {
   return (
-    <div className={type}>
-      <div className="Inner">
+    <div className={`${type} x-${x} y-${y} square`}>
+      <div>
       </div>
     </div>
   )
