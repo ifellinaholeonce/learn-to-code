@@ -3,6 +3,7 @@ import Puzzle from './Puzzle.jsx'
 import HintList from './HintList.jsx'
 import Question from './Question.jsx'
 import Answer from './Answer.jsx'
+import Display from './display.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
         <HintList hints={this.state.hints} numHints={this.state.numHints}/>
         <Question/>
         <Answer/>
+        <Display/>
       </div>
     );
   }
