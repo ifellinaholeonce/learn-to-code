@@ -34,8 +34,3 @@ class HintList extends Component {
 export default HintList;
 
 
-  // toggleHint = (e) => {
-  //   let newHints = this.state.numHints + 1;
-  //   this.setState({numHints: newHints})
-
-  // }
