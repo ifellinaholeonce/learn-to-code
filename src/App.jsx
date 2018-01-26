@@ -4,6 +4,8 @@ import HintList from './HintList.jsx'
 import Question from './Question.jsx'
 import Answer from './Answer.jsx'
 import Display from './display.jsx';
+import Puzzle from './Puzzle.jsx';
+import StudentInput from './StudentInput.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +26,7 @@ class App extends Component {
         <Question/>
         <Answer/>
         <Display/>
+        <StudentInput/>
       </div>
     );
   }
