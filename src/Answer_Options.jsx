@@ -13,9 +13,9 @@ class CommandInput extends Component {
   }
 }
 
-const Command = ({type}) => {
+const Command = ({type, onClick}) => {
   return (
-    <button className={type}>
+    <button onClick={onClick(type)} className={type}>
       {type}
     </button>
   )
