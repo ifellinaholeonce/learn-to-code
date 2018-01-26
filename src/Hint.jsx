@@ -1,39 +1,37 @@
 import React, {Component} from 'react';
 
 class Hint extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      hints: ['hint1','hint2','hint3'],
+      numHints: 0
+    }
+  }
+
+  toggleHint = (e) => {
+    let newHints = this.state.numHints + 1;
+    this.setState({numHints: newHints})
+
+  }
+
   render() {
+    console.log("Rendering <Hint/>");
+
+    const hints = this.state.hints.filter((hint, i) => {
+      return i < this.state.numHints
+    }).map(hint => {
+      return <p>{hint}</p>
+    })
 
     return (
       <div>
         <button onClick={this.toggleHint}> HINT: </button>
         <div className="hints">
+          {hints}
         </div>
       </div>
     );
-  }
-
-  toggleHint = (e) => {
-    const hintsArr = ['hint1','hint2','hint3']
-
-    // let node = document.createElement("p")
-    // let textnode = document.createTextNode("hint1");
-    // node.appendChild(textnode);
-    // e.target.parentNode.childNodes[1].appendChild(node)
-
-    // console.log(e.target.parentNode.childNodes[1].firstChild)
-    let numOfClick = 0;
-
-    hintsArr.forEach( (hint, index) => {
-      if (numOfClick === index) {
-        let node = document.createElement("p")
-        let textnode = document.createTextNode(hint);
-        node.appendChild(textnode);
-
-        e.target.parentNode.childNodes[1].appendChild(node)
-        numOfClick ++;
-      }
-    });
-
   }
 }
 
