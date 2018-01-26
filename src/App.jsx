@@ -20,13 +20,19 @@ class App extends Component {
       <div>
         <h1>Student View Puzzle</h1>
         <Display/>
-        <HintList hints={this.state.hints} numHints={this.state.numHints}/>
+        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
         <Answer/>
         <StudentInput/>
       </div>
     );
   }
+
+  handleHintClick = () => {
+    let newHints = this.state.numHints + 1;
+    this.setState({numHints: newHints})
+  }
+
 }
 export default App;
 
