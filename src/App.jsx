@@ -1,9 +1,15 @@
 import React, {Component} from 'react';
+import Hint from './Hint.jsx'
+import Puzzle from './Puzzle.jsx'
 
 class App extends Component {
   render() {
     return (
-      <h1>Hello React :)</h1>
+      <div>
+        <h1>Hello React :)</h1>
+        <Puzzle/>
+        <Hint/>
+      </div>
     );
   }
 }
