@@ -20,8 +20,8 @@ class Hint extends Component {
 
     const hints = this.state.hints.filter((hint, i) => {
       return i < this.state.numHints
-    }).map(hint => {
-      return <p>{hint}</p>
+    }).map((hint,i) => {
+      return <p key={i}>{hint}</p>
     })
 
     return (

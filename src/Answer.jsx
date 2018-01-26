@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Answer_Options from './Answer_Options.jsx'
+import AnswerOptions from './AnswerOptions.jsx'
 
 class Answer extends Component {
   render() {
@@ -10,7 +10,7 @@ class Answer extends Component {
         <input name="answer" type="text" />
         <input type="submit" value="Submit"/>
       </form>
-      <Answer_Options/>
+      <AnswerOptions/>
       </div>
     );
   }
