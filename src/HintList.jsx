@@ -17,13 +17,18 @@ class HintList extends Component {
 
     return (
       <div className="container">
-        <button className="btn btn-success" onClick={this.toggleHint}> HINT: </button>
+        <button className="btn btn-success" onClick={this.clickHint}> HINT: </button>
         <div className="hints">
           {hintItems}
         </div>
       </div>
     );
   }
+
+  clickHint = (e) => {
+    this.props.handleHintClick()
+  }
+
 }
 
 export default HintList;

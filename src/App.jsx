@@ -21,13 +21,20 @@ class App extends Component {
     return (
       <div className="body">
         <Navbar/>
+        <Display/>
+        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
-        <HintList hints={this.state.hints} numHints={this.state.numHints}/>
         <Display/>
         <Answer/>
       </div>
     );
   }
+
+  handleHintClick = () => {
+    let newHints = this.state.numHints + 1;
+    this.setState({numHints: newHints})
+  }
+
 }
 export default App;
 
