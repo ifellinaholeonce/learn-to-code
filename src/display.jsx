@@ -2,9 +2,11 @@ import React, {Component} from 'react';
 import Square from './Squares.jsx';
 
 let board = [
-  {type: "trees"}, {type: "trees"}, {type: "camp"},
-  {type: "trees"}, {type: "trees"}, {type: "path"},
-  {type: "path"}, {type: "path"}, {type: "path"}
+  {type: "trees"}, {type: "trees"}, {type: "camp"}, {type: "trees"}, {type: "trees"},
+  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
+  {type: "path" }, {type: "path" }, {type: "path"}, {type: "trees"}, {type: "trees"},
+  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
+  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
 ];
 
 class Display extends Component {
@@ -53,14 +55,18 @@ class Display extends Component {
       if (xPos === this.state.playerLoc.x && yPos === this.state.playerLoc.y) {
         hasPlayer = true;
       }
-      return <Square type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
+      return <Square key={`${xPos} ${yPos}`}type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
     }
     );
     return (
+      <div>
+      <button onClick={this.moveEast}>-></button>
+      <button onClick={this.moveNorth}>^</button>
       <div className="board">
+        <div className="overlay">
         {squares}
-        <button onClick={this.moveEast}>-></button>
-        <button onClick={this.moveNorth}>^</button>
+        </div>
+      </div>
       </div>
     );
   }

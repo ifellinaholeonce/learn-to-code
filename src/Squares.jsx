@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 
 function Square({type, x, y, player}) {
   return (
-    <div className={`x-${x} y-${y} square`}>
+    <div className="square">
       <div className={type}></div>
       {player &&
       <div className="player">
