@@ -15,6 +15,35 @@ class Display extends Component {
       playerLoc: {x: 1, y: 3}
      };
   }
+
+  moveNorth = () => {
+    let newLoc = {x: this.state.playerLoc.x, y: this.state.playerLoc.y - 1}
+    this.setState({
+      playerLoc: newLoc
+    })
+  }
+
+  moveEast = () => {
+    let newLoc = {x: this.state.playerLoc.x + 1, y: this.state.playerLoc.y}
+    this.setState({
+      playerLoc: newLoc
+    })
+  }
+
+  moveSouth = () => {
+    let newLoc = {x: this.state.playerLoc.x, y: this.state.playerLoc.y + 1}
+    this.setState({
+      playerLoc: newLoc
+    })
+  }
+
+  moveWest = () => {
+    let newLoc = {x: this.state.playerLoc.x - 1, y: this.state.playerLoc.y}
+    this.setState({
+      playerLoc: newLoc
+    })
+  }
+
   render() {
     let squares = this.state.display.map((elm, i) => {
       let length = Math.sqrt(this.state.display.length);
@@ -30,6 +59,8 @@ class Display extends Component {
     return (
       <div className="board">
         {squares}
+        <button onClick={this.moveEast}>-></button>
+        <button onClick={this.moveNorth}>^</button>
       </div>
     );
   }
