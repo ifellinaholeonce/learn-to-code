@@ -6,7 +6,7 @@ class AnswerOptions extends Component {
       <Command onClick={this.props.click} type={command}/>
     );
     return (
-      <div className="commands container">
+      <div className="commands col-sm-8 container">
         {buttons}
       </div>
     );
