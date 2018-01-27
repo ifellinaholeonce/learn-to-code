@@ -14,7 +14,8 @@ class Display extends Component {
     super(props);
     this.state = {
       display: board,
-      playerLoc: {x: 1, y: 3}
+      playerLoc: {x: 1, y: 3},
+      startLoc: {x: 1, y: 3}
      };
   }
 
@@ -46,6 +47,14 @@ class Display extends Component {
     })
   }
 
+  checkSquare = (type) => {
+    //if the square has the player and the type is not path, reset the player
+    if ( type !== "path" ) {
+      this.setState({
+        playerLoc: this.state.startLoc
+      })
+    }
+  }
   render() {
     let squares = this.state.display.map((elm, i) => {
       let length = Math.sqrt(this.state.display.length);
@@ -54,10 +63,10 @@ class Display extends Component {
       let hasPlayer = false;
       if (xPos === this.state.playerLoc.x && yPos === this.state.playerLoc.y) {
         hasPlayer = true;
+        this.checkSquare(elm.type);
       }
-      return <Square key={`${xPos} ${yPos}`}type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
-    }
-    );
+      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
+    });
     return (
       <div>
       <button onClick={this.moveEast}>-></button>
