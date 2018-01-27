@@ -18,6 +18,7 @@ class Display extends Component {
       display: board,
       playerLoc: {x: 1, y: 3},
       startLoc: {x: 1, y: 3},
+      playerDir: "East",
       pendingCommands: []
      };
   }
@@ -28,7 +29,14 @@ class Display extends Component {
       let command = pendingCommands.shift();
       switch (command) {
         case 'forward':
-          this.moveEast();
+          switch (this.state.playerDir) {
+            case 'East':
+              this.moveEast();
+              break;
+            case 'West':
+              this.moveWest();
+            default:
+          }
           break;
         default:
       }
