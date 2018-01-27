@@ -21,7 +21,6 @@ class App extends Component {
     return (
       <div className="body">
         <Navbar/>
-        <Display/>
         <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
         <Display/>
