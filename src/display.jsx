@@ -18,26 +18,53 @@ class Display extends Component {
       display: board,
       playerLoc: {x: 1, y: 3},
       startLoc: {x: 1, y: 3},
-      playerDir: "East",
+      playerDir: 2, // 1 = North, 2 = East, 3 = South, 4 = West
       pendingCommands: []
      };
   }
 
   componentWillUpdate = () => {
     let { pendingCommands } = this.state;
+    let { playerDir } = this.state;
     if ( pendingCommands !== [] ) {
       let command = pendingCommands.shift();
       switch (command) {
         case 'forward':
           switch (this.state.playerDir) {
-            case 'East':
+            case 1:
+              this.moveNorth();
+              break;
+            case 2:
               this.moveEast();
               break;
-            case 'West':
+            case 3:
+              this.moveSouth();
+              break;
+            case 4:
               this.moveWest();
+              break;
             default:
           }
           break;
+        case 'left':
+          if (playerDir === 1) {
+            playerDir = 4
+          } else {
+            playerDir--;
+          }
+          this.setState({
+            playerDir
+          })
+          break;
+        case 'right':
+          if (playerDir === 4) {
+            playerDir = 1
+          } else {
+            playerDir++;
+          }
+          this.setState({
+            playerDir
+          })
         default:
       }
       setTimeout(function() {
