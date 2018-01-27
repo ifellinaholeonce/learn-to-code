@@ -5,7 +5,7 @@ class Hint extends Component {
 
     console.log("Rendering <Hint/>");
     return (
-       <div className="Hint">
+       <div className="hint">
           <span className="hint-content">{this.props.hint.content}</span>
         </div>
     );
