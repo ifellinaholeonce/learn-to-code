@@ -1,3 +1,91 @@
-h1 {
-  color: tomato;
+$size: 20vw;
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.navbar {
+  height: 80px;
+  background-color: #1B5E20;
+  box-shadow: 0px 2px 2px #093A02;
+}
+
+.body {
+  background-color: #388E3C;
+  color: white;
+}
+
+
+
+.board {
+  width: 75vw;
+  height: 75vw;
+  // display: flex;
+  margin: 10px 10vw;
+}
+
+.square {
+  // flex: 0 1 auto;
+  display: inline-block;
+  width: $size;
+  height: $size;
+  margin: 1px;
+  background-image: url('../img/dirt.svg');
+  background-position: center;
+}
+
+.x-1 {
+
+}
+
+.trees {
+  background-color: #836B32;
+  background-image: url('../img/tree.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%
+}
+
+.camp {
+  background-color: #836B32;
+  background-image: url('../img/tent.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90%
+}
+
+.path {
+  background-color: #ddffdd;
+}
+
+.player {
+  margin: 30% 35%;
+}
+
+.player-top{
+  background-color:red;
+  height:2.5vw;
+  width:5vw;
+  border-radius:100px 100px 0 0;
+  animation: spin1 0.5s infinite linear;
+}
+
+.player-bottom{
+  background-color:yellow;
+  height:2.5vw;
+  width:5vw;
+  border-radius:0 0 100px 100px;
+  animation: spin2 0.5s infinite linear;
+}
+
+.player-feet{
+  background-color:brown;
+  height:2.5vw;
+  width:5vw;
+  border-radius:100px 100px 0 0;
+  animation: spin2 0.5s infinite linear;
 }

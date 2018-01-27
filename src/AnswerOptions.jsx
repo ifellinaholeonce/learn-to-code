@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 
-class CommandInput extends Component {
+class AnswerOptions extends Component {
   render() {
     let buttons = this.props.commands.map(command =>
       <Command onClick={this.props.click} type={command}/>
     );
     return (
-      <div className="commands">
+      <div className="commands container">
         {buttons}
       </div>
     );
@@ -15,10 +15,10 @@ class CommandInput extends Component {
 
 const Command = ({type, onClick}) => {
   return (
-    <button onClick={onClick(type)} className={type}>
+    <button onClick={onClick(type)} className={`${type} btn btn-success m-1`}>
       {type}
     </button>
   )
 }
 
-export default CommandInput;
+export default AnswerOptions;
