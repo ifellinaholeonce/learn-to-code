@@ -57,28 +57,26 @@ body {
 
 .player {
   margin: 30% 35%;
-}
 
-.player-top{
-  background-color:red;
-  height:2.5vw;
-  width:5vw;
-  border-radius:100px 100px 0 0;
-  animation: spin1 0.5s infinite linear;
-}
+  .player-top{
+    background-color:red;
+    height:2.5vw;
+    width:5vw;
+    border-radius:100px 100px 0 0;
+  }
 
-.player-bottom{
-  background-color:yellow;
-  height:2.5vw;
-  width:5vw;
-  border-radius:0 0 100px 100px;
-  animation: spin2 0.5s infinite linear;
-}
+  .player-bottom{
+    background-color:yellow;
+    height:2.5vw;
+    width:5vw;
+    border-radius:0 0 100px 100px;
+    animation: spin2 0.5s infinite linear;
+  }
 
-.player-feet{
-  background-color:brown;
-  height:2.5vw;
-  width:5vw;
-  border-radius:100px 100px 0 0;
-  animation: spin2 0.5s infinite linear;
+  .player-feet{
+    background-color:brown;
+    height:2.5vw;
+    width:5vw;
+    border-radius:100px 100px 0 0;
+  }
 }
