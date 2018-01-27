@@ -17,8 +17,27 @@ class Display extends Component {
     this.state = {
       display: board,
       playerLoc: {x: 1, y: 3},
-      startLoc: {x: 1, y: 3}
+      startLoc: {x: 1, y: 3},
+      pendingCommands: []
      };
+  }
+
+  componentWillUpdate = () => {
+    let { pendingCommands } = this.state;
+    if ( pendingCommands !== [] ) {
+      let command = pendingCommands.shift();
+      switch (command) {
+        case 'forward':
+          this.moveEast();
+          break;
+        default:
+      }
+      setTimeout(function() {
+      this.setState({
+        pendingCommands
+      });
+    }.bind(this), 1000);
+    }
   }
 
   moveNorth = () => {
@@ -49,6 +68,13 @@ class Display extends Component {
     })
   }
 
+  //Expects an array of commands from Answers - forward, left, right
+  prepCommands = (commands) => {
+    this.setState({
+      pendingCommands: commands
+    })
+  }
+
   checkSquare = (type) => {
     //if the square has the player and the type is not path, reset the player
     if ( type !== "path" ) {
@@ -69,16 +95,15 @@ class Display extends Component {
       }
       return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
     });
+
     return (
       <div>
-        <button onClick={this.moveEast}>-></button>
-        <button onClick={this.moveNorth}>^</button>
         <div className="board">
           <div className="overlay">
             {squares}
           </div>
         </div>
-        <Answer/>
+        <Answer runCommands={this.prepCommands}/>
       </div>
     );
   }
