@@ -15,43 +15,52 @@ html {
 }
 
 .body {
+  display: flex;
+  margin: 0;
   background-color: #388E3C;
   color: white;
 }
 
-
-
 .board {
-  width: 75vw;
-  height: 75vw;
-  // display: flex;
-  margin: 10px 10vw;
+  position:relative;
+  width: 50vw;
+  height: 50vw;
+  overflow: hidden;
+  border: 10px solid brown;
+  border-radius: 10px;
+}
+
+.overlay {
+  display: grid;
+  grid-template-columns: 20% 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20% 20%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 .square {
-  // flex: 0 1 auto;
-  display: inline-block;
-  width: $size;
-  height: $size;
-  margin: 1px;
+  width: 100%;
+  height: 100%;
   background-image: url('../img/dirt.svg');
-  background-position: center;
-}
-
-.x-1 {
-
+  border: 1px solid black;
 }
 
 .trees {
-  background-color: #836B32;
+  position: relative;
+  height: 100%;
+  width: 100%;
   background-image: url('../img/tree.png');
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left top;
   background-size: 100%
 }
 
 .camp {
-  background-color: #836B32;
+  height: 100%;
+  width: 100%;
   background-image: url('../img/tent.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -64,28 +73,25 @@ html {
 
 .player {
   margin: 30% 35%;
-}
 
-.player-top{
-  background-color:red;
-  height:2.5vw;
-  width:5vw;
-  border-radius:100px 100px 0 0;
-  animation: spin1 0.5s infinite linear;
-}
+  .player-top{
+    background-color:red;
+    height:2.5vw;
+    width:5vw;
+    border-radius:100px 100px 0 0;
+  }
 
-.player-bottom{
-  background-color:yellow;
-  height:2.5vw;
-  width:5vw;
-  border-radius:0 0 100px 100px;
-  animation: spin2 0.5s infinite linear;
-}
+  .player-bottom{
+    background-color:yellow;
+    height:2.5vw;
+    width:5vw;
+    border-radius:0 0 100px 100px;
+  }
 
-.player-feet{
-  background-color:brown;
-  height:2.5vw;
-  width:5vw;
-  border-radius:100px 100px 0 0;
-  animation: spin2 0.5s infinite linear;
+  .player-feet{
+    background-color:brown;
+    height:2.5vw;
+    width:5vw;
+    border-radius:100px 100px 0 0;
+  }
 }
