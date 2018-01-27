@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import HintList from './HintList.jsx';
 import Question from './Question.jsx';
-import Answer from './Answer.jsx';
 import Display from './display.jsx';
 import Navbar from './Navbar.jsx';
 
@@ -16,6 +15,7 @@ class App extends Component {
   componentDidMount() {
     // Fetch calls for Puzzle
   }
+
   render() {
     console.log("Rendering <App/>");
     return (
@@ -24,7 +24,6 @@ class App extends Component {
         <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
         <Display/>
-        <Answer/>
       </div>
     );
   }

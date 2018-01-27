@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
+import Answer from './Answer.jsx';
+
 
 let board = [
   {type: "trees"}, {type: "trees"}, {type: "camp"}, {type: "trees"}, {type: "trees"},
@@ -69,13 +71,14 @@ class Display extends Component {
     });
     return (
       <div>
-      <button onClick={this.moveEast}>-></button>
-      <button onClick={this.moveNorth}>^</button>
-      <div className="board">
-        <div className="overlay">
-        {squares}
+        <button onClick={this.moveEast}>-></button>
+        <button onClick={this.moveNorth}>^</button>
+        <div className="board">
+          <div className="overlay">
+            {squares}
+          </div>
         </div>
-      </div>
+        <Answer/>
       </div>
     );
   }
