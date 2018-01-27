@@ -16,8 +16,8 @@ class HintList extends Component {
     })
 
     return (
-      <div>
-        <button onClick={this.clickHint}> HINT: </button>
+      <div className="container">
+        <button className="btn btn-success" onClick={this.clickHint}> HINT: </button>
         <div className="hints">
           {hintItems}
         </div>

@@ -1,8 +1,25 @@
-h1 {
-  color: tomato;
+$size: 20vw;
+
+html {
+  box-sizing: border-box;
 }
 
-$size: 20vw;
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.navbar {
+  height: 80px;
+  background-color: #1B5E20;
+  box-shadow: 0px 2px 2px #093A02;
+}
+
+.body {
+  background-color: #388E3C;
+  color: white;
+}
+
+
 
 .board {
   width: 75vw;

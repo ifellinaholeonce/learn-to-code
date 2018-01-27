@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import HintList from './HintList.jsx'
-import Question from './Question.jsx'
-import Answer from './Answer.jsx'
+import HintList from './HintList.jsx';
+import Question from './Question.jsx';
+import Answer from './Answer.jsx';
 import Display from './display.jsx';
-import StudentInput from './StudentInput.jsx';
+import Navbar from './Navbar.jsx';
 
 class App extends Component {
   constructor(props) {
@@ -11,19 +11,21 @@ class App extends Component {
     this.state = {
       hints: ['hint1','hint2','hint3'],
       numHints: 0
-    }
+    };
   }
-
+  componentDidMount() {
+    // Fetch calls for Puzzle
+  }
   render() {
     console.log("Rendering <App/>");
     return (
-      <div>
-        <h1>Student View Puzzle</h1>
+      <div className="body">
+        <Navbar/>
         <Display/>
         <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
+        <Display/>
         <Answer/>
-        <StudentInput/>
       </div>
     );
   }
