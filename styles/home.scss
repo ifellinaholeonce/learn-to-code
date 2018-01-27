@@ -12,8 +12,7 @@ $size: 20vw;
 }
 
 .square {
-  // flex: 0 1 auto;
-  display: inline-block;
+  display: inline-flex;
   width: $size;
   height: $size;
   margin: 1px;
@@ -21,12 +20,8 @@ $size: 20vw;
   background-position: center;
 }
 
-.x-1 {
-
-}
-
 .trees {
-  background-color: #836B32;
+  width: 100%;
   background-image: url('../img/tree.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -34,7 +29,7 @@ $size: 20vw;
 }
 
 .camp {
-  background-color: #836B32;
+  width: 100%;
   background-image: url('../img/tent.png');
   background-repeat: no-repeat;
   background-position: center;
