@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class Answer_Options extends Component {
+class AnswerOptions extends Component {
   render() {
     return (
       <div>
@@ -12,4 +12,4 @@ class Answer_Options extends Component {
   }
 }
 
-export default Answer_Options;
+export default AnswerOptions;
