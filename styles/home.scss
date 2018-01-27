@@ -19,6 +19,19 @@ html {
   margin: 0;
   background-color: #388E3C;
   color: white;
+
+  .answer {
+    background-color: #1B5E20;
+    box-shadow: 0.2em 0.2em 1em rgba(0, 0, 0, 0.4);
+    padding: 0;
+  }
+
+  .active-commands {
+    min-height: 100px;
+    width: 100%;
+    margin: 10px 0;
+    background-color: #33691E;
+  }
 }
 
 .board {

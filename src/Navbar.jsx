@@ -7,7 +7,7 @@ class Navbar extends Component {
   render() {
     return (
       <div className="navbar">
-        <h1 className="display-4">Student View Puzzle</h1>
+        <h1 className="display-6">Student View Puzzle</h1>
       </div>
     );
   }

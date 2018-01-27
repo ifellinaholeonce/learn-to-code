@@ -10,19 +10,21 @@ class App extends Component {
     super(props);
     this.state = {
       hints: ['hint1','hint2','hint3'],
-      numHints: 0
+      numHints: 0,
+      username: "placeholder",
+      user: "student"
     };
   }
   componentDidMount() {
-    // Fetch calls for Puzzle
+
   }
   render() {
     console.log("Rendering <App/>");
     return (
       <div className="body">
         <Navbar/>
-        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
+        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Display/>
         <Answer/>
       </div>

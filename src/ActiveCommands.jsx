@@ -7,7 +7,7 @@ function ActiveCommands({input}) {
     </button>
   );
   return (
-    <div className="commands">
+    <div className="active-commands">
       {commands}
     </div>
   );

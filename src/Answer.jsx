@@ -23,12 +23,14 @@ class Answer extends Component {
       this.props.runCommands(this.state.input);
     };
     return (
-      <div className="container-fluid text-center">
+      <div className="answer container text-center">
         <header className="row">
           <CommandInput click={clickButton} commands={this.state.commands}/>
-          <button onClick={onClick} className="col-sm-4 btn btn-warning">
-            Run Commands
-          </button>
+          <div className="col-sm-4">
+            <button onClick={onClick} className="btn btn-warning m-1">
+              Run Commands
+            </button>
+          </div>
         </header>
         <ActiveCommands input={this.state.input}/>
       </div>
