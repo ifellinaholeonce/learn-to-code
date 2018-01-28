@@ -20,12 +20,17 @@ class StudentView extends Component {
   render() {
     return (
       <div className="student-view">
-        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
-        <Question/>
-        <Display/>
+        <div className="d-flex flex-column">
+          <Question/>
+          <div className="d-flex flex-row">
+            <Display/>
+            <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default StudentView
+
