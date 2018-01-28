@@ -15,11 +15,13 @@ class Answer extends Component {
     this.setState({input});
   }
   render() {
-    console.log(this.state.input);
     const clickButton = type => e => {
       this.clickCommand(type);
     };
     const onClick = (e) => {
+      this.setState({
+        input: []
+      })
       this.props.runCommands(this.state.input);
     };
     return (

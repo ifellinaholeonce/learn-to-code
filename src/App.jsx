@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Route, Switch } from 'react-router-dom';
+        
 import Navbar from './Navbar.jsx';
 import Puzzle from './Puzzle.jsx';
 import LoginForm from './Login.jsx';
@@ -16,6 +17,7 @@ class App extends Component {
   componentDidMount() {
     // Fetch calls for Puzzle
   }
+
   render() {
     console.log("Rendering <App/>");
     return (
