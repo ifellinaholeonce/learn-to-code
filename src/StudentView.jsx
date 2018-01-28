@@ -23,10 +23,9 @@ class StudentView extends Component {
         <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
         <Question/>
         <Display/>
-        <Answer/>
       </div>
     );
   }
 }
 
-export default StudentView;
+export default StudentView

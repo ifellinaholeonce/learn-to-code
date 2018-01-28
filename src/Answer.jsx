@@ -28,6 +28,9 @@ class Answer extends Component {
       <div className="text-center">
         <header className="row">
           <CommandInput click={clickButton} commands={this.state.commands}/>
+          <button onClick={onClick} className="col-sm-4 btn btn-warning">
+            Run Commands
+          </button>
         </header>
         <ActiveCommands input={this.state.input}/>
       </div>
