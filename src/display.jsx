@@ -132,13 +132,15 @@ class Display extends Component {
     });
 
     return (
-      <div>
-        <div className="board">
-          <div className="overlay">
-            {squares}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="board">
+            <div className="overlay">
+              {squares}
+            </div>
           </div>
+          <Answer runCommands={this.prepCommands}/>
         </div>
-        <Answer runCommands={this.prepCommands}/>
       </div>
     );
   }
