@@ -71,7 +71,7 @@ class Display extends Component {
       this.setState({
         pendingCommands
       });
-    }.bind(this), 1000);
+    }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
   }
 
