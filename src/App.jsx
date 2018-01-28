@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import HintList from './HintList.jsx';
-import Question from './Question.jsx';
-import Display from './display.jsx';
+// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+        
 import Navbar from './Navbar.jsx';
+import Puzzle from './Puzzle.jsx';
+import LoginForm from './Login.jsx';
+import RegisterForm from './Register.jsx';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hints: ['hint1','hint2','hint3'],
-      numHints: 0
+      user: "placeholder"
     };
   }
   componentDidMount() {
@@ -19,19 +21,16 @@ class App extends Component {
   render() {
     console.log("Rendering <App/>");
     return (
-      <div className="body">
+      <div className="content">
         <Navbar/>
-        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
-        <Question/>
-        <Display/>
+        <Switch>
+          <Route path="/" exact component={Puzzle} />
+          <Route path="/login" component={LoginForm} />
+          <Route path="/register" component={RegisterForm} />
+        </Switch>
       </div>
     );
   }
-
-  handleHintClick = () => {
-    let newHints = this.state.numHints + 1;
-    this.setState({numHints: newHints})
-  }
-
 }
+
 export default App;

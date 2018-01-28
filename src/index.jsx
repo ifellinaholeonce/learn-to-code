@@ -6,6 +6,13 @@ require("../styles/application.scss");
 // Render the top-level React component
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom';
+
 import App from './App.jsx';
 
-ReactDOM.render(<App />, document.getElementById('react-root'));
+ReactDOM.render(
+  <HashRouter>
+    <App />
+  </HashRouter>,
+  document.getElementById('react-root')
+  );
