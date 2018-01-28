@@ -20,7 +20,7 @@ class StudentView extends Component {
   render() {
     return (
       <div className="student-view">
-        <div className="d-flex flex-column">
+        <div className="d-flex flex-column puzzle-container">
           <Question/>
           <div className="d-flex flex-row">
             <Display/>

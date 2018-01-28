@@ -132,8 +132,8 @@ class Display extends Component {
     });
 
     return (
-      <div className="container-fluid col-9">
-        <div className="d-flex flex-column align-items-center">
+      <div className="puzzle">
+        <div className="d-flex flex-column">
           <div className="board">
             <div className="overlay">
               {squares}
