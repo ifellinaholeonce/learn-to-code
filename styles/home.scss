@@ -72,13 +72,48 @@ html {
 }
 
 .player {
-  margin: 30% 35%;
+  margin: 20%;
+  position: relative;
+
+  &.north{
+    transform: rotateX(50deg) rotateY(0deg);
+  }
+
+  &.east{
+  transform: rotateX(-35deg) rotateY(20deg);
+  }
+
+  &.west{
+      transform: rotateX(35deg) rotateY(20deg);
+  }
 
   .player-top{
     background-color:red;
     height:2.5vw;
     width:5vw;
     border-radius:100px 100px 0 0;
+    box-shadow: -0.5vw 0.2vw 5px black;
+  }
+
+  .player-eye-right{
+    position: absolute;
+    background: black;
+    border-radius: 50%;
+    height: 0.3vw;
+    width: 0.3vw;
+    top: 37%;
+    left: 3.1vw;
+    box-shadow: 0 0 0 10px white;
+  }
+  .player-eye-left{
+    position: absolute;
+    background: black;
+    border-radius: 50%;
+    height: 0.3vw;
+    width: 0.3vw;
+    top: 37%;
+    left: 1.6vw;
+    box-shadow: 0 0 0 10px white;
   }
 
   .player-bottom{
@@ -86,6 +121,8 @@ html {
     height:2.5vw;
     width:5vw;
     border-radius:0 0 100px 100px;
+    box-shadow: -0.5vw 0.2vw 5px black;
+
   }
 
   .player-feet{
@@ -93,5 +130,6 @@ html {
     height:2.5vw;
     width:5vw;
     border-radius:100px 100px 0 0;
+    box-shadow: -0.5vw 0.2vw 5px black;
   }
 }

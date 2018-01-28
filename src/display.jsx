@@ -18,7 +18,7 @@ class Display extends Component {
       display: board,
       playerLoc: {x: 1, y: 3},
       startLoc: {x: 1, y: 3},
-      playerDir: 2, // 1 = North, 2 = East, 3 = South, 4 = West
+      playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
       pendingCommands: []
      };
   }
@@ -128,17 +128,19 @@ class Display extends Component {
         hasPlayer = true;
         this.checkSquare(elm.type);
       }
-      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
+      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer} dir={this.state.playerDir}/>
     });
 
     return (
-      <div>
-        <div className="board">
-          <div className="overlay">
-            {squares}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="board">
+            <div className="overlay">
+              {squares}
+            </div>
           </div>
+          <Answer runCommands={this.prepCommands}/>
         </div>
-        <Answer runCommands={this.prepCommands}/>
       </div>
     );
   }
