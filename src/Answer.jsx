@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import CommandInput from './AnswerOptions.jsx';
 import ActiveCommands from './ActiveCommands.jsx';
+import Dragula from 'react-dragula'
 
 class Answer extends Component {
   constructor(props) {
@@ -31,8 +32,25 @@ class Answer extends Component {
           </button>
         </header>
         <ActiveCommands input={this.state.input}/>
+        <div className="container" ref={this.dragulaDecorator}>
+          <button>One</button>
+          <button>Two</button>
+          <button>Three</button>
+        </div>
+        <div className="container" ref={this.dragulaDecorator}>
+          <button>One</button>
+          <button>Two</button>
+          <button>Three</button>
+        </div>
       </div>
     );
+  }
+
+  dragulaDecorator = ( componentTop, componentBottom  ) => {
+    if ( componentTop, componentBottom ) {
+      let options = { copy: true };
+      Dragula([componentTop, componentBottom], options);
+    }
   }
 }
 
