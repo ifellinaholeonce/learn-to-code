@@ -10,7 +10,13 @@ class Answer extends Component {
       commands: ['forward', 'left', 'right'],
       input: []
     };
+    this.containers = [] //Dragula containers
   }
+
+  componentDidMount () {
+    const drake = Dragula(this.containers, {revertOnSpill: true})
+  }
+
   clickCommand(command) {
     let input = this.state.input.concat([command]);
     this.setState({input});
@@ -34,24 +40,25 @@ class Answer extends Component {
           </button>
         </header>
         <ActiveCommands input={this.state.input}/>
-        <div className="container" ref={this.dragulaDecorator}>
-          <button>One</button>
-          <button>Two</button>
-          <button>Three</button>
-        </div>
-        <div className="container" ref={this.dragulaDecorator}>
-          <button>One</button>
-          <button>Two</button>
-          <button>Three</button>
+        <div className="row">
+          <div className="col-md-3 command-list" id="left"  ref={this.dragulaDecorator}>
+            <button>One</button>
+            <button>Two</button>
+            <button>Three</button>
+          </div>
+          <div className="col-md-3 answer-list"  id="right"  ref={this.dragulaDecorator}>
+            <button>One</button>
+            <button>Two</button>
+            <button>Three</button>
+          </div>
         </div>
       </div>
     );
   }
 
-  dragulaDecorator = ( componentTop, componentBottom  ) => {
-    if ( componentTop, componentBottom ) {
-      let options = { copy: true };
-      Dragula([componentTop, componentBottom], options);
+  dragulaDecorator = ( component ) => {
+    if ( component ) {
+      this.containers.push(component)
     }
   }
 }
