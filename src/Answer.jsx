@@ -16,15 +16,17 @@ class Answer extends Component {
     this.setState({input});
   }
   render() {
-    console.log(this.state.input);
     const clickButton = type => e => {
       this.clickCommand(type);
     };
     const onClick = (e) => {
+      this.setState({
+        input: []
+      })
       this.props.runCommands(this.state.input);
     };
     return (
-      <div className="container-fluid text-center">
+      <div className="text-center">
         <header className="row">
           <CommandInput click={clickButton} commands={this.state.commands}/>
           <button onClick={onClick} className="col-sm-4 btn btn-warning">

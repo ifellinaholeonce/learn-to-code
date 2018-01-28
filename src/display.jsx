@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
+import Answer from './Answer.jsx';
+
 
 let board = [
   {type: "trees"}, {type: "trees"}, {type: "camp"}, {type: "trees"}, {type: "trees"},
@@ -15,8 +17,62 @@ class Display extends Component {
     this.state = {
       display: board,
       playerLoc: {x: 1, y: 3},
-      startLoc: {x: 1, y: 3}
+      startLoc: {x: 1, y: 3},
+      playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
+      pendingCommands: []
      };
+  }
+
+  componentWillUpdate = () => {
+    let { pendingCommands } = this.state;
+    let { playerDir } = this.state;
+    if ( pendingCommands !== [] ) {
+      let command = pendingCommands.shift();
+      switch (command) {
+        case 'forward':
+          switch (this.state.playerDir) {
+            case 1:
+              this.moveNorth();
+              break;
+            case 2:
+              this.moveEast();
+              break;
+            case 3:
+              this.moveSouth();
+              break;
+            case 4:
+              this.moveWest();
+              break;
+            default:
+          }
+          break;
+        case 'left':
+          if (playerDir === 1) {
+            playerDir = 4
+          } else {
+            playerDir--;
+          }
+          this.setState({
+            playerDir
+          })
+          break;
+        case 'right':
+          if (playerDir === 4) {
+            playerDir = 1
+          } else {
+            playerDir++;
+          }
+          this.setState({
+            playerDir
+          })
+        default:
+      }
+      setTimeout(function() {
+      this.setState({
+        pendingCommands
+      });
+    }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
+    }
   }
 
   moveNorth = () => {
@@ -47,6 +103,13 @@ class Display extends Component {
     })
   }
 
+  //Expects an array of commands from Answers - forward, left, right
+  prepCommands = (commands) => {
+    this.setState({
+      pendingCommands: commands
+    })
+  }
+
   checkSquare = (type) => {
     //if the square has the player and the type is not path, reset the player
     if ( type !== "path" ) {
@@ -65,17 +128,19 @@ class Display extends Component {
         hasPlayer = true;
         this.checkSquare(elm.type);
       }
-      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer}/>
+      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer} dir={this.state.playerDir}/>
     });
+
     return (
-      <div>
-      <button onClick={this.moveEast}>-></button>
-      <button onClick={this.moveNorth}>^</button>
-      <div className="board">
-        <div className="overlay">
-        {squares}
+      <div className="container-fluid">
+        <div className="row">
+          <div className="board">
+            <div className="overlay">
+              {squares}
+            </div>
+          </div>
+          <Answer runCommands={this.prepCommands}/>
         </div>
-      </div>
       </div>
     );
   }
