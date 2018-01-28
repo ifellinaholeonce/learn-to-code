@@ -19,11 +19,17 @@ html {
   }
 }
 
+.hints {
+  p {
+    color: green;
+    margin-left: 10px;
+  }
+}
+
 .body {
   // display: flex;
   margin: 0;
-  background-color: #388E3C;
-  color: white;
+  font-family: 'Comfortaa', cursive;
 }
 
 .board {
