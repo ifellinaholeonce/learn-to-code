@@ -1,4 +1,6 @@
 $size: 20vw;
+$body-color: #4ee4c4;
+$nav-color: #3aad94;
 
 html {
   box-sizing: border-box;
@@ -10,6 +12,8 @@ html {
 
 .navbar {
   height: 80px;
+  background-color: #F5F5F5;
+  // box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
   background-color: #0070DD;
   box-shadow: 0px 2px 2px #093A02;
 
@@ -34,6 +38,10 @@ html {
 .body {
   // display: flex;
   margin: 0;
+  background-color: #FFFFFF;
+  color: #424242;
+  height: 100%;
+  min-height: 100vh;
   font-family: 'Comfortaa', cursive;
 }
 

@@ -9,6 +9,9 @@ import TeacherView from './TeacherView.jsx';
 class Puzzle extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      user: "teacher"
+    }
   }
   componentDidMount() {
     // Fetch calls for Puzzle
@@ -17,7 +20,7 @@ class Puzzle extends Component {
     console.log("Rendering <App/>");
     return (
       <div className="body">
-        { this.props.user === "teacher" ? <TeacherView/> : <StudentView/> }
+        { this.state.user === "teacher" ? <TeacherView/> : <StudentView/> }
       </div>
     );
   }
