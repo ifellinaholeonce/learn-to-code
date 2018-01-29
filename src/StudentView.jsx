@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import HintList from './HintList.jsx';
+import HintList from './puzzle/HintList.jsx';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
-import Display from './display.jsx';
+import Display from './puzzle/Display.jsx';
 
 class StudentView extends Component {
   constructor(props) {

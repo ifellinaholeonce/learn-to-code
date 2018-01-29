@@ -3,11 +3,11 @@ import React, {Component} from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Navbar from './Navbar.jsx';
-import Puzzle from './Puzzle.jsx';
+import Puzzle from './puzzle/Puzzle.jsx';
 import UserLinks from './UserLinks.jsx';
 import LoginForm from './Login.jsx';
 import RegisterForm from './Register.jsx';
-import TeacherView from './TeacherView.jsx';
+import TeacherView from './teacher/TeacherView.jsx';
 import StudentView from './StudentView.jsx';
 
 class App extends Component {

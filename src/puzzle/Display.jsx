@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
-import Answer from './Answer.jsx';
+import Answer from './../Answer.jsx';
 
 
 let board = [
