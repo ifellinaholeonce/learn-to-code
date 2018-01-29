@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import StudentHistory from './StudentHistory.jsx';
 
 // Client-side model
-import Resource from '../models/resource';
+import Resource from '../../models/resource';
 const Students = Resource('students');
 
 class TeacherView extends Component {
