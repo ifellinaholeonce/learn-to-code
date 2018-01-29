@@ -1,33 +1,24 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
+import StudentHistory from './StudentHistory.jsx';
+
+// Client-side model
+import Resource from '../models/resource';
+const Students = Resource('students');
+
 class TeacherView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: [
-      {
-        id: 1,
-        firstName: "Mandy",
-        lastName: "Cheang",
-        levelReached: 5,
-        attempts: 5
-      },
-      {
-        id: 2,
-        firstName: "Tymm",
-        lastName: "Schulich",
-        levelReached: 4,
-        attempts: 6
-      },
-      {
-        id: 3,
-        firstName: "Andrew",
-        lastName: "Carroll",
-        levelReached: 3,
-        attempts: 8
-      }
-    ]};
+      students: []
+    };
+  }
+  componentDidMount() {
+    console.log("Mouting component")
+    Students.findAll() // ProductStore does the API fetching!
+      .then((result) => { this.setState({students: result, errors: null}); })
+      .catch((errors) => this.setState({errors: errors}));
   }
   render() {
     return (
@@ -36,18 +27,6 @@ class TeacherView extends Component {
       </div>
     );
   }
-}
-
-function StudentItem({id, firstName, lastName, levelReached, attempts}) {
-  return (
-    <tr>
-      <td>{id}</td>
-      <td>{firstName}</td>
-      <td>{lastName}</td>
-      <td>{levelReached}</td>
-      <td>{attempts}</td>
-    </tr>
-  );
 }
 
 export default TeacherView;
