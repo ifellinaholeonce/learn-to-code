@@ -14,7 +14,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "student",
+      user: "",
       login: false,
       register: false
     };
@@ -22,11 +22,21 @@ class App extends Component {
   componentDidMount() {
     // Fetch calls for Puzzle
   }
-  authenticateUser = (param) => {
-
-  }
+  authenticateUser = (params) => {
+    fetch("http://localhost:3000/login" , {method: "POST", body: JSON.stringify(params)})
+      .then((res) => {
+        res.json();
+      }).then((res) => {
+        console.log("Response:", res);
+      });
+  };
   createUser = (params) => {
-
+    fetch("http://localhost:3000/register" , {method: "POST"})
+      .then((res) => {
+        res.json();
+      }).then((response) => {
+        console.log("Response:", res);
+      })
   };
   toggleForm = (action) => {
     if(!this.state[action]) {
@@ -39,10 +49,11 @@ class App extends Component {
     return (
       <div className="content">
         <Navbar/>
-        {this.state.user || <UserLinks toggleForm={this.toggleForm} />}
+        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
         {this.state.login && <LoginForm onClick={this.authenticateUser} />}
         {this.state.register && <RegisterForm onClick={this.createUser} />}
-        {this.state.user && this.state.user === "teacher" ? <TeacherView /> : <StudentView />}
+        {this.state.user === "teacher" && <TeacherView />}
+        {this.state.user === "student" && <StudentView />}
       </div>
     );
   }

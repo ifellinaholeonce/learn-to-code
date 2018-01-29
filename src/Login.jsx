@@ -22,11 +22,12 @@ class LoginForm extends Component {
     };
     const onSubmit = e => {
       e.preventDefault();
-      console.log(e);
-      onChange(e);
-    }
+      let username = e.target.username.value;
+      let password = e.target.username.password;
+      this.props.authenticateUser({username, password});
+    };
     return (
-      <form className="form" action={onSubmit}>
+      <form className="form" onSubmit={onSubmit}>
         <div className="form-group">
           <input
             className="form-control"
@@ -40,7 +41,7 @@ class LoginForm extends Component {
             name="password"
             type="password"
             placeholder="Password"/>
-          <input className="btn btn-primary" type="submit" value="submit"/>
+          <input className="btn btn-primary" type="submit" value="Submit"/>
         </div>
       </form>
     );

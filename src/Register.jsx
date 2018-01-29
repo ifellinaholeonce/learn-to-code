@@ -13,8 +13,12 @@ class RegisterForm extends Component {
     };
   }
   render() {
+    const onSubmit = (e) => {
+      e.preventDefault();
+      console.log(e)
+    };
     return (
-      <form className="form">
+      <form className="form" action={onSubmit}>
         <div className="form-group">
           <input className="form-control" name="firstName" type="text" placeholder="First name"/>
           <input className="form-control" name="lastName" type="text" placeholder="Last name"/>
