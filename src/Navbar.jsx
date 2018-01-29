@@ -8,11 +8,11 @@ class Navbar extends Component {
   render() {
     return (
       <div className="navbar">
-        <p className="navbar-brand">
+        <div className="navbar-brand d-flex flex-row">
           <i className="fas fa-fire"></i>
            &nbsp;
-          <strong>CODE</strong> TRAIL
-        </p>
+          <p> <strong>CODE</strong> TRAIL </p>
+        </div>
 
       </div>
     );
