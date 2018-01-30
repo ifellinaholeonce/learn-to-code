@@ -16,17 +16,18 @@ class Display extends Component {
     super(props);
     this.state = {
       display: board,
-      playerLoc: {x: 1, y: 3},
-      startLoc: {x: 1, y: 3},
+      playerLoc: {x: 0, y: 2},
+      startLoc: {x: 0, y: 2},
       playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
       pendingCommands: []
      };
   }
 
-  componentWillUpdate = () => {
+  componentDidUpdate = () => {
     let { pendingCommands } = this.state;
     let { playerDir } = this.state;
-    if ( pendingCommands !== [] ) {
+    console.log(pendingCommands)
+    if ( pendingCommands.length > 0 ) {
       let command = pendingCommands.shift();
       switch (command) {
         case 'forward':
@@ -123,13 +124,16 @@ class Display extends Component {
       let length = Math.sqrt(this.state.display.length);
       let xPos = i % length + 1;
       let yPos = Math.floor(i / length) + 1;
-      let hasPlayer = false;
       if (xPos === this.state.playerLoc.x && yPos === this.state.playerLoc.y) {
-        hasPlayer = true;
         this.checkSquare(elm.type);
       }
-      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer} dir={this.state.playerDir}/>
+      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} dir={this.state.playerDir}/>
     });
+
+    let playerLocStyle = {
+      top: (this.state.playerLoc.y * 20) + "%",
+      left: (this.state.playerLoc.x * 20) + "%",
+    }
 
     return (
       <div className="puzzle">
@@ -137,6 +141,17 @@ class Display extends Component {
           <div className="board">
             <div className="overlay">
               {squares}
+            </div>
+            <div className="player" style={playerLocStyle}>
+                <div className="player-top"></div>
+                  {/* {( dir === "east" || dir === "south" ) &&
+                    <div className="player-eye-right"></div>
+                  }
+                  {( dir === "west" || dir === "south" ) &&
+                    <div className="player-eye-left"></div>
+                  } */}
+                  <div className="player-bottom"></div>
+                  <div className="player-feet"></div>
             </div>
           </div>
           <Answer runCommands={this.prepCommands}/>
