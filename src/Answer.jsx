@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import CommandInput from './AnswerOptions.jsx';
+import Command from './AnswerOptions.jsx';
 import ActiveCommands from './ActiveCommands.jsx';
+import Dragula from 'react-dragula'
 
 class Answer extends Component {
   constructor(props) {
@@ -9,7 +10,22 @@ class Answer extends Component {
       commands: ['forward', 'left', 'right'],
       input: []
     };
+    this.containers = [] //Dragula containers
   }
+
+  componentDidMount () {
+    const drake = Dragula(this.containers, {
+      revertOnSpill: true,
+      copy: function (el, source) {
+        return source === this.containers[0]
+      },
+      accepts: function (el, target) {
+        return target !== this.containers[0]
+      }
+    });
+    console.log (drake.containers[0])
+  }
+
   clickCommand(command) {
     let input = this.state.input.concat([command]);
     this.setState({input});
@@ -33,8 +49,24 @@ class Answer extends Component {
           </button>
         </header>
         <ActiveCommands input={this.state.input}/>
+        <div className="row">
+          <div className="col-md-3 command-list" id="left"  ref={this.dragulaDecorator}>
+            {this.state.commands.map( (type) => {
+              console.log(type)
+              return (<Command type={type} />)
+            })}
+          </div>
+          <div className="col-md-3 answer-list"  id="right"  ref={this.dragulaDecorator}>
+          </div>
+        </div>
       </div>
     );
+  }
+
+  dragulaDecorator = ( component ) => {
+    if ( component ) {
+      this.containers.push(component)
+    }
   }
 }
 
