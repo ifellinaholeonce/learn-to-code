@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import StudentHistory from './StudentHistory.jsx';
+import StudentInfo from './StudentInfo.jsx';
 
 // Client-side model
 import Resource from '../../models/resource';
@@ -11,7 +12,8 @@ class TeacherView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      students: []
+      students: [],
+      viewStudent: false
     };
   }
   componentDidMount() {
@@ -24,12 +26,13 @@ class TeacherView extends Component {
       .catch((errors) => this.setState({errors: errors}));
   }
   clickStudent = studentId => e => {
-    console.log("You clicked a student:", studentId)
+    this.setState({viewStudent: studentId})
   }
   render() {
     return (
       <div className="teacher-view">
-        <StudentHistory students={this.state.students} clickStudent={this.clickStudent} />
+        {!this.state.viewStudent && <StudentHistory students={this.state.students} clickStudent={this.clickStudent} />}
+        {this.state.viewStudent && <StudentInfo id={this.state.viewStudent}/>}
       </div>
     );
   }
