@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 class StudentHistory extends Component {
   render() {
+    const clickStudent = this.props.clickStudent;
     let students = this.props.students.map(student => {
       return (
         <StudentItem
@@ -13,6 +14,7 @@ class StudentHistory extends Component {
           lastName={student.last_name}
           level={student.level_reached}
           attempts={student.attempts}
+          clickStudent={clickStudent(student.id)}
         />
       )
     })
@@ -38,9 +40,9 @@ class StudentHistory extends Component {
   }
 }
 
-function StudentItem({id, firstName, lastName, level, attempts}) {
+function StudentItem({id, firstName, lastName, level, attempts, clickStudent}) {
   return (
-    <tr>
+    <tr onClick={clickStudent}>
       <td>{id}</td>
       <td>{firstName}</td>
       <td>{lastName}</td>

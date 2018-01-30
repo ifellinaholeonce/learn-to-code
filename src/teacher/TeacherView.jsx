@@ -15,15 +15,21 @@ class TeacherView extends Component {
     };
   }
   componentDidMount() {
-    console.log("Mouting component")
-    Students.findAll() // ProductStore does the API fetching!
-      .then((result) => { this.setState({students: result, errors: null}); })
+    console.log("Mouting TeacherView");
+    fetch("http://localhost:3000/students")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("The data:", data)
+        this.setState({students: data, errors: null}); })
       .catch((errors) => this.setState({errors: errors}));
+  }
+  clickStudent = studentId => e => {
+    console.log("You clicked a student:", studentId)
   }
   render() {
     return (
       <div className="teacher-view">
-        <StudentHistory students={this.state.students} />
+        <StudentHistory students={this.state.students} clickStudent={this.clickStudent} />
       </div>
     );
   }
