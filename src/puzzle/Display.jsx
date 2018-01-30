@@ -26,7 +26,6 @@ class Display extends Component {
   componentDidUpdate = () => {
     let { pendingCommands } = this.state;
     let { playerDir } = this.state;
-    console.log(pendingCommands)
     if ( pendingCommands.length > 0 ) {
       let command = pendingCommands.shift();
       switch (command) {
