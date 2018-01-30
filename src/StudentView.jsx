@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import HintList from './HintList.jsx';
+import HintList from './puzzle/HintList.jsx';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
-import Display from './display.jsx';
+import Display from './puzzle/Display.jsx';
 
 class StudentView extends Component {
   constructor(props) {
@@ -20,12 +20,17 @@ class StudentView extends Component {
   render() {
     return (
       <div className="student-view">
-        <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
-        <Question/>
-        <Display/>
+        <div className="d-flex flex-column puzzle-container">
+          <Question/>
+          <div className="d-flex flex-row">
+            <Display/>
+            <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
 export default StudentView
+
