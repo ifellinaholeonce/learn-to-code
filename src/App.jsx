@@ -31,7 +31,7 @@ class App extends Component {
       });
   };
   createUser = (params) => {
-    fetch("http://localhost:3000/register" , {method: "POST"})
+    fetch("http://localhost:3000/register" , {method: "POST", body: JSON.stringify(params)})
       .then((res) => {
         res.json();
       }).then((response) => {
@@ -50,8 +50,8 @@ class App extends Component {
       <div className="content">
         <Navbar/>
         {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
-        {this.state.login && <LoginForm onClick={this.authenticateUser} />}
-        {this.state.register && <RegisterForm onClick={this.createUser} />}
+        {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
+        {this.state.register && <RegisterForm createUser={this.createUser} />}
         {this.state.user === "teacher" && <TeacherView />}
         {this.state.user === "student" && <StudentView />}
       </div>
