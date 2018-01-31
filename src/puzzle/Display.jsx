@@ -18,13 +18,16 @@ class Display extends Component {
       display: board,
       playerLoc: {x: 0, y: 2},
       startLoc: {x: 0, y: 2},
-      playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
+      playerDir: 2, // 1 = North, 2 = East, 3 = South, 4 = West
       pendingCommands: []
      };
   }
 
-  componentDidUpdate = () => {
-
+  //Expects an array of commands from Answers - forward, left, right
+  prepCommands = (commands) => {
+    this.setState({
+      pendingCommands: commands
+    })
   }
 
   runCommands = () => {
@@ -70,12 +73,15 @@ class Display extends Component {
         default:
       }
       setTimeout(function() {
+
+        this.checkSquare();
         if (pendingCommands.length > 0) {
           execute(pendingCommands)
         }
       }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
-    execute(this.state.pendingCommands)
+    let stateCommands = this.state.pendingCommands.slice(0)
+    execute(stateCommands)
   }
 
   moveNorth = () => {
@@ -106,31 +112,31 @@ class Display extends Component {
     })
   }
 
-  //Expects an array of commands from Answers - forward, left, right
-  prepCommands = (commands) => {
-    this.setState({
-      pendingCommands: commands
+  checkSquare = () => {
+    //if the square has the player and the type is not path, reset the player
+    let grid = this.initMap()
+    grid.forEach((square) => {
+      if ( square.props.x === this.state.playerLoc.x && square.props.y === this.state.playerLoc.y && square.props.type !== "path" ) {
+        this.setState({
+          playerLoc: this.state.startLoc
+        })
+      }
     })
   }
 
-  checkSquare = (type) => {
-    //if the square has the player and the type is not path, reset the player
-    if ( type !== "path" ) {
-      this.setState({
-        playerLoc: this.state.startLoc
-      })
-    }
-  }
-  render() {
+  initMap = () => {
     let squares = this.state.display.map((elm, i) => {
       let length = Math.sqrt(this.state.display.length);
-      let xPos = i % length + 1;
-      let yPos = Math.floor(i / length) + 1;
-      if (xPos === this.state.playerLoc.x && yPos === this.state.playerLoc.y) {
-        this.checkSquare(elm.type);
-      }
+      let xPos = i % length;
+      let yPos = Math.floor(i / length);
       return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} dir={this.state.playerDir}/>
     });
+    return squares;
+  }
+
+  render() {
+    console.log("rerender")
+
 
     let playerLocStyle = {
       top: (this.state.playerLoc.y * 20) + "%",
@@ -142,7 +148,7 @@ class Display extends Component {
         <div className="d-flex flex-column">
           <div className="board">
             <div className="overlay">
-              {squares}
+              {this.initMap()}
             </div>
             <div className="player" style={playerLocStyle}>
                 <div className="player-top"></div>
