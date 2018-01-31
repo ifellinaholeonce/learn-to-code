@@ -41,7 +41,8 @@ class Answer extends Component {
     return (
       <div className="text-center">
         <header className="row flex-sm-row">
-          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
+          {/*<CommandInput click={clickButton} commands={this.state.commands}/>*/}
+          <button onClick={onClick} className="col-sm-4 btn btn-warning">
             Run Commands
           </button>
         </header>

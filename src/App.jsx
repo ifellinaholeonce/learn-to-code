@@ -67,6 +67,8 @@ class App extends Component {
     }
     this.setState({[action]: !this.state[action]});
   }
+
+  // Comment out UsserLinks && Register because we might not need that anymore.
   render() {
     console.log("Rendering <App/>");
     return (
