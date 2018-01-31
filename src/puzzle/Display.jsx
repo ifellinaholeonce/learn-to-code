@@ -4,11 +4,11 @@ import Answer from './../Answer.jsx';
 
 
 let board = [
-  {type: "trees"}, {type: "trees"}, {type: "camp"}, {type: "trees"}, {type: "trees"},
-  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
-  {type: "path" }, {type: "path" }, {type: "path"}, {type: "trees"}, {type: "trees"},
-  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
-  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
+  {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
+  {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
+  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "path"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
+  {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
+  {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
 ];
 
 class Display extends Component {
@@ -136,13 +136,10 @@ class Display extends Component {
   }
 
   initMap = () => {
-    let squares = this.state.display.map((elm, i) => {
-      let length = Math.sqrt(this.state.display.length);
-      let xPos = i % length;
-      let yPos = Math.floor(i / length);
-      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} dir={this.state.playerDir}/>
+    let grid = this.state.display.map((square, i) => {
+      return <Square key={`${square.x} ${square.y}`} type={square.type} x={square.x} y={square.y} />
     });
-    return squares;
+    return grid;
   }
 
   render() {
