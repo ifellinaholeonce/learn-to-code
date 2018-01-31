@@ -77,12 +77,10 @@ class Display extends Component {
       setTimeout(function() {
 
         if ( this.checkSquareType("trees") ) {
-          console.log("NOT ON PATH")
           this.resetMap();
         } else if (pendingCommands.length > 0) {
           execute(pendingCommands)
         } else {
-          console.log("made it?", this.checkSquareType("camp"))
           if ( this.checkSquareType("camp") ) {
             return console.log("VICTORY")
           }
