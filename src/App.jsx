@@ -44,14 +44,16 @@ class App extends Component {
     }
     this.setState({[action]: !this.state[action]});
   }
+
+  // Comment out UsserLinks && Register because we might not need that anymore.
   render() {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-        <Navbar/>
-        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
-        {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
-        {this.state.register && <RegisterForm createUser={this.createUser} />}
+{/*        <Navbar/>*/}
+{/*        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}*/}
+        {!this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
+{/*        {this.state.register && <RegisterForm createUser={this.createUser} />}*/}
         {this.state.user === "teacher" && <TeacherView />}
         {this.state.user === "student" && <StudentView />}
       </div>
