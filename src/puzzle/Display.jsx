@@ -24,10 +24,12 @@ class Display extends Component {
   }
 
   componentDidUpdate = () => {
-    let { pendingCommands } = this.state;
-    let { playerDir } = this.state;
-    if ( pendingCommands.length > 0 ) {
-      let command = pendingCommands.shift();
+
+  }
+
+  runCommands = () => {
+    let execute = ( pendingCommands ) => {
+      let command = pendingCommands.shift()
       switch (command) {
         case 'forward':
           switch (this.state.playerDir) {
@@ -68,11 +70,12 @@ class Display extends Component {
         default:
       }
       setTimeout(function() {
-      this.setState({
-        pendingCommands
-      });
-    }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
+        if (pendingCommands.length > 0) {
+          execute(pendingCommands)
+        }
+      }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
+    execute(this.state.pendingCommands)
   }
 
   moveNorth = () => {
@@ -153,7 +156,7 @@ class Display extends Component {
                   <div className="player-feet"></div>
             </div>
           </div>
-          <Answer runCommands={this.prepCommands}/>
+          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
         </div>
       </div>
     );

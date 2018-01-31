@@ -15,9 +15,7 @@ class Answer extends Component {
 
   componentDidMount () {
     const setInputState = (commands) => {
-      this.setState({
-        input: commands
-      })
+      this.props.prepCommands(commands)
     }
 
     const drake = Dragula(this.containers, {
@@ -39,15 +37,11 @@ class Answer extends Component {
     });
   }
 
-  handleClick = (e) => {
-    this.props.runCommands(this.state.input)
-  }
-
   render() {
     return (
       <div className="text-center">
         <header className="row flex-sm-row">
-          <button onClick={this.handleClick} className="col-sm-4 btn btn-warning">
+          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
             Run Commands
           </button>
         </header>
