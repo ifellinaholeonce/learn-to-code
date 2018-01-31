@@ -18,7 +18,7 @@ class Display extends Component {
       display: board,
       playerLoc: {x: 0, y: 2},
       startLoc: {x: 0, y: 2},
-      playerDir: 2, // 1 = North, 2 = East, 3 = South, 4 = West
+      playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
       pendingCommands: []
      };
   }
@@ -32,7 +32,8 @@ class Display extends Component {
 
   runCommands = () => {
     let execute = ( pendingCommands ) => {
-      let command = pendingCommands.shift()
+      let command = pendingCommands.shift();
+      let playerDir = this.state.playerDir;
       switch (command) {
         case 'forward':
           switch (this.state.playerDir) {
@@ -151,15 +152,11 @@ class Display extends Component {
               {this.initMap()}
             </div>
             <div className="player" style={playerLocStyle}>
-                <div className="player-top"></div>
-                  {/* {( dir === "east" || dir === "south" ) &&
-                    <div className="player-eye-right"></div>
-                  }
-                  {( dir === "west" || dir === "south" ) &&
-                    <div className="player-eye-left"></div>
-                  } */}
-                  <div className="player-bottom"></div>
-                  <div className="player-feet"></div>
+              <div className="player-top"></div>
+              <div className="player-eye-right"></div>
+              <div className="player-eye-left"></div>
+              <div className="player-bottom"></div>
+              <div className="player-feet"></div>
             </div>
           </div>
           <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
