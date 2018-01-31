@@ -8,7 +8,7 @@ class UserLinks extends Component {
     return(
       <div className="">
         <UserButton onClick={onClick("login")} type="Login"/>
-        <UserButton onClick={onClick("register")} type="Register"/>
+        {/*<UserButton onClick={onClick("register")} type="Register"/>*/}
       </div>
     );
   }
