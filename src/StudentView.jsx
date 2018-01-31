@@ -4,14 +4,24 @@ import HintList from './puzzle/HintList.jsx';
 import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 import Display from './puzzle/Display.jsx';
+import request from '../models/resource.js'
+
 
 class StudentView extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      studentPuzzles: "",
+      puzzles: "",
       hints: ['hint1','hint2','hint3'],
       numHints: 0
     };
+  }
+  componentDidMount() {
+    if(this.props.id) {
+      request(`students/${this.props.id}/moves`)
+        .then((moves) => console.log(moves))
+    }
   }
   handleHintClick = () => {
     let newHints = this.state.numHints + 1;

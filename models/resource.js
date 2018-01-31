@@ -9,7 +9,17 @@ your own sanity's sake). You'll need to create different modules if you have
 endpoints that behave differently.
 */
 
-const domain = "https://localhost:3000";
+const Request = (path, method, authorization, data) => {
+  return fetch(`http://localhost:3000/${path}`, {
+    method: method,
+    body: JSON.stringify(data),
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': authorization
+    })
+  }).then((res) => res.json())
+    .catch((err) => console.log(err))
+}
 
 const Resource = (endpoint) => {
 
@@ -53,4 +63,4 @@ const Resource = (endpoint) => {
 
 }
 
-export default Resource
+export default Request

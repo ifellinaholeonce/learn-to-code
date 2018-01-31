@@ -10,7 +10,6 @@ class StudentInfo extends Component {
   }
   componentDidMount() {
     fetch(`http://localhost:3000/students/${this.props.id}/moves`)
-      .then((res) => res.json())
       .then((data) => {
         console.log("Puzzle data:", data)
         this.setState({studentInfo: data});

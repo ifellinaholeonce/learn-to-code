@@ -10,23 +10,13 @@ import RegisterForm from './Register.jsx';
 import TeacherView from './teacher/TeacherView.jsx';
 import StudentView from './StudentView.jsx';
 import queryString from 'query-string';
-
-function request(path, method,  authorization, data) {
-  return fetch(`http://localhost:3000/${path}`, {
-    method: method,
-    body: JSON.stringify(data),
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': authorization
-    })
-  });
-}
+import request from '../models/resource'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "student",
+      user: "",
       login: false,
       register: false,
       authorization: ""
@@ -38,18 +28,16 @@ class App extends Component {
   }
   getUser(authorization) {
     request("users", "GET", authorization )
-      .then((res) => res.json())
       .then((data) => {
         let login = this.state.login;
-        if(data.user) {
+        if(data && data.user) {
           login = !login
+          this.setState({ user: data.user, login })
         }
-        this.setState({ user: data.user, login })
       });
   }
   authenticateUser = (params) => {
     request("user_token", "POST", this.state.authorization, {auth: params})
-      .then((res) => res.json())
       .then((res) => {
         let authorization = `Bearer ${res.jwt}`
         this.setState({ authorization })
@@ -58,7 +46,6 @@ class App extends Component {
   };
   createUser = (params) => {
     fetch("register" , "POST", params)
-      .then((res) => res.json())
       .then((response) => console.log("Response:", res))
   };
   toggleForm = (action) => {
