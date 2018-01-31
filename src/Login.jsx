@@ -27,23 +27,46 @@ class LoginForm extends Component {
       this.props.authenticateUser({username, password});
     };
     return (
-      <form className="form" onSubmit={onSubmit}>
-        <div className="form-group">
-          <input
-            className="form-control"
-            onChange={onChange("username")}
-            name="username"
-            type="text"
-            placeholder="Email or username"/>
-          <input
-            className="form-control"
-            onChange={onChange("password")}
-            name="password"
-            type="password"
-            placeholder="Password"/>
-          <input className="btn btn-primary" type="submit" value="Submit"/>
-        </div>
-      </form>
+      <div>
+      <div id="login-container" className="d-flex justify-content-center align-items-center ">
+        <form className="form" onSubmit={onSubmit}>
+          <div>CODE TRAIL
+
+            <div>
+               IMAGINE with all your mind &nbsp; &nbsp;
+               <i className="fas fa-lightbulb"></i>
+               <br/>
+               BELIEVE with all your heart &nbsp; &nbsp;
+               <i className="fas fa-heart"></i>
+               <br/>
+               ACHIEVE with all your might &nbsp;
+               <i className="fab fa-hotjar"></i>
+            </div>
+          </div>
+          <div className="form-group d-flex flex-column">
+            <input
+              id="username"
+              className="form-control"
+              onChange={onChange("username")}
+              name="username"
+              type="text"
+              placeholder="Username"/>
+            <input
+              id="password"
+              className="form-control"
+              onChange={onChange("password")}
+              name="password"
+              type="password"
+              placeholder="Password"/>
+            <input
+              id="login-btn"
+              className="btn btn-primary"
+              type="submit"
+              value="Log In"/>
+          </div>
+        </form>
+      </div>
+      </div>
     );
   }
 }
