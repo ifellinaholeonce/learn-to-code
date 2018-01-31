@@ -26,8 +26,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "student",
-      login: false,
+      user: "Student",
+      login: true,
       register: false,
       authorization: ""
     };
@@ -73,10 +73,10 @@ class App extends Component {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-        <Navbar/>
-        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
-        {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
-        {this.state.register && <RegisterForm createUser={this.createUser} />}
+{/*        <Navbar/>*/}
+{/*        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}*/}
+        {!this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
+{/*        {this.state.register && <RegisterForm createUser={this.createUser} />}*/}
         {this.state.user === "Teacher" && <TeacherView />}
         {this.state.user === "Student" && <StudentView />}
       </div>

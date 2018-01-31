@@ -27,7 +27,7 @@ class Answer extends Component {
         return target !== this.containers[0];
       }
     });
-    
+
     drake.on('drop', function(el, target, source, sibling){
       let commands = [];
       for (let child of target.children) {
@@ -41,8 +41,7 @@ class Answer extends Component {
     return (
       <div className="text-center">
         <header className="row flex-sm-row">
-          {/*<CommandInput click={clickButton} commands={this.state.commands}/>*/}
-          <button onClick={onClick} className="col-sm-4 btn btn-warning">
+          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
             Run Commands
           </button>
         </header>
