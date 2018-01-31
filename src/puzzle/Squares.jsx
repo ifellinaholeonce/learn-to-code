@@ -20,19 +20,6 @@ function Square({type, x, y, player, dir}) {
   return (
     <div className="square">
       <div className={type}></div>
-      {player &&
-      <div className={"player " + dir}>
-        <div className="player-top"></div>
-        {( dir === "east" || dir === "south" ) &&
-          <div className="player-eye-right"></div>
-        }
-        {( dir === "west" || dir === "south" ) &&
-          <div className="player-eye-left"></div>
-        }
-        <div className="player-bottom"></div>
-        <div className="player-feet"></div>
-      </div>
-      }
     </div>
   )
 }

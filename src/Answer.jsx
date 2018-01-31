@@ -10,10 +10,14 @@ class Answer extends Component {
       commands: ['forward', 'left', 'right'],
       input: []
     };
-    this.containers = [] //Dragula containers
+    this.containers = []; //Dragula containers
   }
 
   componentDidMount () {
+    const setInputState = (commands) => {
+      this.props.prepCommands(commands)
+    }
+
     const drake = Dragula(this.containers, {
       revertOnSpill: true,
       copy: function (el, source) {
@@ -23,35 +27,27 @@ class Answer extends Component {
         return target !== this.containers[0];
       }
     });
-    console.log (drake.containers[0]);
+    
+    drake.on('drop', function(el, target, source, sibling){
+      let commands = [];
+      for (let child of target.children) {
+        commands.push(child.textContent)
+      }
+      setInputState(commands)
+    });
   }
 
-  clickCommand(command) {
-    let input = this.state.input.concat([command]);
-    this.setState({input});
-  }
   render() {
-    const clickButton = type => e => {
-      this.clickCommand(type);
-    };
-    const onClick = (e) => {
-      this.setState({
-        input: []
-      });
-      this.props.runCommands(this.state.input);
-    };
     return (
       <div className="text-center">
         <header className="row flex-sm-row">
-          <button onClick={onClick} className="col-sm-4 btn btn-warning">
+          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
             Run Commands
           </button>
         </header>
-        <ActiveCommands input={this.state.input}/>
         <div className="row">
           <div className="col-md-3 command-list" id="left"  ref={this.dragulaDecorator}>
             {this.state.commands.map( (type) => {
-              console.log(type)
               return (<Command type={type} />)
             })}
           </div>

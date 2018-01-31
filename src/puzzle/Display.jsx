@@ -4,11 +4,11 @@ import Answer from './../Answer.jsx';
 
 
 let board = [
-  {type: "trees"}, {type: "trees"}, {type: "camp"}, {type: "trees"}, {type: "trees"},
-  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
-  {type: "path" }, {type: "path" }, {type: "path"}, {type: "trees"}, {type: "trees"},
-  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
-  {type: "trees"}, {type: "trees"}, {type: "path"}, {type: "trees"}, {type: "trees"},
+  {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
+  {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
+  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "path"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
+  {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
+  {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
 ];
 
 class Display extends Component {
@@ -16,18 +16,25 @@ class Display extends Component {
     super(props);
     this.state = {
       display: board,
-      playerLoc: {x: 1, y: 3},
-      startLoc: {x: 1, y: 3},
+      playerLoc: {x: 0, y: 2},
+      startLoc: {x: 0, y: 2},
       playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
+      startDir: 3,
       pendingCommands: []
      };
   }
 
-  componentWillUpdate = () => {
-    let { pendingCommands } = this.state;
-    let { playerDir } = this.state;
-    if ( pendingCommands !== [] ) {
+  //Expects an array of commands from Answers - forward, left, right
+  prepCommands = (commands) => {
+    this.setState({
+      pendingCommands: commands
+    })
+  }
+
+  runCommands = () => {
+    let execute = ( pendingCommands ) => {
       let command = pendingCommands.shift();
+      let playerDir = this.state.playerDir;
       switch (command) {
         case 'forward':
           switch (this.state.playerDir) {
@@ -68,11 +75,21 @@ class Display extends Component {
         default:
       }
       setTimeout(function() {
-      this.setState({
-        pendingCommands
-      });
-    }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
+
+        if ( this.checkSquareType("trees") ) {
+          this.resetMap();
+        } else if (pendingCommands.length > 0) {
+          execute(pendingCommands)
+        } else {
+          if ( this.checkSquareType("camp") ) {
+            return console.log("VICTORY")
+          }
+          this.resetMap();
+        }
+      }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
+    let stateCommands = this.state.pendingCommands.slice(0)
+    execute(stateCommands)
   }
 
   moveNorth = () => {
@@ -103,43 +120,54 @@ class Display extends Component {
     })
   }
 
-  //Expects an array of commands from Answers - forward, left, right
-  prepCommands = (commands) => {
+  checkSquareType = (type) => {
+    //Pass this function a string and it will check if the player is on a square with a type that matches the string
+    let result = false;
+    let grid = this.state.display
+    grid.forEach((square) => {
+      if ( square.x === this.state.playerLoc.x && square.y === this.state.playerLoc.y && square.type === type ) {
+        result = true;
+      }
+    })
+    return result;
+  }
+
+  resetMap = () => {
     this.setState({
-      pendingCommands: commands
+      playerDir: this.state.startDir,
+      playerLoc: this.state.startLoc
     })
   }
 
-  checkSquare = (type) => {
-    //if the square has the player and the type is not path, reset the player
-    if ( type !== "path" ) {
-      this.setState({
-        playerLoc: this.state.startLoc
-      })
-    }
-  }
-  render() {
-    let squares = this.state.display.map((elm, i) => {
-      let length = Math.sqrt(this.state.display.length);
-      let xPos = i % length + 1;
-      let yPos = Math.floor(i / length) + 1;
-      let hasPlayer = false;
-      if (xPos === this.state.playerLoc.x && yPos === this.state.playerLoc.y) {
-        hasPlayer = true;
-        this.checkSquare(elm.type);
-      }
-      return <Square key={`${xPos} ${yPos}`} type={elm.type} x={xPos} y={yPos} player={hasPlayer} dir={this.state.playerDir}/>
+  initMap = () => {
+    let grid = this.state.display.map((square, i) => {
+      return <Square key={`${square.x} ${square.y}`} type={square.type} x={square.x} y={square.y} />
     });
+    return grid;
+  }
+
+  render() {
+    let playerLocStyle = {
+      top: (this.state.playerLoc.y * 20) + "%",
+      left: (this.state.playerLoc.x * 20) + "%",
+    }
 
     return (
       <div className="puzzle">
         <div className="d-flex flex-column">
           <div className="board">
             <div className="overlay">
-              {squares}
+              {this.initMap()}
+            </div>
+            <div className="player" style={playerLocStyle}>
+              <div className="player-top"></div>
+              <div className="player-eye-right"></div>
+              <div className="player-eye-left"></div>
+              <div className="player-bottom"></div>
+              <div className="player-feet"></div>
             </div>
           </div>
-          <Answer runCommands={this.prepCommands}/>
+          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
         </div>
       </div>
     );
