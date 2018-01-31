@@ -119,9 +119,9 @@ class Display extends Component {
   checkIsPath = () => {
     //if the square has the player and the type is not path, return false
     let path = true;
-    let grid = this.initMap()
+    let grid = this.state.display
     grid.forEach((square) => {
-      if ( square.props.x === this.state.playerLoc.x && square.props.y === this.state.playerLoc.y && square.props.type !== "path" ) {
+      if ( square.x === this.state.playerLoc.x && square.y === this.state.playerLoc.y && square.type !== "path" ) {
         path = false;
       }
     })
@@ -143,9 +143,6 @@ class Display extends Component {
   }
 
   render() {
-    console.log("rerender")
-
-
     let playerLocStyle = {
       top: (this.state.playerLoc.y * 20) + "%",
       left: (this.state.playerLoc.x * 20) + "%",
