@@ -19,6 +19,7 @@ class Display extends Component {
       playerLoc: {x: 0, y: 2},
       startLoc: {x: 0, y: 2},
       playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
+      startDir: 3,
       pendingCommands: []
      };
   }
@@ -75,7 +76,9 @@ class Display extends Component {
       }
       setTimeout(function() {
 
-        this.checkSquare();
+        if ( !this.checkIsPath() ) {
+          this.resetMap();
+        }
         if (pendingCommands.length > 0) {
           execute(pendingCommands)
         }
@@ -113,15 +116,22 @@ class Display extends Component {
     })
   }
 
-  checkSquare = () => {
-    //if the square has the player and the type is not path, reset the player
+  checkIsPath = () => {
+    //if the square has the player and the type is not path, return false
+    let path = true;
     let grid = this.initMap()
     grid.forEach((square) => {
       if ( square.props.x === this.state.playerLoc.x && square.props.y === this.state.playerLoc.y && square.props.type !== "path" ) {
-        this.setState({
-          playerLoc: this.state.startLoc
-        })
+        path = false;
       }
+    })
+    return path;
+  }
+
+  resetMap = () => {
+    this.setState({
+      playerDir: this.state.startDir,
+      playerLoc: this.state.startLoc
     })
   }
 
