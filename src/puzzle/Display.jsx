@@ -76,11 +76,17 @@ class Display extends Component {
       }
       setTimeout(function() {
 
-        if ( !this.checkIsPath() ) {
+        if ( this.checkSquareType("trees") ) {
+          console.log("NOT ON PATH")
           this.resetMap();
-        }
-        if (pendingCommands.length > 0) {
+        } else if (pendingCommands.length > 0) {
           execute(pendingCommands)
+        } else {
+          console.log("made it?", this.checkSquareType("camp"))
+          if ( this.checkSquareType("camp") ) {
+            return console.log("VICTORY")
+          }
+          this.resetMap();
         }
       }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
@@ -116,16 +122,16 @@ class Display extends Component {
     })
   }
 
-  checkIsPath = () => {
-    //if the square has the player and the type is not path, return false
-    let path = true;
+  checkSquareType = (type) => {
+    //Pass this function a string and it will check if the player is on a square with a type that matches the string
+    let result = false;
     let grid = this.state.display
     grid.forEach((square) => {
-      if ( square.x === this.state.playerLoc.x && square.y === this.state.playerLoc.y && square.type !== "path" ) {
-        path = false;
+      if ( square.x === this.state.playerLoc.x && square.y === this.state.playerLoc.y && square.type === type ) {
+        result = true;
       }
     })
-    return path;
+    return result;
   }
 
   resetMap = () => {
