@@ -1,18 +1,20 @@
 import React, {Component} from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
-// import StudentItem from './StudentItem.jsx'
-
+// Returns a table with an overview of each students performance
 class StudentHistory extends Component {
   render() {
+    const clickStudent = this.props.clickStudent;
     let students = this.props.students.map(student => {
       return (
         <StudentItem
+          key={student.id}
           id={student.id}
           firstName={student.first_name}
           lastName={student.last_name}
           level={student.level_reached}
           attempts={student.attempts}
+          clickStudent={clickStudent(student.id)}
         />
       )
     })
@@ -38,9 +40,10 @@ class StudentHistory extends Component {
   }
 }
 
-function StudentItem({id, firstName, lastName, level, attempts}) {
+// Each row is a puzzle and the student's performance for that puzzle
+function StudentItem({id, firstName, lastName, level, attempts, clickStudent}) {
   return (
-    <tr>
+    <tr onClick={clickStudent}>
       <td>{id}</td>
       <td>{firstName}</td>
       <td>{lastName}</td>
