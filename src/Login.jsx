@@ -18,13 +18,13 @@ class LoginForm extends Component {
   }
   render() {
     const onChange = type => e => {
-      changeInput(type, e.target.value);
+      this.changeInput(type, e.target.value);
     };
     const onSubmit = e => {
       e.preventDefault();
-      let username = e.target.username.value;
-      let password = e.target.username.password;
-      this.props.authenticateUser({username, password});
+      let email = e.target.username.value;
+      let password = e.target.password.value;
+      this.props.authenticateUser({email, password});
     };
     return (
       <form className="form" onSubmit={onSubmit}>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Command from './AnswerOptions.jsx';
 import ActiveCommands from './ActiveCommands.jsx';
-import Dragula from 'react-dragula'
+import Dragula from 'react-dragula';
 
 class Answer extends Component {
   constructor(props) {
@@ -21,13 +21,13 @@ class Answer extends Component {
     const drake = Dragula(this.containers, {
       revertOnSpill: true,
       copy: function (el, source) {
-        return source === this.containers[0]
+        return source === this.containers[0];
       },
       accepts: function (el, target) {
-        return target !== this.containers[0]
+        return target !== this.containers[0];
       }
     });
-
+    
     drake.on('drop', function(el, target, source, sibling){
       let commands = [];
       for (let child of target.children) {

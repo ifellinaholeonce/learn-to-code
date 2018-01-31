@@ -48,6 +48,7 @@
     "webpack-dev-server": "2.3.0"
   },
   "dependencies": {
+    "query-string": "^5.0.1",
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "react-dragula": "^1.1.17"

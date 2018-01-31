@@ -9,6 +9,18 @@ import LoginForm from './Login.jsx';
 import RegisterForm from './Register.jsx';
 import TeacherView from './teacher/TeacherView.jsx';
 import StudentView from './StudentView.jsx';
+import queryString from 'query-string';
+
+function request(path, method,  authorization, data) {
+  return fetch(`http://localhost:3000/${path}`, {
+    method: method,
+    body: JSON.stringify(data),
+    headers: new Headers({
+      'Content-Type': 'application/json',
+      'Authorization': authorization
+    })
+  });
+}
 
 class App extends Component {
   constructor(props) {
@@ -16,27 +28,38 @@ class App extends Component {
     this.state = {
       user: "student",
       login: false,
-      register: false
+      register: false,
+      authorization: ""
     };
   }
   componentDidMount() {
     // Fetch calls for Puzzle
+    this.getUser(this.state.authorization);
+  }
+  getUser(authorization) {
+    request("users", "GET", authorization )
+      .then((res) => res.json())
+      .then((data) => {
+        let login = this.state.login;
+        if(data.user) {
+          login = !login
+        }
+        this.setState({ user: data.user, login })
+      });
   }
   authenticateUser = (params) => {
-    fetch("http://localhost:3000/login" , {method: "POST", body: JSON.stringify(params)})
+    request("user_token", "POST", this.state.authorization, {auth: params})
+      .then((res) => res.json())
       .then((res) => {
-        res.json();
-      }).then((res) => {
-        console.log("Response:", res);
-      });
+        let authorization = `Bearer ${res.jwt}`
+        this.setState({ authorization })
+        this.getUser( authorization );
+      })
   };
   createUser = (params) => {
-    fetch("http://localhost:3000/register" , {method: "POST", body: JSON.stringify(params)})
-      .then((res) => {
-        res.json();
-      }).then((response) => {
-        console.log("Response:", res);
-      })
+    fetch("register" , "POST", params)
+      .then((res) => res.json())
+      .then((response) => console.log("Response:", res))
   };
   toggleForm = (action) => {
     if(!this.state[action]) {
@@ -52,8 +75,8 @@ class App extends Component {
         {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
         {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
         {this.state.register && <RegisterForm createUser={this.createUser} />}
-        {this.state.user === "teacher" && <TeacherView />}
-        {this.state.user === "student" && <StudentView />}
+        {this.state.user === "Teacher" && <TeacherView />}
+        {this.state.user === "Student" && <StudentView />}
       </div>
     );
   }
