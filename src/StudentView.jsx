@@ -39,14 +39,17 @@ class StudentView extends Component {
   clickPuzzle = id => e => {
     this.setState({ viewPuzzle: id })
   }
+  viewSummary = () => {
+    this.setState({ viewPuzzle: null })
+  }
   render() {
     return (
       <div className="student-view">
         {!this.state.viewPuzzle ? <PuzzleList click={this.clickPuzzle} puzzles={this.state.puzzles}/> :
         (<div className="d-flex flex-column puzzle-container">
-          <Question/>
+          <Question viewSummary={this.viewSummary} />
           <div className="d-flex flex-row">
-            <Display/>
+            <Display puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}/>
             <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
           </div>
         </div>)}

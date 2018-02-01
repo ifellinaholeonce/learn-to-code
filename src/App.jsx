@@ -4,9 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Navbar from './Navbar.jsx';
 import Puzzle from './puzzle/Puzzle.jsx';
-import UserLinks from './UserLinks.jsx';
 import LoginForm from './Login.jsx';
-import RegisterForm from './Register.jsx';
 import TeacherView from './teacher/TeacherView.jsx';
 import StudentView from './StudentView.jsx';
 import queryString from 'query-string';
@@ -66,8 +64,7 @@ class App extends Component {
     return (
       <div className="content">
         <Navbar/>
-        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
-        {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
+        {!this.state.user && <LoginForm authenticateUser={this.authenticateUser} />}
         {this.state.user === "Teacher" && <TeacherView id={this.state.id} auth={this.state.authorization}/>}
         {this.state.user === "Student" && <StudentView id={this.state.id} auth={this.state.authorization} />}
       </div>
