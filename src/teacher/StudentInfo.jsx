@@ -11,7 +11,7 @@ class StudentInfo extends Component {
     };
   }
   componentDidMount() {
-    request(`students/${this.props.id}/moves`, "GET")
+    request(`students/${this.props.id}/moves`, "GET", this.props.auth)
       .then((data) => {
         this.setState({studentInfo: data});
       });
@@ -27,6 +27,7 @@ class StudentInfo extends Component {
     );
     return (
       <div className="student-info">
+        <button onClick={this.props.click} className="btn btn-success">Back</button>
         <table className="student table">
           <thead className="thead-light">
             <tr>

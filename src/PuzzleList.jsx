@@ -15,8 +15,8 @@ class PuzzleList extends Component {
     })
     return (
       <div className="student-summary">
-        <table>
-          <thead>
+        <table className="table">
+          <thead className="thead-light">
             <tr>
               <th>#</th>
               <th>Name</th>

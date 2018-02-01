@@ -21,46 +21,46 @@ const Request = (path, method, authorization, data) => {
     .catch((err) => console.log(err))
 }
 
-const Resource = (endpoint) => {
+// const Resource = (endpoint) => {
 
-  // We're extracting result.data and returning it on success to avoid
-  // result.data.data in our components
-  function findAll() {
-    const myRequest = new Request(`http://localhost:3000/${endpoint}`);
-    return fetch(myRequest)
-      .then((result) => result.json())
-      .catch((errors) => errors.json());
-  }
+//   // We're extracting result.data and returning it on success to avoid
+//   // result.data.data in our components
+//   function findAll() {
+//     const myRequest = new Request(`http://localhost:3000/${endpoint}`);
+//     return fetch(myRequest)
+//       .then((result) => result.json())
+//       .catch((errors) => errors.json());
+//   }
 
-  // Same as above
-  function find(id) {
-    return new Promise((resolve, reject) => {
-      api.get(`${domain}/${endpoint}/${id}`)
-      .then((result) => resolve(result.data))
-      .catch((errors) => reject(errors))
-    })
-  }
+//   // Same as above
+//   function find(id) {
+//     return new Promise((resolve, reject) => {
+//       api.get(`${domain}/${endpoint}/${id}`)
+//       .then((result) => resolve(result.data))
+//       .catch((errors) => reject(errors))
+//     })
+//   }
 
-  function create(data) {
-    return api.post(`${domain}/${endpoint}`, data)
-  }
+//   function create(data) {
+//     return api.post(`${domain}/${endpoint}`, data)
+//   }
 
-  function update(id, data) {
-    return api.patch(`${domain}/${endpoint}/${id}`, data)
-  }
+//   function update(id, data) {
+//     return api.patch(`${domain}/${endpoint}/${id}`, data)
+//   }
 
-  function destroy(id) {
-    return api.delete(`${domain}/${endpoint}`)
-  }
+//   function destroy(id) {
+//     return api.delete(`${domain}/${endpoint}`)
+//   }
 
-  return {
-    findAll,
-    find,
-    create,
-    update,
-    destroy
-  }
+//   return {
+//     findAll,
+//     find,
+//     create,
+//     update,
+//     destroy
+//   }
 
-}
+// }
 
 export default Request

@@ -19,7 +19,7 @@ class StudentHistory extends Component {
       )
     })
     return (
-      <div className="student-history container">
+      <div className="student-history">
         <h2 className="display-6">Your Class</h2>
         <table className="table">
           <thead className="thead-light">

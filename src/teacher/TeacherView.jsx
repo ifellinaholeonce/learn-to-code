@@ -10,25 +10,26 @@ class TeacherView extends Component {
     super(props);
     this.state = {
       students: [],
-      viewStudent: false
+      viewStudent: null
     };
   }
   componentDidMount() {
-    console.log("Mouting TeacherView");
-    request(`students`, "GET")
+    request(`students`, "GET", this.props.auth)
       .then((data) => {
-        console.log("The data:", data)
         this.setState({students: data, errors: null}); })
       .catch((errors) => this.setState({errors: errors}));
   }
-  clickStudent = studentId => e => {
+  viewStudent = studentId => e => {
     this.setState({viewStudent: studentId})
+  }
+  viewSummary = () => {
+    this.setState({ viewStudent: null })
   }
   render() {
     return (
       <div className="teacher-view">
-        {!this.state.viewStudent && <StudentHistory students={this.state.students} clickStudent={this.clickStudent} />}
-        {this.state.viewStudent && <StudentInfo id={this.state.viewStudent}/>}
+        {!this.state.viewStudent && <StudentHistory students={this.state.students} clickStudent={this.viewStudent} />}
+        {this.state.viewStudent && <StudentInfo click={this.viewSummary} auth={this.props.auth} id={this.state.viewStudent}/>}
       </div>
     );
   }
