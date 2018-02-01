@@ -30,19 +30,28 @@ class LoginForm extends Component {
       <div>
       <div id="login-container" className="d-flex justify-content-center align-items-center ">
         <form className="form" onSubmit={onSubmit}>
-          <div>CODE TRAIL
 
-            <div>
-               IMAGINE with all your mind &nbsp; &nbsp;
-               <i className="fas fa-lightbulb"></i>
-               <br/>
-               BELIEVE with all your heart &nbsp; &nbsp;
-               <i className="fas fa-heart"></i>
-               <br/>
-               ACHIEVE with all your might &nbsp;
-               <i className="fab fa-hotjar"></i>
-            </div>
-          </div>
+              <div id="banner">
+                CODE TRAIL
+              </div>
+
+              <div id='slogan' className='d-flex flex-column'>
+                <div>
+                 <em> IMAGINE with all your mind </em>
+                 <i className="fas fa-lightbulb"></i>
+                </div>
+
+                 <div>
+                 <em> BELIEVE with all your heart </em>
+                 <i className="fas fa-heart"></i>
+                 </div>
+
+                 <div>
+                 <em> ACHIEVE with all your might </em>
+                 <i className="fab fa-hotjar"></i>
+                 </div>
+              </div>
+
           <div className="form-group d-flex flex-column">
             <input
               id="username"

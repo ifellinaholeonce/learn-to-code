@@ -22,12 +22,16 @@ function request(path, method,  authorization, data) {
   });
 }
 
+/*
+* change user to "Student", change login to true to see puzzle view.
+*/
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "Student",
-      login: true,
+      user: "",
+      login: false,
       register: false,
       authorization: ""
     };
