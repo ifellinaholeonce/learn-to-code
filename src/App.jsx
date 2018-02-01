@@ -4,30 +4,20 @@ import { Route, Switch } from 'react-router-dom';
 
 import Navbar from './Navbar.jsx';
 import Puzzle from './puzzle/Puzzle.jsx';
-import UserLinks from './UserLinks.jsx';
 import LoginForm from './Login.jsx';
-import RegisterForm from './Register.jsx';
 import TeacherView from './teacher/TeacherView.jsx';
 import StudentView from './StudentView.jsx';
 import queryString from 'query-string';
 
-function request(path, method,  authorization, data) {
-  return fetch(`http://localhost:3000/${path}`, {
-    method: method,
-    body: JSON.stringify(data),
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': authorization
-    })
-  });
-}
+import request from '../models/resource'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "Student",
-      login: true,
+      id: "",
+      user: "",
+      login: false,
       register: false,
       authorization: ""
     };
@@ -38,18 +28,20 @@ class App extends Component {
   }
   getUser(authorization) {
     request("users", "GET", authorization )
-      .then((res) => res.json())
       .then((data) => {
         let login = this.state.login;
-        if(data.user) {
+        if(data && data.type) {
           login = !login
+          this.setState({
+            user: data.type,
+            id: data.id,
+            login
+          })
         }
-        this.setState({ user: data.user, login })
       });
   }
   authenticateUser = (params) => {
     request("user_token", "POST", this.state.authorization, {auth: params})
-      .then((res) => res.json())
       .then((res) => {
         let authorization = `Bearer ${res.jwt}`
         this.setState({ authorization })
@@ -58,7 +50,6 @@ class App extends Component {
   };
   createUser = (params) => {
     fetch("register" , "POST", params)
-      .then((res) => res.json())
       .then((response) => console.log("Response:", res))
   };
   toggleForm = (action) => {
@@ -73,12 +64,10 @@ class App extends Component {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-{/*        <Navbar/>*/}
-{/*        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}*/}
-        {!this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
-{/*        {this.state.register && <RegisterForm createUser={this.createUser} />}*/}
-        {this.state.user === "Teacher" && <TeacherView />}
-        {this.state.user === "Student" && <StudentView />}
+        <Navbar/>
+        {!this.state.user && <LoginForm authenticateUser={this.authenticateUser} />}
+        {this.state.user === "Teacher" && <TeacherView id={this.state.id} auth={this.state.authorization}/>}
+        {this.state.user === "Student" && <StudentView id={this.state.id} auth={this.state.authorization} />}
       </div>
     );
   }

@@ -4,7 +4,7 @@
   background-image: url("http://cdn.wonderfulengineering.com/wp-content/uploads/2014/10/simple-wallpaper-26.jpg");
 
   ::placeholder {
-    color: white;
+    color: rgba(255, 255, 255, 0.5);
     font-size: 24px;
     font-family: 'Comfortaa', cursive;
     text-align: center;
@@ -12,28 +12,33 @@
 
   .form {
     width: 50%; // use 30% for Demo if responsive design isn't working
+    color: white;
+    text-align: center;
 
     #username {
       margin-bottom: 10px;
       border-radius: 30px;
-      border: 1px solid grey;
-      background: grey;
-      opacity: 0.7;
+      border: none;
+      background: rgba(158, 45, 45, 0.5);
+      // opacity: 0.5;
       padding: 10px;
+      color: white;
     }
     #password {
       margin-bottom: 10px;
       border-radius: 30px;
-      border: 1px solid grey;
-      background: grey;
-      opacity: 0.7;
+      border: none;
+      background: rgba(158, 45, 45, 0.5);
+      // opacity: 0.5;
       padding: 10px;
+      color: white;
     }
     #login-btn {
-      background: #416584;
+      background: rgba(65, 101, 132, 0.7);
       border-radius: 30px;
-      border: 1px solid #416584;
-      opacity: 0.7;
+      // border: 1px solid #416584;
+      // opacity: 0.7;
+      color: rgba(255, 255, 255, 0.5);
       font-size: 24px;
       font-family: 'Comfortaa', cursive;
     }

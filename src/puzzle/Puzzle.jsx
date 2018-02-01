@@ -7,20 +7,16 @@ import StudentView from './../StudentView.jsx';
 import TeacherView from './../teacher/TeacherView.jsx';
 
 class Puzzle extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: "teacher"
-    }
-  }
-  componentDidMount() {
-    // Fetch calls for Puzzle
-  }
   render() {
-    console.log("Rendering <App/>");
     return (
-      <div className="body">
-        { this.state.user === "teacher" ? <TeacherView/> : <StudentView/> }
+      <div className="puzzle">
+        <div className="puzzle-container d-flex flex-column">
+          <Question viewSummary={this.props.viewSummary} />
+          <div className="display-container hints-container d-flex flex-row">
+            <Display puzzle={this.props.puzzles.find((puz) => this.props.viewPuzzle === puz.id)}/>
+            <HintList hints={this.props.hints} numHints={this.props.numHints} handleHintClick={this.props.handleHintClick}/>
+          </div>
+        </div>
       </div>
     );
   }

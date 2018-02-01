@@ -3,36 +3,33 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import StudentHistory from './StudentHistory.jsx';
 import StudentInfo from './StudentInfo.jsx';
-
-// Client-side model
-import Resource from '../../models/resource';
-const Students = Resource('students');
+import request from '../../models/resource.js'
 
 class TeacherView extends Component {
   constructor(props) {
     super(props);
     this.state = {
       students: [],
-      viewStudent: false
+      viewStudent: null
     };
   }
   componentDidMount() {
-    console.log("Mouting TeacherView");
-    fetch("http://localhost:3000/students")
-      .then((res) => res.json())
+    request(`students`, "GET", this.props.auth)
       .then((data) => {
-        console.log("The data:", data)
         this.setState({students: data, errors: null}); })
       .catch((errors) => this.setState({errors: errors}));
   }
-  clickStudent = studentId => e => {
+  viewStudent = studentId => e => {
     this.setState({viewStudent: studentId})
+  }
+  viewSummary = () => {
+    this.setState({ viewStudent: null })
   }
   render() {
     return (
       <div className="teacher-view">
-        {!this.state.viewStudent && <StudentHistory students={this.state.students} clickStudent={this.clickStudent} />}
-        {this.state.viewStudent && <StudentInfo id={this.state.viewStudent}/>}
+        {!this.state.viewStudent && <StudentHistory students={this.state.students} clickStudent={this.viewStudent} />}
+        {this.state.viewStudent && <StudentInfo click={this.viewSummary} auth={this.props.auth} id={this.state.viewStudent}/>}
       </div>
     );
   }

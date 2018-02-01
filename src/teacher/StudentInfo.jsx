@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import request from '../../models/resource.js'
+
 
 // Component for displaying each individual students performance
 class StudentInfo extends Component {
@@ -9,10 +11,8 @@ class StudentInfo extends Component {
     };
   }
   componentDidMount() {
-    fetch(`http://localhost:3000/students/${this.props.id}/moves`)
-      .then((res) => res.json())
+    request(`students/${this.props.id}/moves`, "GET", this.props.auth)
       .then((data) => {
-        console.log("Puzzle data:", data)
         this.setState({studentInfo: data});
       });
   }
@@ -27,6 +27,7 @@ class StudentInfo extends Component {
     );
     return (
       <div className="student-info">
+        <button onClick={this.props.click} className="btn btn-success">Back</button>
         <table className="student table">
           <thead className="thead-light">
             <tr>
