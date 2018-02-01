@@ -6,6 +6,7 @@ import Question from './Question.jsx';
 import Answer from './Answer.jsx';
 import Display from './puzzle/Display.jsx';
 import PuzzleList from './PuzzleList.jsx';
+import Puzzle from './puzzle/Puzzle.jsx';
 
 import request from '../models/resource.js'
 
@@ -48,14 +49,17 @@ class StudentView extends Component {
   render() {
     return (
       <div className="student-view">
-        {!this.state.viewPuzzle ? <PuzzleList click={this.clickPuzzle} puzzles={this.state.puzzles}/> :
-        (<div className="d-flex flex-column puzzle-container">
-          <Question viewSummary={this.viewSummary} />
-          <div className="d-flex flex-row">
-            <Display saveMove={this.saveMove} puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}/>
-            <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
-          </div>
-        </div>)}
+        {!this.state.viewPuzzle ?
+          <PuzzleList click={this.clickPuzzle} puzzles={this.state.puzzles}/> :
+          <Puzzle
+            user="Student"
+            viewSummary={this.viewSummary}
+            saveMove={this.saveMove}
+            puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}
+            hints={this.state.hints}
+            numHints={this.state.numHints}
+            handleHintClick={this.handleHintClick}
+          />}
       </div>
     );
   }

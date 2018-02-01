@@ -3,8 +3,9 @@ import React, {Component} from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import Navbar from './../Navbar.jsx';
-import StudentView from './../StudentView.jsx';
-import TeacherView from './../teacher/TeacherView.jsx';
+import Question from '../Question.jsx';
+import Display from '../puzzle/Display.jsx';
+import HintList from './HintList.jsx';
 
 class Puzzle extends Component {
   render() {
@@ -13,7 +14,7 @@ class Puzzle extends Component {
         <div className="puzzle-container d-flex flex-column">
           <Question viewSummary={this.props.viewSummary} />
           <div className="display-container hints-container d-flex flex-row">
-            <Display puzzle={this.props.puzzles.find((puz) => this.props.viewPuzzle === puz.id)}/>
+            <Display saveMove={this.props.saveMove} puzzle={this.props.puzzle}/>
             <HintList hints={this.props.hints} numHints={this.props.numHints} handleHintClick={this.props.handleHintClick}/>
           </div>
         </div>
