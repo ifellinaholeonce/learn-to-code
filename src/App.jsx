@@ -16,6 +16,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       user: "",
       login: false,
       register: false,
@@ -30,9 +31,13 @@ class App extends Component {
     request("users", "GET", authorization )
       .then((data) => {
         let login = this.state.login;
-        if(data && data.user) {
+        if(data && data.type) {
           login = !login
-          this.setState({ user: data.user, login })
+          this.setState({
+            user: data.type,
+            id: data.id,
+            login
+          })
         }
       });
   }
@@ -62,8 +67,8 @@ class App extends Component {
         {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
         {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
         {this.state.register && <RegisterForm createUser={this.createUser} />}
-        {this.state.user === "Teacher" && <TeacherView />}
-        {this.state.user === "Student" && <StudentView />}
+        {this.state.user === "Teacher" && <TeacherView id={this.state.id} auth={this.state.authorization}/>}
+        {this.state.user === "Student" && <StudentView id={this.state.id} auth={this.state.authorization} />}
       </div>
     );
   }

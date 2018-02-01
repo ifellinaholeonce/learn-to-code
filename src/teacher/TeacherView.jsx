@@ -3,10 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import StudentHistory from './StudentHistory.jsx';
 import StudentInfo from './StudentInfo.jsx';
-
-// Client-side model
-import Resource from '../../models/resource';
-const Students = Resource('students');
+import request from '../../models/resource.js'
 
 class TeacherView extends Component {
   constructor(props) {
@@ -18,8 +15,7 @@ class TeacherView extends Component {
   }
   componentDidMount() {
     console.log("Mouting TeacherView");
-    fetch("http://localhost:3000/students")
-      .then((res) => res.json())
+    request(`students`, "GET")
       .then((data) => {
         console.log("The data:", data)
         this.setState({students: data, errors: null}); })

@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import request from '../../models/resource.js'
+
 
 // Component for displaying each individual students performance
 class StudentInfo extends Component {
@@ -9,9 +11,8 @@ class StudentInfo extends Component {
     };
   }
   componentDidMount() {
-    fetch(`http://localhost:3000/students/${this.props.id}/moves`)
+    request(`students/${this.props.id}/moves`, "GET")
       .then((data) => {
-        console.log("Puzzle data:", data)
         this.setState({studentInfo: data});
       });
   }
