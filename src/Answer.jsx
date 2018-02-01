@@ -27,7 +27,7 @@ class Answer extends Component {
         return target !== this.containers[0];
       }
     });
-    
+
     drake.on('drop', function(el, target, source, sibling){
       let commands = [];
       for (let child of target.children) {

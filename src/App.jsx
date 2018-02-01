@@ -16,9 +16,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       id: "",
       user: "",
       login: false,
+=======
+      user: "Student",
+      login: true,
+>>>>>>> develop
       register: false,
       authorization: ""
     };
@@ -59,6 +64,8 @@ class App extends Component {
     }
     this.setState({[action]: !this.state[action]});
   }
+
+  // Comment out UsserLinks && Register because we might not need that anymore.
   render() {
     console.log("Rendering <App/>");
     return (
@@ -66,7 +73,6 @@ class App extends Component {
         <Navbar/>
         {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}
         {this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
-        {this.state.register && <RegisterForm createUser={this.createUser} />}
         {this.state.user === "Teacher" && <TeacherView id={this.state.id} auth={this.state.authorization}/>}
         {this.state.user === "Student" && <StudentView id={this.state.id} auth={this.state.authorization} />}
       </div>
