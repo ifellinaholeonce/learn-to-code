@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import request from '../../models/resource.js'
 
+import Puzzle from '../puzzle/Puzzle.jsx';
 
 // Component for displaying each individual students performance
 class StudentInfo extends Component {
@@ -21,35 +22,47 @@ class StudentInfo extends Component {
       <PuzzleItem
         key={puzzle.id}
         id={puzzle.id}
+        click={this.props.viewPuzzle(puzzle.id)}
         completed={puzzle.complete}
         attempts={puzzle.attempts}
         concept={puzzle.concept}/>
     );
     return (
       <div className="student-info">
-        <button onClick={this.props.click} className="btn btn-success">Back</button>
-        <table className="student table">
-          <thead className="thead-light">
-            <tr>
-              <th>#</th>
-              <th>Progress</th>
-              <th>Attempts</th>
-              <th>Concept</th>
-            </tr>
-          </thead>
-          <tbody>
-            {puzzles}
-          </tbody>
-        </table>
+        {!this.props.puzzle ?
+        (<div className="student-history">
+          <button onClick={this.props.viewSummary} className="btn btn-success">Back</button>
+          <table className="student table">
+            <thead className="thead-light">
+              <tr>
+                <th>#</th>
+                <th>Progress</th>
+                <th>Attempts</th>
+                <th>Concept</th>
+              </tr>
+            </thead>
+            <tbody>
+              {puzzles}
+            </tbody>
+          </table>
+        </div>) :
+        <Puzzle
+          user="Teacher"
+          viewSummary={this.viewSummary}
+          saveMove={this.saveMove}
+          puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}
+          hints={this.state.hints}
+          numHints={this.state.numHints}
+          handleHintClick={this.handleHintClick} />}
       </div>
     );
   }
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function PuzzleItem({id, complete, attempts, concept}) {
+function PuzzleItem({id, complete, attempts, concept, click}) {
   return (
-    <tr scope="row">
+    <tr onClick={click} scope="row">
       <td>{id}</td>
       <td>{complete}</td>
       <td>{attempts}</td>

@@ -10,7 +10,8 @@ class TeacherView extends Component {
     super(props);
     this.state = {
       students: [],
-      viewStudent: null
+      viewStudent: null,
+      viewPuzzle: null
     };
   }
   componentDidMount() {
@@ -25,11 +26,24 @@ class TeacherView extends Component {
   viewSummary = () => {
     this.setState({ viewStudent: null })
   }
+  viewPuzzle = id => e => {
+    this.setState({ viewPuzzle: id })
+  }
   render() {
     return (
       <div className="teacher-view">
-        {!this.state.viewStudent && <StudentHistory students={this.state.students} clickStudent={this.viewStudent} />}
-        {this.state.viewStudent && <StudentInfo click={this.viewSummary} auth={this.props.auth} id={this.state.viewStudent}/>}
+        {!this.state.viewStudent &&
+          <StudentHistory
+            students={this.state.students}
+            clickStudent={this.viewStudent} />}
+        {this.state.viewStudent &&
+          <StudentInfo
+            puzzle={this.state.viewPuzzle}
+            viewPuzzle={this.viewPuzzle}
+            viewSummary={this.viewSummary}
+            click={this.viewSummary}
+            auth={this.props.auth}
+            id={this.state.viewStudent} />}
       </div>
     );
   }
