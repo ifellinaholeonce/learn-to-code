@@ -42,6 +42,9 @@ class StudentView extends Component {
   viewSummary = () => {
     this.setState({ viewPuzzle: null })
   }
+  saveMove = (moves, done) => {
+    Request(`students/${viewPuzzle}/moves`, "POST", this.props.auth)
+  }
   render() {
     return (
       <div className="student-view">
@@ -49,7 +52,7 @@ class StudentView extends Component {
         (<div className="d-flex flex-column puzzle-container">
           <Question viewSummary={this.viewSummary} />
           <div className="d-flex flex-row">
-            <Display puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}/>
+            <Display saveMove={this.saveMove} puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}/>
             <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
           </div>
         </div>)}
