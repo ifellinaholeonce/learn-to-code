@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
 import Answer from './../Answer.jsx';
+import Sam from './Sam.jsx'
 
 
 let board = [
@@ -147,11 +148,6 @@ class Display extends Component {
   }
 
   render() {
-    let playerLocStyle = {
-      top: (this.state.playerLoc.y * 20) + "%",
-      left: (this.state.playerLoc.x * 20) + "%",
-    }
-
     return (
       <div className="puzzle">
         <div className="d-flex flex-column">
@@ -159,13 +155,7 @@ class Display extends Component {
             <div className="overlay">
               {this.initMap()}
             </div>
-            <div className="player" style={playerLocStyle}>
-              <div className="player-top"></div>
-              <div className="player-eye-right"></div>
-              <div className="player-eye-left"></div>
-              <div className="player-bottom"></div>
-              <div className="player-feet"></div>
-            </div>
+            <Sam playerLoc={this.state.playerLoc}/>
           </div>
           <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
         </div>

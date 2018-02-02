@@ -26,7 +26,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "student",
+      user: "Student",
       login: false,
       register: false,
       authorization: ""
