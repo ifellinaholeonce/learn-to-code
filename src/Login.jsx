@@ -29,25 +29,25 @@ class LoginForm extends Component {
     return (
       <div>
       <div id="login-container" className="d-flex justify-content-center align-items-center ">
-        <form className="form" onSubmit={onSubmit}>
+        <form className="form d-flex flex-column align-items-center" onSubmit={onSubmit}>
 
               <div id="banner">
                 CODE TRAIL
               </div>
 
               <div id='slogan' className='d-flex flex-column'>
-                <div>
-                 <em> IMAGINE with all your mind </em>
+                <div id='imagine' className='d-flex flex-row justify-content-center'>
+                 <em> IMAGINE with all your mind &nbsp; </em>
                  <i className="fas fa-lightbulb"></i>
                 </div>
 
-                 <div>
-                 <em> BELIEVE with all your heart </em>
+                 <div id='believe' className='d-flex flex-row justify-content-center'>
+                 <em> BELIEVE with all your heart &nbsp; </em>
                  <i className="fas fa-heart"></i>
                  </div>
 
-                 <div>
-                 <em> ACHIEVE with all your might </em>
+                 <div id='achieve' className='d-flex flex-row justify-content-center'>
+                 <em> ACHIEVE with all your might &nbsp; </em>
                  <i className="fab fa-hotjar"></i>
                  </div>
               </div>
