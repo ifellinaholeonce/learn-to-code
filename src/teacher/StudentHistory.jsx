@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 // Returns a table with an overview of each students performance
 class StudentHistory extends Component {

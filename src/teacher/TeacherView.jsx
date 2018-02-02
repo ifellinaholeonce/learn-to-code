@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import StudentHistory from './StudentHistory.jsx';
 import StudentInfo from './StudentInfo.jsx';

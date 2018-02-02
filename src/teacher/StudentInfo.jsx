@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import request from '../../models/resource.js'
 
 import Puzzle from '../puzzle/Puzzle.jsx';
+
+import request from '../../models/resource.js'
 
 // Component for displaying each individual students performance
 class StudentInfo extends Component {

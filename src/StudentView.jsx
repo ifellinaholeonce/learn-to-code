@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import HintList from './puzzle/HintList.jsx';
 import Question from './Question.jsx';
@@ -10,25 +10,24 @@ import Puzzle from './puzzle/Puzzle.jsx';
 
 import request from '../models/resource.js'
 
-
 class StudentView extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentPuzzles: [],
+      moves: [],
       puzzles: [],
       hints: ['hint1','hint2','hint3'],
       numHints: 0,
-      viewPuzzle: null
     };
   }
   componentDidMount() {
-    if(this.props.id) {
-      request(`students/${this.props.id}/moves`, "GET", this.props.auth )
-        .then((data) => this.setState({ studentPuzzles: data })
+    if(this.props.userId) {
+      request(`students/${this.props.userId}/moves`, "GET", this.props.auth)
+        .then((data) => this.setState({ moves: data })
       )
-      request(`puzzles`, "GET", this.props.auth)
+      request("puzzles", "GET", this.props.auth)
         .then((data) => {
+          console.log("Puzzles response:",data)
           this.setState({ puzzles: data })
       })
     }
@@ -37,29 +36,22 @@ class StudentView extends Component {
     let newHints = this.state.numHints + 1;
     this.setState({numHints: newHints})
   }
-  clickPuzzle = id => e => {
-    this.setState({ viewPuzzle: id })
-  }
-  viewSummary = () => {
-    this.setState({ viewPuzzle: null })
-  }
   saveMove = (moves, done) => {
     Request(`students/${viewPuzzle}/moves`, "POST", this.props.auth)
   }
   render() {
     return (
       <div className="student-view">
-        {!this.state.viewPuzzle ?
-          <PuzzleList click={this.clickPuzzle} puzzles={this.state.puzzles}/> :
-          <Puzzle
-            user="Student"
-            viewSummary={this.viewSummary}
-            saveMove={this.saveMove}
-            puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}
+        <Switch>
+          <Route path="/student/puzzles" exact render={(props) => <PuzzleList {...props} puzzles={this.state.puzzles} />} />
+          <Route path="/student/puzzles/:id" render={(props) => <Puzzle {...props}
+            puzzles={this.state.puzzles}
+            moves={this.state.moves}
             hints={this.state.hints}
             numHints={this.state.numHints}
             handleHintClick={this.handleHintClick}
-          />}
+          />} />
+        </Switch>
       </div>
     );
   }

@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
-import Command from './AnswerOptions.jsx';
+
 import ActiveCommands from './ActiveCommands.jsx';
+import Command from './AnswerOptions.jsx';
+
 import Dragula from 'react-dragula';
 
 class Answer extends Component {

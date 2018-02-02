@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Navbar from './Navbar.jsx';
 import Puzzle from './puzzle/Puzzle.jsx';
@@ -17,8 +17,6 @@ class App extends Component {
     this.state = {
       id: "",
       user: "",
-      login: false,
-      register: false,
       authorization: ""
     };
   }
@@ -33,7 +31,7 @@ class App extends Component {
         if(data && data.type) {
           login = !login
           this.setState({
-            user: data.type,
+            user: data.type.toLowerCase(),
             id: data.id,
             login
           })
@@ -48,26 +46,20 @@ class App extends Component {
         this.getUser( authorization );
       })
   };
-  createUser = (params) => {
-    fetch("register" , "POST", params)
-      .then((response) => console.log("Response:", res))
-  };
-  toggleForm = (action) => {
-    if(!this.state[action]) {
-      this.setState({login: false, register: false});
-    }
-    this.setState({[action]: !this.state[action]});
-  }
-
-  // Comment out UsserLinks && Register because we might not need that anymore.
   render() {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-        <Navbar/>
-        {!this.state.user && <LoginForm authenticateUser={this.authenticateUser} />}
-        {this.state.user === "Teacher" && <TeacherView id={this.state.id} auth={this.state.authorization}/>}
-        {this.state.user === "Student" && <StudentView id={this.state.id} auth={this.state.authorization} />}
+        <Navbar />
+        {this.state.user &&
+          <Redirect
+            from="/"
+            to={`/${this.state.user}/${this.state.user === "teacher" ? "students" : "puzzles"}`} />}
+        <Switch>
+          <Route path="/" exact render={() => <LoginForm authenticate={this.authenticateUser} />} />
+          <Route path="/student" render={() => <StudentView userId={this.state.id} auth={this.state.authorization} />} />
+          <Route path="/teacher" render={() => <TeacherView userId={this.state.id} auth={this.state.authorization} />} />
+        </Switch>
       </div>
     );
   }
