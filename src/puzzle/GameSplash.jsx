@@ -12,8 +12,8 @@ function GameSplash({status}) {
           <div className="splash message description">Second line of the success</div>
         </div>
         <span className="splash splash-title">SUCCESS</span>
-        <div className="splash left-btn">Home</div>
-        <div className="splash right-btn">Next</div>
+        <div className="splash left-btn"><i class="fas fa-home"></i>Home</div>
+        <div className="splash right-btn">Next<i class="fas fa-arrow-circle-right"></i></div>
       </div>
     </div>
   )
