@@ -30,8 +30,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "",
-      login: false,
+      user: "Student",
+      login: true,
       register: false,
       authorization: ""
     };
@@ -77,7 +77,7 @@ class App extends Component {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-{/*        <Navbar/>*/}
+        <Navbar/>
 {/*        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}*/}
         {!this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
 {/*        {this.state.register && <RegisterForm createUser={this.createUser} />}*/}

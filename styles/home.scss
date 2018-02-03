@@ -24,17 +24,6 @@ html {
   }
 }
 
-.hints {
-  p {
-    color: green;
-    margin-left: 10px;
-  }
-}
-
-.puzzle-container {
-  padding: 50px
-}
-
 .body {
   // display: flex;
   margin: 0;
@@ -47,8 +36,8 @@ html {
 
 .board {
   position:relative;
-  width: 50vw;
-  height: 50vw;
+  // width: 60vw;
+  height: 35vw;
   overflow: hidden;
   border: 25px solid #63CBAA;
   // border-radius: 10px;

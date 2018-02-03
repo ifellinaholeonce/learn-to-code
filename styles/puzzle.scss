@@ -4,6 +4,15 @@ $font-comfortaa: 'Comfortaa', cursive;
   background-image: url("../img/jungle-green-background.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
+  height:100vh;
+  padding: 0px 200px
+}
+
+.hints {
+  p {
+    color: green;
+    margin-left: 10px;
+  }
 }
 
 footer {

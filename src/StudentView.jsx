@@ -20,10 +20,10 @@ class StudentView extends Component {
   render() {
     return (
       <div className="student-view">
-        <div className="d-flex flex-column puzzle-container">
-          <Question/>
-          <div className="d-flex flex-row">
-            <Display/>
+        <div className="d-flex flex-row justify-content-center puzzle-container">
+          <div className="puzzle-display">
+            <Question/>
+            <Display className="display"/>
             <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
           </div>
         </div>
