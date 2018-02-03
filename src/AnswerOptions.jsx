@@ -3,8 +3,12 @@ import React, {Component} from 'react';
 class Command extends Component {
   render() {
     return (
-      <div className={`${this.props.type} btn btn-success m-1`}>
-        {this.props.type}
+      <div className={`${this.props.type} m-1 jigsaw`}>
+        <span className="t"></span>
+        <span className="r"></span>
+        <span className="b"></span>
+        <span className="l"></span>
+        <span className="text">{this.props.type}</span>
       </div>
     );
   }
