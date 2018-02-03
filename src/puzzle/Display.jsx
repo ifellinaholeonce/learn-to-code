@@ -80,17 +80,21 @@ class Display extends Component {
 
         if ( this.checkSquareType("trees") ) {
           this.resetMap();
+          this.setState({
+            puzzleComplete: false
+          })
         } else if (pendingCommands.length > 0) {
           execute(pendingCommands)
-        } else {
-          if ( this.checkSquareType("camp") ) {
+        } else if ( this.checkSquareType("camp") ) {
             this.setState({
               puzzleComplete: true
             })
-            return console.log("VICTORY")
+          } else {
+            this.resetMap();
+            this.setState({
+              puzzleComplete: false
+            })
           }
-          this.resetMap();
-        }
       }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
     let stateCommands = this.state.pendingCommands.slice(0)
@@ -155,6 +159,8 @@ class Display extends Component {
     if (this.state.puzzleComplete) {
       return <GameSplash status={true} />
     }
+    if (this.state.puzzleComplete === false)
+      return <GameSplash status={false} />
   }
 
   render() {
