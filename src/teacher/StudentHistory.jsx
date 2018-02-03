@@ -14,7 +14,6 @@ class StudentHistory extends Component {
           lastName={student.last_name}
           level={student.level_reached}
           attempts={student.attempts}
-          clickStudent={clickStudent(student.id)}
         />
       )
     })
@@ -41,11 +40,11 @@ class StudentHistory extends Component {
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function StudentItem({id, firstName, lastName, level, attempts, clickStudent}) {
+function StudentItem({id, firstName, lastName, level, attempts}) {
   return (
-    <tr onClick={clickStudent}>
+    <tr>
       <td>{id}</td>
-      <td>{firstName}</td>
+      <td><Link to={`/teacher/students/${id}`}>{firstName}</Link></td>
       <td>{lastName}</td>
       <td>{level}</td>
       <td>{attempts}</td>

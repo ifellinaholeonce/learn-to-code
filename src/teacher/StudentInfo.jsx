@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import Puzzle from '../puzzle/Puzzle.jsx';
 
@@ -9,67 +10,77 @@ class StudentInfo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      studentInfo: []
+      moves: [],
+      puzzles: []
     };
   }
   componentDidMount() {
-    request(`students/${this.props.id}/moves`, "GET", this.props.auth)
+    request(`students/${this.props.match.params.id}/moves`, "GET", this.props.auth)
       .then((data) => {
-        this.setState({studentInfo: data});
+        let { moves, puzzles } = data
+        this.setState({ moves, puzzles });
       });
   }
   render() {
-    let puzzles = this.state.studentInfo.map((puzzle) =>
-      <PuzzleItem
-        key={puzzle.id}
-        id={puzzle.id}
-        click={this.props.viewPuzzle(puzzle.id)}
-        completed={puzzle.complete}
-        attempts={puzzle.attempts}
-        concept={puzzle.concept}/>
-    );
     return (
       <div className="student-info">
-        {!this.props.puzzle ?
-        (<div className="student-history">
-          <button onClick={this.props.viewSummary} className="btn btn-success">Back</button>
-          <table className="student table">
-            <thead className="thead-light">
-              <tr>
-                <th>#</th>
-                <th>Progress</th>
-                <th>Attempts</th>
-                <th>Concept</th>
-              </tr>
-            </thead>
-            <tbody>
-              {puzzles}
-            </tbody>
-          </table>
-        </div>) :
-        <Puzzle
+      <Switch>
+        <Route
+          path="/teacher/students/:id" exact
+          render={(props) => <TeacherPuzzles {...props}
+            moves={this.state.moves}
+            studentId={this.props.match.params.id} />} />
+        <Route path="/teacher/students/:studentId/puzzle/:puzzleId"
+          render={(props) => <Puzzle {...props}
           user="Teacher"
-          viewSummary={this.viewSummary}
-          saveMove={this.saveMove}
-          puzzle={this.state.puzzles.find((puz) => this.state.viewPuzzle === puz.id)}
+          puzzles={this.state.puzzles}
+          moves={this.state.moves}
           hints={this.state.hints}
           numHints={this.state.numHints}
-          handleHintClick={this.handleHintClick} />}
+          handleHintClick={this.handleHintClick} />} />
+        </Switch>
       </div>
     );
   }
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function PuzzleItem({id, complete, attempts, concept, click}) {
+function PuzzleItem({puzzle, studentId}) {
+  let { id, complete, attempts, concept } = puzzle
   return (
-    <tr onClick={click} scope="row">
-      <td>{id}</td>
+    <tr scope="row">
+      <td><Link to={`${studentId}/puzzle/${id}`}>{id}</Link></td>
       <td>{complete}</td>
       <td>{attempts}</td>
       <td>{concept}</td>
     </tr>
   )
+}
+
+function TeacherPuzzles({moves, studentId}) {
+  let puzzles = moves.map((puzzle) =>
+    <PuzzleItem
+      studentId={studentId}
+      key={puzzle.id}
+      puzzle={puzzle} />
+  );
+  return (
+    <div className="student-history">
+      <Link to="/teacher/students"><button className="btn btn-success">Back</button></Link>
+      <table className="student table">
+        <thead className="thead-light">
+          <tr>
+            <th>#</th>
+            <th>Progress</th>
+            <th>Attempts</th>
+            <th>Concept</th>
+          </tr>
+        </thead>
+        <tbody>
+          {puzzles}
+        </tbody>
+      </table>
+    </div>)
 }
 
 function groupPuzzleData(puzzles) {
