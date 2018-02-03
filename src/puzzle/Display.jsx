@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
 import Answer from './../Answer.jsx';
-import Sam from './Sam.jsx'
+import Sam from './Sam.jsx';
+import GameSplash from './GameSplash.jsx'
 
 
 let board = [
@@ -83,6 +84,9 @@ class Display extends Component {
           execute(pendingCommands)
         } else {
           if ( this.checkSquareType("camp") ) {
+            this.setState({
+              puzzleComplete: true
+            })
             return console.log("VICTORY")
           }
           this.resetMap();
@@ -147,6 +151,12 @@ class Display extends Component {
     return grid;
   }
 
+  renderGameSplash = () => {
+    if (this.state.puzzleComplete) {
+      return <GameSplash status={true} />
+    }
+  }
+
   render() {
     return (
       <div className="puzzle">
@@ -155,6 +165,7 @@ class Display extends Component {
             <div className="overlay">
               {this.initMap()}
             </div>
+            {this.renderGameSplash()}
             <Sam playerLoc={this.state.playerLoc}/>
           </div>
           <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
