@@ -27,6 +27,10 @@ class StudentView extends Component {
             <HintList hints={this.state.hints} numHints={this.state.numHints} handleHintClick={this.handleHintClick}/>
           </div>
         </div>
+        <footer>
+          This is the footer.
+          &copy; Code Trail Educational Foundation.
+        </footer>
       </div>
     );
   }
