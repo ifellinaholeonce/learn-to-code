@@ -167,7 +167,9 @@ class Display extends Component {
               <div className="player-feet"></div>
             </div>
           </div>
-          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          <div className="answer">
+            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          </div>
         </div>
       </div>
     );

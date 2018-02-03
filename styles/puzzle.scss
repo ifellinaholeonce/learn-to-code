@@ -4,14 +4,29 @@ $font-comfortaa: 'Comfortaa', cursive;
   background-image: url("../img/jungle-green-background.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height:100vh;
+  // height:100vh;
   padding: 0px 200px
 }
 
-.hints {
-  p {
-    color: green;
-    margin-left: 10px;
+.hint {
+  margin: 0px 30px;
+
+  .hint-btn {
+    color: white;
+    background-color: #00B7C8;
+    border: white;
+    border-radius: 10px;
+    padding: 10px;
+    -webkit-box-shadow: 3px 3px 3px 0px rgba(255,255,255,0.51);
+    // -moz-box-shadow: 6px 6px 6px 0px rgba(255,255,255,0.51);
+    // box-shadow: 6px 6px 6px 0px rgba(255,255,255,0.51);
+  }
+
+  .hint-text {
+    p {
+      color: white;
+      margin-left: 10px;
+    }
   }
 }
 

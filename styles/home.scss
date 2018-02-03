@@ -36,8 +36,10 @@ html {
 
 .board {
   position:relative;
-  // width: 60vw;
-  height: 35vw;
+  //original widths and height
+  width: 50vw;
+  height: 50vw;
+  // height: 35vw;
   overflow: hidden;
   border: 25px solid #63CBAA;
   // border-radius: 10px;
