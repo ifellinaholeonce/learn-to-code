@@ -1,3 +1,18 @@
+.looper {
+    display:flex;
+    background:orange;
+    padding-top:1em;
+    margin:1px;
+}
+
+.looper-container {
+    background:#f7f7f7;
+    flex:1;
+    margin:1px;
+    min-height:1em;
+}
+
+
 .board {
   position:relative;
   width: 50vw;
