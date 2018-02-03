@@ -38,6 +38,7 @@ class Answer extends Component {
     });
 
     drake.on('drop', function(el, target, source, sibling){
+      //If the user dropped a loop element, clear the source of children
       if (el.id === "loop") {
         source.childNodes.forEach((child) => {
           if (child.id === el.id) {
@@ -48,11 +49,27 @@ class Answer extends Component {
           }
         })
       }
+      //Initialize an array for commands to push to state
       let commands = [];
       for (let child of target.children) {
-        commands.push(child.textContent)
+        //
+        if (child.id === "loop") {
+          let i = 0;
+          while (i < 2) {
+            for (let loopChild of child.firstChild.children) {
+              commands.push(loopChild.textContent)
+            }
+            i++;
+          }
+        } else {
+          commands.push(child.textContent)
+        }
       }
-      setInputState(commands)
+
+      //Moves the dropped command to a higher scope that can push the command to state
+      if (target.id === "right"){
+        setInputState(commands)
+      }
     });
   }
 
