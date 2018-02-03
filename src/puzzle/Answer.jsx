@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import Command from './AnswerOptions.jsx';
-import ActiveCommands from './ActiveCommands.jsx';
 import Dragula from 'react-dragula';
 
 class Answer extends Component {
@@ -47,8 +45,8 @@ class Answer extends Component {
         </header>
         <div className="row">
           <div className="col-md-3 command-list" id="left"  ref={this.dragulaDecorator}>
-            {this.state.commands.map( (type) => {
-              return (<Command type={type} />)
+            {this.state.commands.map((type, i) => {
+              return (<Command key={i} type={type} />)
             })}
           </div>
           <div className="col-md-3 answer-list"  id="right"  ref={this.dragulaDecorator}>
@@ -63,6 +61,14 @@ class Answer extends Component {
       this.containers.push(component)
     }
   }
+}
+
+function Command({ type }) {
+  return (
+    <div className={`${type} btn btn-success m-1`}>
+      {type}
+    </div>
+  )
 }
 
 export default Answer;

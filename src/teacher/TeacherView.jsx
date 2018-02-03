@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import StudentHistory from './StudentHistory.jsx';
 import StudentInfo from './StudentInfo.jsx';
@@ -20,30 +20,16 @@ class TeacherView extends Component {
         this.setState({students: data, errors: null}); })
       .catch((errors) => this.setState({errors: errors}));
   }
-  viewStudent = studentId => e => {
-    this.setState({viewStudent: studentId})
-  }
-  viewSummary = () => {
-    this.setState({ viewStudent: null })
-  }
-  viewPuzzle = id => e => {
-    this.setState({ viewPuzzle: id })
-  }
   render() {
     return (
       <div className="teacher-view">
-        {!this.state.viewStudent &&
-          <StudentHistory
-            students={this.state.students}
-            clickStudent={this.viewStudent} />}
-        {this.state.viewStudent &&
-          <StudentInfo
-            puzzle={this.state.viewPuzzle}
-            viewPuzzle={this.viewPuzzle}
-            viewSummary={this.viewSummary}
-            click={this.viewSummary}
-            auth={this.props.auth}
-            id={this.state.viewStudent} />}
+        <Switch>
+          <Route path="/teacher/students" exact render={(props) => <StudentHistory {...props}
+            students={this.state.students} />} />
+          <Route path="/teacher/students/:id" render={(props) => <StudentInfo {...props}
+            auth={this.props.auth} />} />
+          }
+        </Switch>
       </div>
     );
   }
