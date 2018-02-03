@@ -23,13 +23,16 @@ class StudentView extends Component {
   componentDidMount() {
     if(this.props.userId) {
       request(`students/${this.props.userId}/moves`, "GET", this.props.auth)
-        .then((data) => this.setState({ moves: data })
-      )
-      request("puzzles", "GET", this.props.auth)
         .then((data) => {
-          console.log("Puzzles response:",data)
-          this.setState({ puzzles: data })
-      })
+          let { moves, puzzles } = data;
+          this.setState({ moves, puzzles })
+        }
+      )
+      // request("puzzles", "GET", this.props.auth)
+      //   .then((data) => {
+      //     console.log("Puzzles response:",data)
+      //     this.setState({ puzzles: data })
+      // })
     }
   }
   handleHintClick = () => {
@@ -44,7 +47,7 @@ class StudentView extends Component {
       <div className="student-view">
         <Switch>
           <Route path="/student/puzzles" exact render={(props) => <PuzzleList {...props} puzzles={this.state.puzzles} />} />
-          <Route path="/student/puzzles/:id" render={(props) => <Puzzle {...props}
+          <Route path="/student/puzzles/:puzzlId" render={(props) => <Puzzle {...props}
             puzzles={this.state.puzzles}
             moves={this.state.moves}
             hints={this.state.hints}

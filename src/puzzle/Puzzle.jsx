@@ -15,10 +15,7 @@ class Puzzle extends Component {
       numHints: 0
     }
   }
-  componentDidMount() {
-  }
   handleHintClick = () => {
-    console.log("Hints", this.state.numHints)
     this.setState({numHints: this.state.numHints + 1})
   }
   render() {
@@ -27,7 +24,6 @@ class Puzzle extends Component {
     return (
       <div className="puzzle">
         <div className="puzzle-container d-flex flex-column">
-          <Link to="/student/puzzles"><button className="btn btn-success">Back</button></Link>
           <Question/>
           <div className="display-container hints-container d-flex flex-row">
             <Display puzzle={puzzle}/>
