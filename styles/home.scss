@@ -50,10 +50,13 @@ html {
   width: 50vw;
   height: 50vw;
   overflow: hidden;
-  border: 10px solid brown;
-  border-radius: 10px;
+  border: 25px solid #63CBAA;
+  // border-radius: 10px;
 }
 
+.board:before {
+
+}
 .overlay {
   display: grid;
   grid-template-columns: 20% 20% 20% 20% 20%;
