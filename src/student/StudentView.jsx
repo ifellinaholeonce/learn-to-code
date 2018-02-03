@@ -1,14 +1,9 @@
 import React, {Component} from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-
-import HintList from './puzzle/HintList.jsx';
-import Question from './Question.jsx';
-import Answer from './Answer.jsx';
-import Display from './puzzle/Display.jsx';
 import PuzzleList from './PuzzleList.jsx';
-import Puzzle from './puzzle/Puzzle.jsx';
+import Puzzle from '../puzzle/Puzzle.jsx';
 
-import request from '../models/resource.js'
+import request from '../../models/resource.js'
 
 class StudentView extends Component {
   constructor(props) {
@@ -16,8 +11,7 @@ class StudentView extends Component {
     this.state = {
       moves: [],
       puzzles: [],
-      hints: ['hint1','hint2','hint3'],
-      numHints: 0,
+      puzzleId: null
     };
   }
   componentDidMount() {
@@ -28,31 +22,21 @@ class StudentView extends Component {
           this.setState({ moves, puzzles })
         }
       )
-      // request("puzzles", "GET", this.props.auth)
-      //   .then((data) => {
-      //     console.log("Puzzles response:",data)
-      //     this.setState({ puzzles: data })
-      // })
     }
-  }
-  handleHintClick = () => {
-    let newHints = this.state.numHints + 1;
-    this.setState({numHints: newHints})
   }
   saveMove = (moves, done) => {
     Request(`students/${viewPuzzle}/moves`, "POST", this.props.auth)
   }
   render() {
+    let puzzleId = this.props.location.pathname.match(/\d+/)
+    let puzzle = this.state.puzzles.find((puz) => puz.id == puzzleId)
     return (
       <div className="student-view">
         <Switch>
           <Route path="/student/puzzles" exact render={(props) => <PuzzleList {...props} puzzles={this.state.puzzles} />} />
-          <Route path="/student/puzzles/:puzzlId" render={(props) => <Puzzle {...props}
-            puzzles={this.state.puzzles}
+          <Route path="/student/puzzles/:puzzleId" render={(props) => <Puzzle {...props}
+            puzzle={puzzle}
             moves={this.state.moves}
-            hints={this.state.hints}
-            numHints={this.state.numHints}
-            handleHintClick={this.handleHintClick}
           />} />
         </Switch>
       </div>

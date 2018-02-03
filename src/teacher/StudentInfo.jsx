@@ -11,7 +11,8 @@ class StudentInfo extends Component {
     super(props);
     this.state = {
       moves: [],
-      puzzles: []
+      puzzles: [],
+      puzzleId: null
     };
   }
   componentDidMount() {
@@ -22,6 +23,8 @@ class StudentInfo extends Component {
       });
   }
   render() {
+    let puzzleId = this.props.location.pathname.match(/(\d+)/g)[1]
+    let puzzle = this.state.puzzles.find((puz) => puz.id == puzzleId)
     return (
       <div className="student-info">
       <Switch>
@@ -33,11 +36,8 @@ class StudentInfo extends Component {
         <Route path="/teacher/students/:studentId/puzzle/:puzzleId"
           render={(props) => <Puzzle {...props}
           user="Teacher"
-          puzzles={this.state.puzzles}
-          moves={this.state.moves}
-          hints={this.state.hints}
-          numHints={this.state.numHints}
-          handleHintClick={this.handleHintClick} />} />
+          puzzle={puzzle}
+          moves={this.state.moves} />} />
         </Switch>
       </div>
     );
@@ -45,11 +45,11 @@ class StudentInfo extends Component {
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function PuzzleItem({puzzle, studentId}) {
-  let { id, complete, attempts, concept } = puzzle
+function PuzzleItem({move, studentId}) {
+  let { id, complete, attempts, concept, puzzle_id } = move
   return (
     <tr scope="row">
-      <td><Link to={`${studentId}/puzzle/${id}`}>{id}</Link></td>
+      <td><Link to={`${studentId}/puzzle/${puzzle_id}`}>{id}</Link></td>
       <td>{complete}</td>
       <td>{attempts}</td>
       <td>{concept}</td>
@@ -58,11 +58,11 @@ function PuzzleItem({puzzle, studentId}) {
 }
 
 function TeacherPuzzles({moves, studentId}) {
-  let puzzles = moves.map((puzzle) =>
+  let puzzles = moves.map((move) =>
     <PuzzleItem
       studentId={studentId}
-      key={puzzle.id}
-      puzzle={puzzle} />
+      key={move.id}
+      move={move} />
   );
   return (
     <div className="student-history">

@@ -7,10 +7,8 @@ class PuzzleList extends Component {
     if(this.props.puzzles) {
       puzzleItems = this.props.puzzles.map((puzzle) => {
         return <PuzzleItem
-          id={puzzle.id}
-          name={puzzle.name}
-          concept={puzzle.concept}
-          completed={puzzle.completed} />
+          key={puzzle.id}
+          puzzle={puzzle} />
       })
     }
     return (
@@ -33,7 +31,8 @@ class PuzzleList extends Component {
   }
 }
 
-function PuzzleItem({id, name, concept, completed, click}) {
+function PuzzleItem({puzzle}) {
+  let { id, name, concept, completed } = puzzle;
   return(
     <tr className="puzzle-item">
       <td>{id}</td>
