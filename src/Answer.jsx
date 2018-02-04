@@ -66,7 +66,6 @@ class Answer extends Component {
       for (let child of target.children) {
         //Parse pickup commands
         if (child.id === "pickup") {
-          console.log(child)
           let pickup = {
             pickup: {
               "item": child.lastChild.firstChild.textContent
@@ -75,15 +74,38 @@ class Answer extends Component {
         } else
         //Parse loop commands
         if (child.id === "loop") {
-          let i = 0;
-          while (i < 2) {
-            for (let loopChild of child.firstChild.children) {
-              commands.push(loopChild.textContent)
+          let loop = {
+            loop: {
+              num: 2,
+              cmds: []
             }
-            i++;
           }
+          for (let loopChild of child.firstChild.children) {
+            if (loopChild.id === "pickup") {
+              let pickup = {
+                pickup: {
+                  "item": loopChild.lastChild.firstChild.textContent
+              }};
+              loop.loop.cmds.push(pickup);
+            } else {
+              let movement = {
+                movement : {
+                  dir: loopChild.textContent
+                }
+              }
+              console.log("movement", movement)
+              console.log("loop", loop)
+              loop.loop.cmds.push(movement)
+            }
+          }
+          commands.push(loop)
         } else {
-          commands.push(child.textContent)
+          let movement = {
+            movement: {
+              dir: child.textContent
+            }
+          }
+          commands.push(movement)
         }
       }
 
