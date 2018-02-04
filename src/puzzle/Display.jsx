@@ -8,7 +8,7 @@ import GameSplash from './GameSplash.jsx'
 let board = [
   {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
   {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
-  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "path"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
+  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "berry"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
   {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
   {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
 ];
@@ -156,11 +156,11 @@ class Display extends Component {
   }
 
   renderGameSplash = () => {
-    if (this.state.puzzleComplete) {
-      return <GameSplash status={true} />
-    }
-    if (this.state.puzzleComplete === false)
-      return <GameSplash status={false} />
+    // if (this.state.puzzleComplete) {
+    //   return <GameSplash status={true} />
+    // }
+    // if (this.state.puzzleComplete === false)
+    //   return <GameSplash status={false} />
   }
 
   render() {

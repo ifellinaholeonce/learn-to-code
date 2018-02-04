@@ -7,9 +7,9 @@ class Answer extends Component {
     super(props);
     this.state = {
       commands: ['forward', 'left', 'right'],
+      items: ['strawberry'],
       input: []
     };
-    this.containers = []; //Dragula containers
   }
 
   componentDidMount () {
@@ -33,11 +33,19 @@ class Answer extends Component {
         return source === this.containers[0];
       },
       accepts: function (el, target) {
+        if ( target.id === "pickup") {
+          return target !== this.containers[0] && !contains(el,target) && el.className.indexOf("pickup") >= 0
+        }
         return target !== this.containers[0] && !contains(el,target);
       }
     });
 
-    drake.on('drop', function(el, target, source, sibling){
+    drake.on('drop', function(el, target, source, sibling) {
+      //If the user dropped into a "pickup", clear any children it might have first.
+      if (target.id === "pickup") {
+        console.log(el)
+      }
+
       //If the user dropped a loop element, clear the source of children
       if (el.id === "loop") {
         source.childNodes.forEach((child) => {
@@ -85,11 +93,18 @@ class Answer extends Component {
         </header>
         <div className="row">
           <div className="col-md-3 command-list drake-container" id="left">
-            {this.state.commands.map( (type) => {
-              return (<Command type={type} />)
+            {this.state.commands.map( (move) => {
+              return (<Command type={"movement"} content={move} />)
+            })}
+            {this.state.items.map( (item) => {
+              return (<Command type="pickup" content={item} />)
             })}
             <div className="looper" id="loop">
               <div className="looper-container drake-container"></div>
+            </div>
+            <div className="looper" id="pickup">
+              <label>Pick Up</label>
+              <div className="looper-container drake-container" id="pickup"></div>
             </div>
           </div>
           <div className="col-md-3 answer-list drake-container"  id="right"></div>
