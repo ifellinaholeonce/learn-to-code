@@ -1,0 +1,55 @@
+$forward-colour: $pastel-green;
+$left-colour: #0078ff;
+$right-colour: #0078ff;
+$loop-colour: $pastel-yellow;
+$funct-colour: $pastel-purple;
+
+.action {
+  width: 100px;
+  text-align: left;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+
+  .symbol {
+    margin: 5px 0 5px 20px;
+    color: rgba(0, 0, 0, 0.5);
+  }
+
+
+  &.a-forward {
+    background-color: $forward-colour;
+  }
+
+  &.a-left, &.a-right {
+    background-color: $left-colour;
+  }
+
+  &.a-loop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: $loop-colour;
+
+    & > :first-child {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
+
+    & * {
+      &:first-child {
+        margin-top: 5px;
+      }
+
+      &:last-child {
+        margin-bottom: 5px;
+      }
+    }
+  }
+
+  &.a-function {
+    background-color: $funct-colour;
+  }
+}
