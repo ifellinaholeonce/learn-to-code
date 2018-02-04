@@ -37,6 +37,9 @@ class Display extends Component {
     let execute = ( pendingCommands ) => {
       let command = pendingCommands.shift();
       let playerDir = this.state.playerDir;
+      if (command.hasOwnProperty('pickup')) {
+        return console.log(this.checkSquareType(command.pickup.item))
+      }
       switch (command) {
         case 'forward':
           switch (this.state.playerDir) {
@@ -131,6 +134,7 @@ class Display extends Component {
 
   checkSquareType = (type) => {
     //Pass this function a string and it will check if the player is on a square with a type that matches the string
+    console.log("type", type)
     let result = false;
     let grid = this.state.display
     grid.forEach((square) => {

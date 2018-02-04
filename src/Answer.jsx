@@ -7,7 +7,7 @@ class Answer extends Component {
     super(props);
     this.state = {
       commands: ['forward', 'left', 'right'],
-      items: ['strawberry', 'wood'],
+      items: ['berry', 'wood'],
       input: []
     };
   }
@@ -65,7 +65,14 @@ class Answer extends Component {
       let commands = [];
       for (let child of target.children) {
         //Parse pickup commands
-
+        if (child.id === "pickup") {
+          console.log(child)
+          let pickup = {
+            pickup: {
+              "item": child.lastChild.firstChild.textContent
+            }};
+          commands.push(pickup)
+        } else
         //Parse loop commands
         if (child.id === "loop") {
           let i = 0;
