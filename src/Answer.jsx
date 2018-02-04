@@ -7,7 +7,7 @@ class Answer extends Component {
     super(props);
     this.state = {
       commands: ['forward', 'left', 'right'],
-      items: ['strawberry'],
+      items: ['strawberry', 'wood'],
       input: []
     };
   }
@@ -35,15 +35,19 @@ class Answer extends Component {
       accepts: function (el, target) {
         if ( target.id === "pickup") {
           return target !== this.containers[0] && !contains(el,target) && el.className.indexOf("pickup") >= 0
+        } else {
+          return target !== this.containers[0] && !contains(el,target);
         }
-        return target !== this.containers[0] && !contains(el,target);
       }
     });
 
     drake.on('drop', function(el, target, source, sibling) {
       //If the user dropped into a "pickup", clear any children it might have first.
       if (target.id === "pickup") {
-        console.log(el)
+        target.appendChild(el)
+        if (target.children.length > 1) {
+          target.removeChild(target.firstChild)
+        }
       }
 
       //If the user dropped a loop element, clear the source of children
@@ -60,7 +64,9 @@ class Answer extends Component {
       //Initialize an array for commands to push to state
       let commands = [];
       for (let child of target.children) {
-        //
+        //Parse pickup commands
+
+        //Parse loop commands
         if (child.id === "loop") {
           let i = 0;
           while (i < 2) {
