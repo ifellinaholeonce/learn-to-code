@@ -9,8 +9,8 @@
 .add-student {
     color: rgba(0, 0, 0, 0.2);
     position: absolute;
-    top: 95%;
-    left: 88%;
+    top: calc(100% - 20px;
+    left: calc(90% - 20px);
     border-radius: 20px;
     height: 40px;
     width: 40px;
@@ -19,6 +19,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    &:hover {
+      color: white;
+    }
 }
 
 .create-student {

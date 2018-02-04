@@ -5,7 +5,7 @@ function TeacherPuzzles({moves, puzzles, studentId}) {
   let puzzleItems = groupPuzzleData(puzzles, moves, studentId)
   return (
     <div className="student-history">
-      <Link to="/teacher/students"><button className="button">Back</button></Link>
+      <Link to="/teacher/students"><button className="button navigation">Back</button></Link>
       <table className="student-table teacher-table">
         <thead className="header">
           <tr>
@@ -35,7 +35,7 @@ function PuzzleItem({puzzle, done, attempts, studentId}) {
       <td className="left">{name}</td>
       <td className="left">{concept}</td>
       <td>{attempts}</td>
-      <td><div className="checkbox">{done && <i className="fas fa-check"></i>}</div></td>
+      <td>{done && <i className="checkbox fas fa-check"></i>}</td>
     </tr>
   )
 }

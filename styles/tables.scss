@@ -22,6 +22,11 @@ body {
   border: none;
   height: 40px;
   width: 100px;
+
+  &.navigation {
+    background-color: $pastel-purple;
+    margin: 20px 0 0 10%;
+  }
 }
 
 .button:hover {
@@ -68,13 +73,6 @@ body {
       .shadow.play:hover {
         color: $pastel-green;
       }
-    }
-
-    td:last-child {
-      height: inherit;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
     td.left, th.left {
