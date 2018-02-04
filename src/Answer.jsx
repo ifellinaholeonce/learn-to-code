@@ -93,8 +93,6 @@ class Answer extends Component {
                   dir: loopChild.textContent
                 }
               }
-              console.log("movement", movement)
-              console.log("loop", loop)
               loop.loop.cmds.push(movement)
             }
           }

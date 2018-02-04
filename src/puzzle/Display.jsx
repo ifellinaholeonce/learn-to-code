@@ -35,73 +35,77 @@ class Display extends Component {
 
   runCommands = () => {
     let execute = ( pendingCommands ) => {
-      let command = pendingCommands.shift();
       let playerDir = this.state.playerDir;
-      if (command.hasOwnProperty('pickup')) {
-        return console.log(this.checkSquareType(command.pickup.item))
+      if (pendingCommands.length === 0) {
+        console.log("EMPTY")
+      } else {
+        let command = pendingCommands.shift();
+        if (command.hasOwnProperty("movement")) {
+          this.handleMovement(command, playerDir)
+        }
+        setTimeout(function() {
+          return execute(pendingCommands)
+        }.bind(this), 1000)
       }
-      switch (command) {
-        case 'forward':
-          switch (this.state.playerDir) {
-            case 1:
-              this.moveNorth();
-              break;
-            case 2:
-              this.moveEast();
-              break;
-            case 3:
-              this.moveSouth();
-              break;
-            case 4:
-              this.moveWest();
-              break;
-            default:
-          }
-          break;
-        case 'left':
-          if (playerDir === 1) {
-            playerDir = 4
-          } else {
-            playerDir--;
-          }
-          this.setState({
-            playerDir
-          })
-          break;
-        case 'right':
-          if (playerDir === 4) {
-            playerDir = 1
-          } else {
-            playerDir++;
-          }
-          this.setState({
-            playerDir
-          })
-        default:
-      }
-      setTimeout(function() {
-
-        if ( this.checkSquareType("trees") ) {
-          this.resetMap();
-          this.setState({
-            puzzleComplete: false
-          })
-        } else if (pendingCommands.length > 0) {
-          execute(pendingCommands)
-        } else if ( this.checkSquareType("camp") ) {
-            this.setState({
-              puzzleComplete: true
-            })
-          } else {
-            this.resetMap();
-            this.setState({
-              puzzleComplete: false
-            })
-          }
-      }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
     }
-    let stateCommands = this.state.pendingCommands.slice(0)
+    let stateCommands = this.state.pendingCommands
+      .map(command => ({...command}))
+      .map(command => {
+        if ( command.hasOwnProperty("loop") ) {
+          let arr = []
+          for (let i = 0; i < command.loop.num; i++) {
+            arr = arr.concat(command.loop.cmds)
+          }
+          return arr;
+        } else {
+          return command
+        }
+      })
+    stateCommands = [].concat.apply([],stateCommands)
     execute(stateCommands)
+  }
+
+  handleMovement = (command, playerDir) => {
+    switch (command.movement.dir) {
+      case 'forward':
+        switch (this.state.playerDir) {
+          case 1:
+            this.moveNorth();
+            break;
+          case 2:
+            this.moveEast();
+            break;
+          case 3:
+            this.moveSouth();
+            break;
+          case 4:
+            this.moveWest();
+            break;
+          default:
+        }
+        break;
+      case 'left':
+        if (playerDir === 1) {
+          playerDir = 4
+        } else {
+          playerDir--;
+        }
+        this.setState({
+          playerDir
+        })
+        break;
+      case 'right':
+        if (playerDir === 4) {
+          playerDir = 1
+        } else {
+          playerDir++;
+        }
+        this.setState({
+          playerDir
+        })
+        break;
+    }
+    return
   }
 
   moveNorth = () => {
@@ -134,7 +138,6 @@ class Display extends Component {
 
   checkSquareType = (type) => {
     //Pass this function a string and it will check if the player is on a square with a type that matches the string
-    console.log("type", type)
     let result = false;
     let grid = this.state.display
     grid.forEach((square) => {
