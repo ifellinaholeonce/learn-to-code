@@ -1,0 +1,97 @@
+// Pastel colours
+$pastel-yellow: #ffd117;
+$pastel-lyellow: #ffdd56;
+$pastel-turquoise: #4ee4c4;
+$pastel-red: #ff576f;
+$pastel-green: #a2e260;
+$pastel-purple: #b762ff;
+$checkmark: #a2e260;
+
+body {
+  background-color: $pastel-lyellow;
+
+  .navbar {
+    background-color: $pastel-red;
+  }
+}
+
+// Generic button syling
+.button {
+  border-radius: 3px;
+  background-color: $pastel-lyellow;
+  border: none;
+  height: 40px;
+  width: 100px;
+}
+
+.button:hover {
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+// Style all student tables
+.student-table, .header-box {
+  min-height: 50px;
+  width: 80vw;
+  margin: 20px auto;
+  color: white;
+  border-radius: 5px;
+  background-color: $pastel-red;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+
+  .header {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  }
+
+  tr {
+    height: 50px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+
+    th {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    td {
+      text-align: center;
+
+      // Reset hyperlink styling
+      a {
+        color: inherit;
+        text-decoration: inherit;
+      }
+
+      .shadow, .shadow.play {
+        color: rgba(0, 0, 0, 0.2);
+        font-size: 1.5rem;
+      }
+
+      .shadow.play:hover {
+        color: $pastel-green;
+      }
+    }
+
+    td:last-child {
+      height: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    td.left, th.left {
+      text-align: left;
+    }
+
+    // Done checkbox styling
+    .checkbox {
+      color: $checkmark;
+      width: 20px;
+      height: 20px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+    }
+  }
+
+  tr:last-child {
+    border-bottom: none;
+  }
+}

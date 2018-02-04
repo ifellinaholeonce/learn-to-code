@@ -34,6 +34,9 @@ class App extends Component {
         }
       });
   }
+  logout = () => {
+    this.setState({id: "", user: "", authorization: ""})
+  }
   authenticateUser = (params) => {
     request("user_token", "POST", this.state.authorization, {auth: params})
       .then((res) => {
@@ -46,7 +49,7 @@ class App extends Component {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-        <Navbar />
+        <Navbar logout={this.logout} user={this.state.user} />
         <Switch>
           <Route path="/" exact render={() => this.state.user ? (
             <Redirect to={`/${this.state.user}/${this.state.user === "teacher" ? "students" : "puzzles"}`} />) : (

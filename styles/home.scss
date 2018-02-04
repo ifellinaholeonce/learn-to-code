@@ -1,3 +1,4 @@
+// Body colors
 $size: 20vw;
 $body-color: #4ee4c4;
 $nav-color: #3aad94;
@@ -13,9 +14,8 @@ html {
 .navbar {
   height: 80px;
   background-color: #F5F5F5;
-  // box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.5);
   background-color: #0070DD;
-  box-shadow: 0px 2px 2px #093A02;
+  box-shadow: 0px 4px 0 rgba(0, 0, 0, 0.3);
 
   .navbar-brand {
     color: white;

@@ -33,11 +33,14 @@ class StudentView extends Component {
     return (
       <div className="student-view">
         <Switch>
-          <Route path="/student/puzzles" exact render={(props) => <PuzzleList {...props} puzzles={this.state.puzzles} />} />
-          <Route path="/student/puzzles/:puzzleId" render={(props) => <Puzzle {...props}
-            puzzle={puzzle}
-            moves={this.state.moves}
-          />} />
+          <Route path="/student/puzzles" exact render={(props) =>
+            <PuzzleList {...props}
+              puzzles={this.state.puzzles}
+              moves={this.state.moves} />} />
+          <Route path="/student/puzzles/:puzzleId" render={(props) =>
+            <Puzzle {...props}
+              puzzle={puzzle}
+              moves={this.state.moves} />} />
         </Switch>
       </div>
     );

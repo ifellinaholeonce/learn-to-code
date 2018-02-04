@@ -1,0 +1,53 @@
+.header-text {
+  margin: 10px 10px;
+}
+
+.student-table-container {
+  position: relative;
+}
+
+.add-student {
+    color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: 95%;
+    left: 88%;
+    border-radius: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: $pastel-purple;
+    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-student {
+
+  .form-row {
+    display: flex;
+    margin: 5px 10px;
+  }
+
+  .form-input {
+    flex: 1 1 auto;
+    margin: 0 5px 0 0;
+    padding: 0 0 0 10px;
+    height: 40px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: none;
+    border-radius: 3px;
+    border-top: 2px solid rgba(0, 0, 0, 0.3);
+    border-left: 2px solid rgba(0, 0, 0, 0.3);
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  .button {
+    width: 120px;
+    margin: 5px 10px 20px 10px;
+    text-align: center;
+  }
+}
