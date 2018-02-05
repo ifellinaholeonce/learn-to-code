@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -24,7 +23,7 @@ class LoginForm extends Component {
       e.preventDefault();
       let email = e.target.username.value;
       let password = e.target.password.value;
-      this.props.authenticateUser({email, password});
+      this.props.authenticate({email, password});
     };
     return (
       <div>

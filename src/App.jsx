@@ -1,26 +1,11 @@
 import React, {Component} from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
-
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Navbar from './Navbar.jsx';
-import Puzzle from './puzzle/Puzzle.jsx';
-import UserLinks from './UserLinks.jsx';
 import LoginForm from './Login.jsx';
-import RegisterForm from './Register.jsx';
 import TeacherView from './teacher/TeacherView.jsx';
-import StudentView from './StudentView.jsx';
-import queryString from 'query-string';
+import StudentView from './student/StudentView.jsx';
 
-function request(path, method,  authorization, data) {
-  return fetch(`http://localhost:3000/${path}`, {
-    method: method,
-    body: JSON.stringify(data),
-    headers: new Headers({
-      'Content-Type': 'application/json',
-      'Authorization': authorization
-    })
-  });
-}
+import request from '../models/resource'
 
 /*
 * change user to "Student", change login to true to see puzzle view.
@@ -30,9 +15,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "Student",
-      login: true,
-      register: false,
+      id: "",
+      user: "",
       authorization: ""
     };
   }
@@ -42,47 +26,45 @@ class App extends Component {
   }
   getUser(authorization) {
     request("users", "GET", authorization )
-      .then((res) => res.json())
       .then((data) => {
         let login = this.state.login;
-        if(data.user) {
+        if(data && data.type) {
           login = !login
+          this.setState({
+            user: data.type.toLowerCase(),
+            id: data.id,
+            login
+          })
         }
-        this.setState({ user: data.user, login })
       });
+  }
+  logout = () => {
+    this.setState({id: "", user: "", authorization: ""})
   }
   authenticateUser = (params) => {
     request("user_token", "POST", this.state.authorization, {auth: params})
-      .then((res) => res.json())
       .then((res) => {
         let authorization = `Bearer ${res.jwt}`
         this.setState({ authorization })
         this.getUser( authorization );
       })
   };
-  createUser = (params) => {
-    fetch("register" , "POST", params)
-      .then((res) => res.json())
-      .then((response) => console.log("Response:", res))
-  };
-  toggleForm = (action) => {
-    if(!this.state[action]) {
-      this.setState({login: false, register: false});
-    }
-    this.setState({[action]: !this.state[action]});
-  }
-
-  // Comment out UsserLinks && Register because we might not need that anymore.
   render() {
     console.log("Rendering <App/>");
     return (
       <div className="content">
-        <Navbar/>
-{/*        {!this.state.user && <UserLinks toggleForm={this.toggleForm} />}*/}
-        {!this.state.login && <LoginForm authenticateUser={this.authenticateUser} />}
-{/*        {this.state.register && <RegisterForm createUser={this.createUser} />}*/}
-        {this.state.user === "Teacher" && <TeacherView />}
-        {this.state.user === "Student" && <StudentView />}
+        <Navbar logout={this.logout} user={this.state.user} />
+        <Route path="/" render={() => this.state.user ? (
+          <Redirect to={`/${this.state.user}/${this.state.user === "teacher" ? "students" : "puzzles"}`} />) : (
+          <Redirect to="/login" />)} />
+        <Route path="/login" render={(props) => <LoginForm {...props} authenticate={this.authenticateUser} />} />
+        <Switch>
+          <Route path="/student" render={(props) =>
+            <StudentView {...props} userId={this.state.id} auth={this.state.authorization} />} />
+          <Route path="/teacher" render={(props) =>
+            <TeacherView {...props} userId={this.state.id} auth={this.state.authorization} />} />
+
+        </Switch>
       </div>
     );
   }

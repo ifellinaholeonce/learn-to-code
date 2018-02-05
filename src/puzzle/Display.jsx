@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
-import Answer from './../Answer.jsx';
+import Answer from './Answer.jsx';
 
 
 let board = [
@@ -15,7 +15,7 @@ class Display extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: board,
+      display: this.props.puzzle.game.grid,
       playerLoc: {x: 0, y: 2},
       startLoc: {x: 0, y: 2},
       playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West

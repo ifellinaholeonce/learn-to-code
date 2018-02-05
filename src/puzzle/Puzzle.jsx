@@ -1,26 +1,38 @@
 import React, {Component} from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
+import Navbar from '../Navbar.jsx';
+import Question from './Question.jsx';
+import Display from './Display.jsx';
+import HintList from './HintList.jsx';
 
-import Navbar from './../Navbar.jsx';
-import StudentView from './../StudentView.jsx';
-import TeacherView from './../teacher/TeacherView.jsx';
+import request from '../../models/resource.js'
 
 class Puzzle extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      user: "teacher"
+      numHints: 0
     }
   }
-  componentDidMount() {
-    // Fetch calls for Puzzle
+  handleHintClick = () => {
+    let newHints = this.state.numHints + 1;
+    this.setState({numHints: newHints})
   }
   render() {
-    console.log("Rendering <App/>");
+    let moves = this.props.moves
+    let puzzle = this.props.puzzle
     return (
-      <div className="body">
-        { this.state.user === "teacher" ? <TeacherView/> : <StudentView/> }
+      <div className="puzzle">
+        <div className="puzzle-container d-flex flex-column">
+          <Question/>
+          <div className="display-container hints-container d-flex flex-row">
+            <Display puzzle={puzzle}/>
+            <HintList
+              hints={puzzle.game.hints}
+              numHints={this.state.numHints}
+              handleHintClick={this.handleHintClick} />
+          </div>
+        </div>
       </div>
     );
   }
