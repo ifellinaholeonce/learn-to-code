@@ -6,6 +6,7 @@ $pastel-red: #ff576f;
 $pastel-green: #a2e260;
 $pastel-purple: #b762ff;
 $checkmark: #a2e260;
+$shading: rgba(0, 0, 0, 0.2);
 
 body {
   background-color: $pastel-lyellow;
@@ -30,7 +31,7 @@ body {
 }
 
 .button:hover {
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 0 $shading;
 }
 
 // Style all student tables
@@ -41,19 +42,28 @@ body {
   color: white;
   border-radius: 5px;
   background-color: $pastel-red;
-  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 4px 0 $shading;
 
   .header {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid $shading;
   }
 
   tr {
     height: 50px;
-    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid $shading;
+
+    & th:first-child {
+      border-radius: 5px 0 0 0;
+    }
+
+    & th:last-child {
+      border-radius: 0 5px 0 0;
+    }
 
     th {
       font-weight: bold;
       text-align: center;
+      background-color: $shading;
     }
 
     td {
@@ -66,7 +76,7 @@ body {
       }
 
       .shadow, .shadow.play {
-        color: rgba(0, 0, 0, 0.2);
+        color: $shading;
         font-size: 1.5rem;
       }
 
@@ -84,7 +94,7 @@ body {
       color: $checkmark;
       width: 20px;
       height: 20px;
-      background-color: rgba(0, 0, 0, 0.2);
+      background-color: $shading;
       border-radius: 3px;
     }
   }

@@ -50,10 +50,11 @@ class App extends Component {
     return (
       <div className="content">
         <Navbar logout={this.logout} user={this.state.user} />
+        <Route path="/" render={() => this.state.user ? (
+          <Redirect to={`/${this.state.user}/${this.state.user === "teacher" ? "students" : "puzzles"}`} />) : (
+          <Redirect to="/login" />)} />
+        <Route path="/login" render={(props) => <LoginForm {...props} authenticate={this.authenticateUser} />} />
         <Switch>
-          <Route path="/" exact render={() => this.state.user ? (
-            <Redirect to={`/${this.state.user}/${this.state.user === "teacher" ? "students" : "puzzles"}`} />) : (
-            <LoginForm authenticate={this.authenticateUser} />)} />
           <Route path="/student" render={(props) =>
             <StudentView {...props} userId={this.state.id} auth={this.state.authorization} />} />
           <Route path="/teacher" render={(props) =>
