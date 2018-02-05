@@ -154,7 +154,7 @@ class Display extends Component {
 
     return (
       <div className="puzzle">
-        <div className="d-flex flex-column">
+        <div className="puzzle-answer-container d-flex flex-row">
           <div className="board">
             <div className="overlay">
               {this.initMap()}
@@ -167,7 +167,9 @@ class Display extends Component {
               <div className="player-feet"></div>
             </div>
           </div>
-          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          <div className="answer">
+            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          </div>
         </div>
       </div>
     );

@@ -38,18 +38,18 @@ class Answer extends Component {
   render() {
     return (
       <div className="text-center">
-        <header className="row flex-sm-row">
-          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
-            Run Commands
+        <header className="answers-container d-flex flex-column">
+          <button onClick={this.props.runCommands} className="play-btn">
+            PLAY
           </button>
         </header>
-        <div className="row">
-          <div className="col-md-3 command-list" id="left"  ref={this.dragulaDecorator}>
+        <div className="d-flex flex-row">
+          <div className="command-list d-flex flex-column" id="left"  ref={this.dragulaDecorator}>
             {this.state.commands.map((type, i) => {
               return (<Command key={i} type={type} />)
             })}
           </div>
-          <div className="col-md-3 answer-list"  id="right"  ref={this.dragulaDecorator}>
+          <div className="answer-list"  id="right"  ref={this.dragulaDecorator}>
           </div>
         </div>
       </div>
@@ -65,7 +65,11 @@ class Answer extends Component {
 
 function Command({ type }) {
   return (
-    <div className={`${type} btn btn-success m-1`}>
+    <div className={`${type} m-1 jigsaw`}>
+      <span className="t"></span>
+      <span className="r"></span>
+      <span className="b"></span>
+      <span className="l"></span>
       {type}
     </div>
   )
