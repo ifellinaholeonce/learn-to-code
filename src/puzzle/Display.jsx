@@ -36,8 +36,17 @@ class Display extends Component {
   runCommands = () => {
     let execute = ( pendingCommands ) => {
       let playerDir = this.state.playerDir;
-      if (pendingCommands.length === 0) {
-        console.log("EMPTY")
+      if ( pendingCommands.length === 0 ) {
+        if ( this.checkSquareType("camp") ) {
+          this.setState({
+            puzzleComplete: true
+          })
+        } else {
+          this.resetMap();
+          this.setState({
+            puzzleComplete: false
+          })
+        }
       } else {
         let command = pendingCommands.shift();
         if (command.hasOwnProperty("movement")) {
@@ -47,6 +56,12 @@ class Display extends Component {
           console.log(this.checkSquareType(command.pickup.item))
         }
         setTimeout(function() {
+          if ( this.checkSquareType("tree") ) {
+            this.resetMap();
+            return this.setState({
+              puzzleComplete: false
+            })
+          }
           return execute(pendingCommands)
         }.bind(this), 1000)
       }
@@ -167,11 +182,11 @@ class Display extends Component {
   }
 
   renderGameSplash = () => {
-    // if (this.state.puzzleComplete) {
-    //   return <GameSplash status={true} />
-    // }
-    // if (this.state.puzzleComplete === false)
-    //   return <GameSplash status={false} />
+    if (this.state.puzzleComplete) {
+      return <GameSplash status={true} />
+    }
+    if (this.state.puzzleComplete === false)
+      return <GameSplash status={false} />
   }
 
   render() {
