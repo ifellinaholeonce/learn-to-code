@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Command from './AnswerOptions.jsx';
 import Dragula from 'react-dragula';
 
 class Answer extends Component {
@@ -151,6 +150,14 @@ class Answer extends Component {
       this.containers.push(component)
     }
   }
+}
+
+function Command({ type }) {
+  return (
+    <div className={`${type} btn btn-success m-1`}>
+      {type}
+    </div>
+  )
 }
 
 export default Answer;

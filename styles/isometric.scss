@@ -1,0 +1,302 @@
+.game-board {
+    position: relative;
+    font-size: 8px;
+    margin-top: 10em;
+    margin-left: 5em;
+    height: 60em;
+}
+
+a.SvgContainer {
+    display: block;
+    color: rgb(0, 0, 0)
+}
+
+.SvgContainer .Svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible
+}
+
+.SvgContainer .Svg--heightAuto {
+    height: auto
+}
+
+.Svg {
+    fill: rgb(0, 0, 0)
+}
+
+.Svg--rotate90 {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg)
+}
+
+.Svg--rotate180 {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg)
+}
+
+.Svg--rotate270 {
+    -webkit-transform: rotate(270deg);
+    transform: rotate(270deg)
+}
+
+.Outline {
+    position: absolute;
+    top: -.75em;
+    left: -.6em;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    pointer-events: none
+}
+
+.Outline .Svg {
+    fill: rgb(0, 0, 0);
+}
+
+.CubeOutline.CubeOutline--typeTop.Svg {
+    fill: #4b830d;
+}
+
+.CubeOutline--typeTop {
+    stroke-width: 10;
+}
+
+.CubeOutline.CubeOutline--typeLeft.Svg {
+    fill: #321911;
+}
+
+.CubeOutline.CubeOutline--typeRight.Svg {
+    fill: #5d4037;
+}
+
+.Outline--typeCube {
+    top: -.6em;
+    left: -.6em;
+    width: 18.4em;
+    height: 21em
+}
+
+.CubeOutline,.CubesFrame {
+    right: 0;
+    bottom: 0;
+    margin: auto
+}
+
+.Cube,.CubeOutline,.CubesFrame {
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.Cube .Jelly,.Cube .JellyInterior {
+    width: 100%;
+    height: 100%
+}
+
+.Cube--typeSolo {
+    width: 17.2em;
+    height: 19.8em
+}
+
+.Face {
+    position: absolute;
+    width: 10em;
+    height: 10em;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    transition: background-color .24s cubic-bezier(.64,0,.35,1);
+}
+
+.Face--typeTop {
+    top: 9.9em;
+    left: 8.6em;
+    -webkit-transform: rotate(210deg) skewX(-30deg) scaleY(.864);
+    transform: rotate(210deg) skewX(-30deg) scaleY(.864);
+}
+
+.Face--typeRight {
+    top: 9.9em;
+    left: 8.6em;
+    -webkit-transform: rotate(-30deg) skewX(-30deg) scaleY(.864);
+    transform: rotate(-30deg) skewX(-30deg) scaleY(.864)
+}
+
+.Face--typeLeft {
+    top: 9.9em;
+    left: 8.6em;
+    -webkit-transform: rotate(90deg) skewX(-30deg) scaleY(.864);
+    transform: rotate(90deg) skewX(-30deg) scaleY(.864)
+}
+
+/* ----- Themes -----*/
+.Theme-Woods .Face--typeTop {
+    background-color: #7cb342
+}
+
+.Theme-Woods .Face--typeTop.draggable-source:hover {
+    background-color: #7cb342
+}
+
+.Theme-Woods .Face--typeRight {
+    background-color: #a98274
+}
+
+.Theme-Woods .Face--typeRight.draggable-source:hover {
+    background-color: #a98274
+}
+
+.Theme-Woods .Face--typeLeft {
+    background-color: #795548
+}
+
+.Theme-Woods .Face--typeLeft.draggable-source:hover {
+    background-color: #795548
+}
+
+.Theme-Woods.draggable-source:hover .Face--typeTop {
+    background-color: #9651d1
+}
+
+.Theme-Woods.draggable-source:hover .Face--typeRight {
+    background-color: #85b950
+}
+
+.Theme-Woods.draggable-source:hover .Face--typeLeft {
+    background-color: #a2e261
+}
+
+img {
+    -webkit-transform: translate3d(2em, -6em, 1em);
+    max-width: 70%;
+}
+
+// Col 1
+.Cube1 {
+    -webkit-transform: translate3d(34.4em, 0em, 0);
+    z-index: 0;
+}
+
+.Cube2 {
+    -webkit-transform: translate3d(43em, 5em, 0);
+    z-index: 1;
+}
+
+.Cube3 {
+    -webkit-transform: translate3d(51.6em, 10em, 0);
+    z-index: 2;
+}
+
+.Cube4 {
+    -webkit-transform: translate3d(60.2em, 15em, 0);
+    z-index: 3;
+}
+
+.Cube5 {
+    -webkit-transform: translate3d(68.8em, 20em, 0);
+    z-index: 4;
+}
+
+// Col 2
+.Cube6 {
+    -webkit-transform: translate3d(25.8em, 5em, 0);
+    z-index: 5;
+}
+
+.Cube7 {
+    -webkit-transform: translate3d(34.4em, 10em, 0);
+    z-index: 6;
+}
+
+.Cube8 {
+    -webkit-transform: translate3d(43em, 15em, 0);
+    z-index: 7;
+}
+
+.Cube9 {
+    -webkit-transform: translate3d(51.6em, 20em, 0);
+    z-index: 8;
+}
+
+.Cube10 {
+    -webkit-transform: translate3d(60.2em, 25em, 0);
+    z-index: 9;
+}
+
+// Col 3
+.Cube11 {
+    -webkit-transform: translate3d(17.2em, 10em, 0);
+    z-index: 10;
+}
+
+.Cube12 {
+    -webkit-transform: translate3d(25.8em, 15em, 0);
+    z-index: 11;
+}
+
+.Cube13 {
+    -webkit-transform: translate3d(34.4em, 20em, 0);
+    z-index: 12;
+}
+
+.Cube14 {
+    -webkit-transform: translate3d(43em, 25em, 0);
+    z-index: 13;
+}
+
+.Cube15 {
+    -webkit-transform: translate3d(51.6em, 30em, 0);
+    z-index: 14;
+}
+
+// Col 4
+.Cube16 {
+    -webkit-transform: translate3d(8.6em, 15em, 0);
+    z-index: 15;
+}
+
+.Cube17 {
+    -webkit-transform: translate3d(17.2em, 20em, 0);
+    z-index: 16;
+}
+
+.Cube18 {
+    -webkit-transform: translate3d(25.8em, 25em, 0);
+    z-index: 17;
+}
+
+.Cube19 {
+    -webkit-transform: translate3d(34.4em, 30em, 0);
+    z-index: 18;
+}
+
+.Cube20 {
+    -webkit-transform: translate3d(43em, 35em, 0);
+    z-index: 19;
+}
+
+// Col 5
+.Cube21 {
+    -webkit-transform: translate3d(0em, 20em, 0);
+    z-index: 20;
+}
+
+.Cube22 {
+    -webkit-transform: translate3d(8.6em, 25em, 0);
+    z-index: 21;
+}
+
+.Cube23 {
+    -webkit-transform: translate3d(17.2em, 30em, 0);
+    z-index: 22;
+}
+
+.Cube24 {
+    -webkit-transform: translate3d(25.8em, 35em, 0);
+    z-index: 23;
+}
+
+.Cube25 {
+    -webkit-transform: translate3d(34.4em, 40em, 0);
+    z-index: 24;
+}
