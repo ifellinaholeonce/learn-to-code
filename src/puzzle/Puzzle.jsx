@@ -23,15 +23,15 @@ class Puzzle extends Component {
     let puzzle = this.props.puzzle
     return (
       <div className="puzzle">
-        <div className="puzzle-container d-flex flex-column">
-          <Question/>
-          <div className="display-container hints-container d-flex flex-row">
+        <div className="puzzle-container d-flex flex-row justify-content-center">
+          <div className="puzzle-display d-flex flex-column align-items-center">
+            <Question/>
             <Display puzzle={puzzle}/>
-            <HintList
-              hints={puzzle.game.hints}
-              numHints={this.state.numHints}
-              handleHintClick={this.handleHintClick} />
           </div>
+          <HintList
+            hints={puzzle.game.hints}
+            numHints={this.state.numHints}
+            handleHintClick={this.handleHintClick} />
         </div>
       </div>
     );
