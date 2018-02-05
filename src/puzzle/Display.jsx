@@ -43,6 +43,9 @@ class Display extends Component {
         if (command.hasOwnProperty("movement")) {
           this.handleMovement(command, playerDir)
         }
+        if (command.hasOwnProperty('pickup')) {
+          console.log(this.checkSquareType(command.pickup.item))
+        }
         setTimeout(function() {
           return execute(pendingCommands)
         }.bind(this), 1000)
@@ -62,6 +65,7 @@ class Display extends Component {
         }
       })
     stateCommands = [].concat.apply([],stateCommands)
+    console.log(stateCommands)
     execute(stateCommands)
   }
 
