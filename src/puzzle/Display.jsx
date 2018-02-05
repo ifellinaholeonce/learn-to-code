@@ -154,7 +154,7 @@ class Display extends Component {
 
     return (
       <div className="puzzle">
-        <div className="d-flex flex-column">
+        <div className="puzzle-answer-container d-flex flex-row">
           <div className="board">
             <div className="overlay">
               {this.initMap()}

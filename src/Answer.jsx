@@ -40,17 +40,19 @@ class Answer extends Component {
   render() {
     return (
       <div className="text-center">
-        <div className="d-flex flex-row">
-          <div className="col-md-3 command-list" id="left"  ref={this.dragulaDecorator}>
-            {this.state.commands.map( (type) => {
-              return (<Command type={type} />)
-            })}
-          </div>
-          <div className="col-md-3 answer-list"  id="right"  ref={this.dragulaDecorator}>
-          </div>
+        <div className="d-flex flex-column">
           <button onClick={this.props.runCommands} className="btn btn-warning">
             Run Commands
           </button>
+          <div className="d-flex flex-row">
+            <div className="command-list" id="left"  ref={this.dragulaDecorator}>
+              {this.state.commands.map( (type) => {
+                return (<Command type={type} />)
+              })}
+            </div>
+            <div className="answer-list"  id="right"  ref={this.dragulaDecorator}>
+            </div>
+          </div>
         </div>
       </div>
     );
