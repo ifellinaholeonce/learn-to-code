@@ -152,10 +152,10 @@ class Answer extends Component {
   }
 }
 
-function Command({ type }) {
+function Command({ type, content }) {
   return (
     <div className={`${type} btn btn-success m-1`}>
-      {type}
+      {content}
     </div>
   )
 }

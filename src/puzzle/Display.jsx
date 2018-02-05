@@ -3,6 +3,7 @@ import Square from './Squares.jsx';
 import Answer from './Answer.jsx';
 import Sam from './Sam.jsx';
 import GameSplash from './GameSplash.jsx'
+import IsometricBoard from './IsometricBoard.jsx'
 
 
 let board = [
@@ -80,7 +81,6 @@ class Display extends Component {
         }
       })
     stateCommands = [].concat.apply([],stateCommands)
-    console.log(stateCommands)
     execute(stateCommands)
   }
 
@@ -193,13 +193,9 @@ class Display extends Component {
     return (
       <div className="puzzle">
         <div className="d-flex flex-column">
-          <div className="board">
-            <div className="overlay">
-              {this.initMap()}
-            </div>
+              {/* {this.initMap()} */}
+              <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
             {this.renderGameSplash()}
-            <Sam playerLoc={this.state.playerLoc}/>
-          </div>
           <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
         </div>
       </div>

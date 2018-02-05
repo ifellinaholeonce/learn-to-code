@@ -8,8 +8,8 @@ class Sam extends Component {
 
   render() {
     let playerLocStyle = {
-      top: (this.props.playerLoc.y * 20) + "%",
-      left: (this.props.playerLoc.x * 20) + "%",
+      top: (35 - 5 * this.props.playerLoc.x - 5 * this.props.playerLoc.y) + "em",
+      left: (37 - 8.6 * this.props.playerLoc.x + 8.6 * this.props.playerLoc.y) + "em",
     }
     return (
       <div className="player" style={playerLocStyle}>

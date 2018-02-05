@@ -82,6 +82,7 @@
   width: 20%;
   padding: 1%;
   transition: all 1s ease;
+  z-index: 100;
 
   &.north{
     transform: rotateX(50deg) rotateY(0deg);
