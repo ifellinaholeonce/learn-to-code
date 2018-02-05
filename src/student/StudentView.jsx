@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import PuzzleList from './PuzzleList.jsx';
 import Puzzle from '../puzzle/Puzzle.jsx';
-
+import IsometricBoard from './IsometricBoard.jsx';
 import request from '../../models/resource.js'
 
 class StudentView extends Component {
@@ -32,6 +32,7 @@ class StudentView extends Component {
     let puzzle = this.state.puzzles.find((puz) => puz.id == puzzleId)
     return (
       <div className="student-view">
+        <IsometricBoard />
         <Switch>
           <Route path="/student/puzzles" exact render={(props) =>
             <PuzzleList {...props}
