@@ -40,14 +40,14 @@ class Answer extends Component {
   render() {
     return (
       <div className="text-center">
-        <div className="d-flex flex-column">
-          <button onClick={this.props.runCommands} className="btn btn-warning">
-            Run Commands
+        <div className="answers-container d-flex flex-column">
+          <button onClick={this.props.runCommands} className="play-btn">
+            PLAY
           </button>
           <div className="d-flex flex-row">
-            <div className="command-list" id="left"  ref={this.dragulaDecorator}>
-              {this.state.commands.map( (type) => {
-                return (<Command type={type} />)
+            <div className="command-list d-flex flex-column" id="left"  ref={this.dragulaDecorator}>
+              {this.state.commands.map( (type, i) => {
+                return (<Command key={i} type={type} />)
               })}
             </div>
             <div className="answer-list"  id="right"  ref={this.dragulaDecorator}>

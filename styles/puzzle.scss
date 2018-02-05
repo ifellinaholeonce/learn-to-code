@@ -1,11 +1,12 @@
 $font-comfortaa: 'Comfortaa', cursive;
 
 .puzzle-container {
-  background-image: url("../img/jungle-green-background.png");
+  background-image: url("../img/aqua-green.jpg");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   // height:100vh;
   padding: 0px 50px;
+  opacity: 50%;
 }
 
 .hint {
