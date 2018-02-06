@@ -118,9 +118,9 @@ class Answer extends Component {
   render() {
     return (
       <div className="text-center">
-        <header className="row flex-sm-row">
-          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
-            Run Commands
+        <header className="answers-container d-flex flex-column">
+          <button onClick={this.props.runCommands} className="play-btn">
+            PLAY
           </button>
         </header>
         <div className="row">
@@ -154,7 +154,11 @@ class Answer extends Component {
 
 function Command({ type, content }) {
   return (
-    <div className={`${type} btn btn-success m-1`}>
+    <div className={`${type} m-1 jigsaw`}>
+      <span className="t"></span>
+      <span className="r"></span>
+      <span className="b"></span>
+      <span className="l"></span>
       {content}
     </div>
   )

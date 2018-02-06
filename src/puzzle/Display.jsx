@@ -188,7 +188,9 @@ class Display extends Component {
         <div className="d-flex flex-column">
               {this.renderGameSplash()}
               <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
-          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          <div className="answer">
+            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          </div>
         </div>
       </div>
     );
