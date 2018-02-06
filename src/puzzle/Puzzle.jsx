@@ -28,7 +28,7 @@ class Puzzle extends Component {
         <div className="puzzle-container d-flex flex-row justify-content-center">
           <div className="puzzle-display d-flex flex-column align-items-center">
             <Question/>
-            <Display puzzle={puzzle} moveId={location && location.moveId} />
+            <Display puzzle={puzzle} moves={moves} moveId={location && location.moveId} />
           </div>
           <HintList
             hints={puzzle.game.hints}

@@ -28,6 +28,13 @@ class Display extends Component {
      };
   }
 
+  componentDidMount() {
+    let move = this.props.moves.find(move => move.id === this.props.moveId);
+    if(move) {
+      this.prepCommands(move.moves);
+    }
+  }
+
   //Expects an array of commands from Answers - forward, left, right
   prepCommands = (commands) => {
     this.setState({
@@ -195,7 +202,10 @@ class Display extends Component {
             <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
           </div>
           <div className="answer">
-            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+            <Answer
+              prepCommands={this.prepCommands}
+              pendingCommands={this.state.pendingCommands}
+              runCommands={this.runCommands}/>
           </div>
         </div>
       </div>

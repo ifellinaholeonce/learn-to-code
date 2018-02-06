@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import Dragula from 'react-dragula';
+import DisplaySequence from './DisplaySequence.jsx';
 
 class Answer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       commands: ['forward', 'left', 'right'],
       items: ['berry', 'wood'],
@@ -113,9 +115,8 @@ class Answer extends Component {
     });
   }
 
-
-
   render() {
+    console.log("Pending:", this.props.pendingCommands)
     return (
       <div className="text-center">
         <header className="answers-container d-flex flex-column">
@@ -139,7 +140,9 @@ class Answer extends Component {
               <div className="looper-container drake-container" id="pickup"></div>
             </div>
           </div>
-          <div className="col-md-3 answer-list drake-container"  id="right"></div>
+          <div className="col-md-3 answer-list drake-container"  id="right">
+            {this.props.pendingCommands && <DisplaySequence moveGroup={this.props.pendingCommands} />}
+          </div>
         </div>
       </div>
     );
