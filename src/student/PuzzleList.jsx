@@ -30,7 +30,7 @@ class PuzzleList extends Component {
     }
     let moves = this.props.moves.filter((move) => move.puzzle_id == this.state.viewPuzzle)
     return (
-      <div className="student-summary container">
+      <div className="student-summary">
         {this.state.viewPuzzle && <MoveSummary moves={moves} />}
         <table className="student-table">
           <thead className="header">

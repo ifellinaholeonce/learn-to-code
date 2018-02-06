@@ -4,6 +4,7 @@ import Navbar from '../Navbar.jsx';
 import Question from './Question.jsx';
 import Display from './Display.jsx';
 import HintList from './HintList.jsx';
+import IsometricBoard from './IsometricBoard.jsx'
 
 import request from '../../models/resource.js'
 
