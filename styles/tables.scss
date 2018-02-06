@@ -44,6 +44,10 @@ body {
   background-color: $pastel-red;
   box-shadow: 4px 4px 0 $shading;
 
+  .locked {
+    color: rgba(255, 255, 255, 0.5)
+  }
+
   .header {
     border-bottom: 2px solid $shading;
   }
@@ -91,7 +95,11 @@ body {
 
     // Done checkbox styling
     .checkbox {
-      color: $checkmark;
+      &.completed {
+        color: $checkmark;
+      }
+
+      color: rgba(0, 0, 0, 0);
       width: 20px;
       height: 20px;
       background-color: $shading;

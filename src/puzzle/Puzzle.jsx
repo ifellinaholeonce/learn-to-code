@@ -4,6 +4,7 @@ import Navbar from '../Navbar.jsx';
 import Question from './Question.jsx';
 import Display from './Display.jsx';
 import HintList from './HintList.jsx';
+import IsometricBoard from './IsometricBoard.jsx'
 
 import request from '../../models/resource.js'
 
@@ -21,17 +22,18 @@ class Puzzle extends Component {
   render() {
     let moves = this.props.moves
     let puzzle = this.props.puzzle
+    let location = this.props.location.state
     return (
       <div className="puzzle">
-        <div className="puzzle-container d-flex flex-column">
-          <Question/>
-          <div className="display-container hints-container d-flex flex-row">
-            <Display puzzle={puzzle}/>
-            <HintList
-              hints={puzzle.game.hints}
-              numHints={this.state.numHints}
-              handleHintClick={this.handleHintClick} />
+        <div className="puzzle-container d-flex flex-row justify-content-center">
+          <div className="puzzle-display d-flex flex-column align-items-center">
+            <Question/>
+            <Display puzzle={puzzle} moveId={location && location.moveId} />
           </div>
+          <HintList
+            hints={puzzle.game.hints}
+            numHints={this.state.numHints}
+            handleHintClick={this.handleHintClick} />
         </div>
       </div>
     );

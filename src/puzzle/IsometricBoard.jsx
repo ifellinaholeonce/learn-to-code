@@ -1,17 +1,10 @@
 import React, {Component} from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
-
-let board = [
-  {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
-  {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
-  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "path"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
-  {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
-  {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
-];
+import Sam from './Sam.jsx';
 
 class IsometricBoard extends Component {
   render() {
-    board.sort((a, b) => {
+    this.props.puzzle.game.grid.sort((a, b) => {
       if(a.y < b.y) {
         return 1
       } else if(a.y === b.y) {
@@ -20,9 +13,9 @@ class IsometricBoard extends Component {
         return -1
       }
     })
-    let squares = board.map((square, i) => {
+    let squares = this.props.puzzle.game.grid.map((square, i) => {
       return (
-        <div id={`Cube${i+1}`} className={`Cube Cube--typeSolo Theme-Woods Cube${i+1}`}>
+        <div key={i} id={`Cube${i+1}`} className={`Cube Cube--typeSolo Theme-Woods Cube${i+1}`}>
           <div className="CubeInterior">
             <div className="FaceWrapper" data-face="top">
               <div className="SvgContainer Face Face--typeTop">
@@ -65,6 +58,7 @@ class IsometricBoard extends Component {
     })
     return (
       <div className="game-board">
+        <Sam playerLoc={this.props.playerLoc}/>
         <div id="InjectSVG" className="visuallyhidden">
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="SVGCubeOutlineLeft" viewBox="0 0 180 207">

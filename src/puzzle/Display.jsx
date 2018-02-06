@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
 import Answer from './Answer.jsx';
-import IsometricBoard from '../student/IsometricBoard.jsx';
+import Sam from './Sam.jsx';
+import GameSplash from './GameSplash.jsx'
+import IsometricBoard from './IsometricBoard.jsx'
+
 
 
 let board = [
   {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
   {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
-  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "path"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
+  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "berry"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
   {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
   {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
 ];
@@ -34,63 +37,95 @@ class Display extends Component {
 
   runCommands = () => {
     let execute = ( pendingCommands ) => {
-      let command = pendingCommands.shift();
       let playerDir = this.state.playerDir;
-      switch (command) {
-        case 'forward':
-          switch (this.state.playerDir) {
-            case 1:
-              this.moveNorth();
-              break;
-            case 2:
-              this.moveEast();
-              break;
-            case 3:
-              this.moveSouth();
-              break;
-            case 4:
-              this.moveWest();
-              break;
-            default:
-          }
-          break;
-        case 'left':
-          if (playerDir === 1) {
-            playerDir = 4
-          } else {
-            playerDir--;
-          }
+      if ( pendingCommands.length === 0 ) {
+        if ( this.checkSquareType("camp") ) {
           this.setState({
-            playerDir
+            puzzleComplete: true
           })
-          break;
-        case 'right':
-          if (playerDir === 4) {
-            playerDir = 1
-          } else {
-            playerDir++;
-          }
-          this.setState({
-            playerDir
-          })
-        default:
-      }
-      setTimeout(function() {
-
-        if ( this.checkSquareType("trees") ) {
-          this.resetMap();
-        } else if (pendingCommands.length > 0) {
-          execute(pendingCommands)
         } else {
-          if ( this.checkSquareType("camp") ) {
-            return console.log("VICTORY")
-          }
           this.resetMap();
+          this.setState({
+            puzzleComplete: false
+          })
         }
-      }.bind(this), 1000); //Need a timeout so React doesn't compile all of the movements into one update.
+      } else {
+        let command = pendingCommands.shift();
+        if (command.hasOwnProperty("movement")) {
+          this.handleMovement(command, playerDir)
+        }
+        if (command.hasOwnProperty('pickup')) {
+          console.log(this.checkSquareType(command.pickup.item))
+        }
+        setTimeout(function() {
+          if ( this.checkSquareType("tree") ) {
+            this.resetMap();
+            return this.setState({
+              puzzleComplete: false
+            })
+          }
+          return execute(pendingCommands)
+        }.bind(this), 1000)
+      }
     }
-    let stateCommands = this.state.pendingCommands.slice(0)
+    let stateCommands = this.state.pendingCommands
+      .map(command => ({...command}))
+      .map(command => {
+        if ( command.hasOwnProperty("loop") ) {
+          let arr = []
+          for (let i = 0; i < command.loop.num; i++) {
+            arr = arr.concat(command.loop.cmds)
+          }
+          return arr;
+        } else {
+          return command
+        }
+      })
+    stateCommands = [].concat.apply([],stateCommands)
     execute(stateCommands)
+  }
+
+  handleMovement = (command, playerDir) => {
+    switch (command.movement.dir) {
+      case 'forward':
+        switch (this.state.playerDir) {
+          case 1:
+            this.moveNorth();
+            break;
+          case 2:
+            this.moveEast();
+            break;
+          case 3:
+            this.moveSouth();
+            break;
+          case 4:
+            this.moveWest();
+            break;
+          default:
+        }
+        break;
+      case 'left':
+        if (playerDir === 1) {
+          playerDir = 4
+        } else {
+          playerDir--;
+        }
+        this.setState({
+          playerDir
+        })
+        break;
+      case 'right':
+        if (playerDir === 4) {
+          playerDir = 1
+        } else {
+          playerDir++;
+        }
+        this.setState({
+          playerDir
+        })
+        break;
+    }
+    return
   }
 
   moveNorth = () => {
@@ -146,25 +181,22 @@ class Display extends Component {
     });
     return grid;
   }
-
   render() {
     let playerLocStyle = {
       top: ((this.state.playerLoc.x - this.state.playerLoc.y) * 10)  + "%",
-      left: ((this.state.playerLoc.x + this.state.playerLoc.y) * 10) + "%",
+      left: ((this.state.playerLoc.x + this.state.playerLoc.y) * 10) + "%"
     }
-
     return (
       <div className="puzzle">
-        <div className="d-flex flex-column">
-          <IsometricBoard />
-          <div className="player" style={playerLocStyle}>
-            <div className="player-top"></div>
-            <div className="player-eye-right"></div>
-            <div className="player-eye-left"></div>
-            <div className="player-bottom"></div>
-            <div className="player-feet"></div>
+        <div className="puzzle-answer-container d-flex flex-row">
+          {/* {this.initMap()} */}
+          <div className="board">
+            {/* this.renderGameSplash() */}
+            <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
           </div>
-          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          <div className="answer">
+            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          </div>
         </div>
       </div>
     );
