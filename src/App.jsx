@@ -7,6 +7,10 @@ import StudentView from './student/StudentView.jsx';
 
 import request from '../models/resource'
 
+/*
+* change user to "Student", change login to true to see puzzle view.
+*/
+
 class App extends Component {
   constructor(props) {
     super(props);

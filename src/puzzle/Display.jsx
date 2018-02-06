@@ -192,11 +192,15 @@ class Display extends Component {
   render() {
     return (
       <div className="puzzle">
-        <div className="d-flex flex-column">
-              {/* {this.initMap()} */}
-              {this.renderGameSplash()}
-              <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
-          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+        <div className="puzzle-answer-container d-flex flex-row">
+          {/* {this.initMap()} */}
+          <div className="board">
+            {this.renderGameSplash()}
+            <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
+          </div>
+          <div className="answer">
+            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
+          </div>
         </div>
       </div>
     );
