@@ -6,7 +6,8 @@ class PuzzleList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      viewPuzzle: null
+      viewPuzzle: null,
+      viewMoves: null
     }
   }
   showMoves = puzzleId => e => {
@@ -16,22 +17,25 @@ class PuzzleList extends Component {
       this.setState({ viewPuzzle: puzzleId })
     }
   }
+  toggleMoves = moveId => e => {
+    let move = this.state.viewMoves === moveId ? null : moveId
+    this.setState({viewMoves: move})
+  }
   render() {
-    let puzzleItems;
-    if(this.props.puzzles) {
-      puzzleItems = this.props.puzzles.map((puzzle) => {
-        let done = this.props.moves.find((move) => move.puzzle_id == puzzle.id && move.completed)
-        return <PuzzleItem
-          showMoves={this.showMoves}
-          key={puzzle.id}
-          puzzle={puzzle}
-          done={done && done.completed} />
-      })
-    }
-    let moves = this.props.moves.filter((move) => move.puzzle_id == this.state.viewPuzzle)
+    let unlocked = this.props.moves.reduce((acc, move) => Math.max(acc, move.puzzle_id), 0) + 1;
+    let puzzleItems = this.props.puzzles.map((puzzle) => {
+      let done = this.props.moves.find((move) => move.puzzle_id == puzzle.id && move.completed);
+      return <PuzzleItem
+        showMoves={this.showMoves}
+        key={puzzle.id}
+        puzzle={puzzle}
+        done={done && done.completed}
+        unlocked={puzzle.id <= unlocked} />
+    })
+    let moves = this.props.moves.filter((move) => move.puzzle_id == this.state.viewPuzzle);
     return (
-      <div className="student-summary container">
-        {this.state.viewPuzzle && <MoveSummary moves={moves} />}
+      <div className="student-summary">
+        {this.state.viewPuzzle ? <MoveSummary toggleMoves={this.toggleMoves} viewMoves={this.state.viewMoves} moves={moves} /> :
         <table className="student-table">
           <thead className="header">
             <tr>
@@ -47,18 +51,19 @@ class PuzzleList extends Component {
             {puzzleItems}
           </tbody>
         </table>
+        }
       </div>
     );
   }
 }
 
-function PuzzleItem({puzzle, done, showMoves}) {
+function PuzzleItem({puzzle, done, showMoves, unlocked}) {
   let { id, name, concept, completed } = puzzle;
   return(
-    <tr className="puzzle-item">
+    <tr className={`puzzle-item ${unlocked && "locked"}`}>
       <td>{id}</td>
       <td><Link to={`/student/puzzles/${id}`}><i className="shadow play fas fa-arrow-circle-right"></i></Link></td>
-      <td onClick={showMoves(id)} ><i className="shadow fas fa-caret-right"></i></td>
+      <td onClick={unlocked && showMoves(id)} ><i className="shadow fas fa-caret-right"></i></td>
       <td className="left">{name}</td>
       <td className="left">{concept}</td>
       <td align="center">{done && <i className="checkbox fas fa-check"></i>}</td>

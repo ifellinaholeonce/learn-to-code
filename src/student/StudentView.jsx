@@ -27,12 +27,12 @@ class StudentView extends Component {
   saveMove = (moves, done) => {
     Request(`students/${viewPuzzle}/moves`, "POST", this.props.auth)
   }
+  // <IsometricBoard />
   render() {
     let puzzleId = this.props.location.pathname.match(/\d+/)
     let puzzle = this.state.puzzles.find((puz) => puz.id == puzzleId)
     return (
       <div className="student-view">
-        <IsometricBoard />
         <Switch>
           <Route path="/student/puzzles" exact render={(props) =>
             <PuzzleList {...props}

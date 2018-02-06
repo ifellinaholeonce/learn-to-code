@@ -13,13 +13,14 @@ let moveGroup = [
   {type: "forward"},
 ]
 
-function MoveSummary({ moves }) {
+function MoveSummary({ moves, viewMoves, toggleMoves }) {
   return (
     <table className="student-table">
       <thead className="header">
         <tr>
-          <th width="40%">Date</th>
-          <th width="40%">Moves</th>
+          <th width="30%">Date</th>
+          <th width="20%">Edit</th>
+          <th width="30%">Moves</th>
           <th width="20%">Success</th>
         </tr>
       </thead>
@@ -27,7 +28,8 @@ function MoveSummary({ moves }) {
       {moves.map((move, i) => (
         <tr>
           <td>{new Date(move.created_at).toString().replace(/(\d+:.+)$/, "")}</td>
-          <td>{displaySequence(moveGroup)}</td>
+          <td><Link to={`/student/puzzles/${move.puzzle_id}`} params={{ moveId: move.id }}><i className="shadow far fa-edit"></i></Link></td>
+          <td onClick={toggleMoves(move.id)}>{viewMoves === move.id ? displaySequence(moveGroup) : "Show Moves"}</td>
           <td className="center" align="center">{move.completed && <i className="checkbox fas fa-check"></i>}</td>
         </tr>
       ))}
