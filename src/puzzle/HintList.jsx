@@ -15,9 +15,13 @@ class HintList extends Component {
       return <p key={index}>{hint}</p>
     })
 
+    let clickHint = (e) => {
+      this.props.handleHintClick()
+    }
+
     return (
-      <div>
-        <button onClick={this.toggleHint}> HINT: </button>
+      <div className="container col-4">
+        <button className="btn btn-success" onClick={clickHint}> HINT: </button>
         <div className="hints">
           {hintItems}
         </div>
@@ -29,8 +33,3 @@ class HintList extends Component {
 export default HintList;
 
 
-  // toggleHint = (e) => {
-  //   let newHints = this.state.numHints + 1;
-  //   this.setState({numHints: newHints})
-
-  // }
