@@ -174,13 +174,6 @@ class Display extends Component {
     })
   }
 
-  initMap = () => {
-    let grid = this.state.display.map((square, i) => {
-      return <Square key={`${square.x} ${square.y}`} type={square.type} x={square.x} y={square.y} />
-    });
-    return grid;
-  }
-
   renderGameSplash = () => {
     if (this.state.puzzleComplete) {
       return <GameSplash status={true} />
@@ -192,12 +185,9 @@ class Display extends Component {
   render() {
     return (
       <div className="puzzle">
-        <div className="puzzle-answer-container d-flex flex-row">
-          {/* {this.initMap()} */}
-          <div className="board">
-            {this.renderGameSplash()}
-            <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
-          </div>
+        <div className="d-flex flex-column">
+              {this.renderGameSplash()}
+              <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
           <div className="answer">
             <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
           </div>
