@@ -143,15 +143,11 @@
   }
 }
 
-.container {
-  position: absolute;
-  left: 40%
-}
-
 .game-splash {
   position: absolute;
-  height: 100%;
-  width: 100%;
+  height: 20%;
+  width: 20%;
+  z-index: 101
 }
 
 .splash {
