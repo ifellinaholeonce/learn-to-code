@@ -50,15 +50,31 @@ class StudentHistory extends Component {
   updateField = (field, value) => {
     this.setState({[field]: value})
   }
+
+  getHighestLevel(student) {
+    let level = student.moves.reduce((acc, move) => {
+      if(move.completed && move.puzzle_id > acc) {
+        acc = move.puzzle_id + 1
+      }
+      return acc;
+    }, 1)
+    return level
+  }
+
+  getPercent(level) {
+    let percent = this.props.students.reduce((acc, student) => {
+      let highLevel = this.getHighestLevel(student)
+       if (highLevel === level) {
+         acc++
+       }
+       return acc }, 0)
+    return Number.parseFloat((percent/this.props.students.length)*100).toFixed(0)
+  }
+
   render() {
     const clickStudent = this.props.clickStudent;
-    let students = this.props.students.map((student, i) => {
-      let level = student.moves.reduce((acc, move) => {
-        if(move.completed && move.puzzle_id > acc) {
-          acc = move.puzzle_id + 1
-        }
-        return acc;
-      }, 1)
+    let students = this.props.students.map(student => {
+      let level = this.getHighestLevel(student)
       return (
         <StudentItem
           key={i}
@@ -103,6 +119,26 @@ class StudentHistory extends Component {
             <i className="fas fa-plus"></i>
           </div>
         </div>
+        <header className="header-box">
+          <h2 className="header-text">Class Stats</h2>
+        </header>
+        <table className="student-table teacher-table">
+          <section className="graph-wrapper">
+            <div className="graph">
+            <dl>
+              <dt className="header">
+                Highest Level Completed (%)
+              </dt>
+              <dd className={"percentage percentage-" + this.getPercent(0)}><span className="text">Level 0: ({this.getPercent(0)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(1)}><span className="text">Level 1: ({this.getPercent(1)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(2)}><span className="text">Level 2: ({this.getPercent(2)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(3)}><span className="text">Level 3: ({this.getPercent(3)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(4)}><span className="text">Level 4: ({this.getPercent(4)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(5)}><span className="text">Level 5: ({this.getPercent(5)}%)</span></dd>
+            </dl>
+            </div>
+          </section>
+        </table>
       </div>
     );
   }
@@ -123,4 +159,3 @@ function StudentItem({ index, student, level, attempts }) {
 }
 
 export default StudentHistory;
-
