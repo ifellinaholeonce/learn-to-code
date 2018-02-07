@@ -1,9 +1,9 @@
 .available-actions {
   margin: 10px;
   padding: 10px;
-  min-width: 250px;
-  min-height: 400px;
-  background-color: rgba(255, 255, 255, 0.2);
+  width: 50vw;
+  min-height: 200px;
+  background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 
   &:nth-child {
@@ -13,9 +13,9 @@
 
 .commands-list {
   padding: 10px;
-  margin: 10px;
-  min-width: 250px;
-  min-height: 400px;
+  margin: 10px 20px;
+  width: 50vw;
+  min-height: 200px;
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   border-top: 2px solid rgba(0, 0, 0, 0.2);

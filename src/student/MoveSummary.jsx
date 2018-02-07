@@ -2,19 +2,10 @@ import React, {Component} from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import DisplaySequence from '../puzzle/DisplaySequence.jsx';
 
-let moveGroup = [
-  {type: "forward"},
-  {type: "forward"},
-  {type: "loop", moves:[
-    {type: "forward"},
-    {type: "forward"},
-  ]},
-  {type: "left"},
-  {type: "forward"},
-  {type: "forward"},
-]
 
-function MoveSummary({ moves, viewMoves, toggleMoves }) {
+function MoveSummary({ moves, viewMoves, toggleMoves, match }) {
+  let puzzleMoves = moves.filter(move => move.puzzle_id == match.params.puzzleId)
+  console.log("Moves:", moves)
   return (
     <table className="student-table">
       <thead className="header">
@@ -26,7 +17,7 @@ function MoveSummary({ moves, viewMoves, toggleMoves }) {
         </tr>
       </thead>
       <tbody>
-      {moves.map((move, i) => (
+      {puzzleMoves.map((move, i) => (
         <tr key={move.id}>
           <td>{new Date(move.created_at).toString().replace(/(\d+:.+)$/, "")}</td>
           <td>
@@ -36,8 +27,8 @@ function MoveSummary({ moves, viewMoves, toggleMoves }) {
               <i className="shadow fas fa-pencil-alt"></i>
             </Link>
           </td>
-          <td onClick={toggleMoves(move.id)}>
-            {viewMoves !== move.id ? "Show" : <DisplaySequence moveGroup={moveGroup} />}
+          <td className="center" onClick={toggleMoves(move.id)}>
+            {viewMoves !== move.id ? "Show" : move.moves.map((indMove, i) => <DisplaySequence key={i} i={i} move={indMove} />)}
           </td>
           <td><i className={`checkbox ${move.completed && "completed"} fas fa-check`}></i></td>
         </tr>

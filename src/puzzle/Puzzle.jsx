@@ -25,16 +25,12 @@ class Puzzle extends Component {
     let location = this.props.location.state
     return (
       <div className="puzzle">
-        <div className="puzzle-container d-flex flex-row justify-content-center">
-          <div className="puzzle-display d-flex flex-column align-items-center">
-            <Question/>
-            <Display puzzle={puzzle} moves={moves} moveId={location && location.moveId} />
-          </div>
+          <Question question={puzzle.game.question} />
           <HintList
             hints={puzzle.game.hints}
             numHints={this.state.numHints}
             handleHintClick={this.handleHintClick} />
-        </div>
+          <Display props={this.props} puzzle={puzzle} moves={moves} moveId={location && location.moveId} />
       </div>
     );
   }

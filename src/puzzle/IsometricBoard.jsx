@@ -52,7 +52,7 @@ class IsometricBoard extends Component {
               </svg>
             </div>
           </div>
-          {square.type !== "path" && <img src={`../../img/${square.type}.svg`}/>}
+          {square.type !== "path" && <img src={`/img/${square.type}.svg`}/>}
         </div>
       )
     })

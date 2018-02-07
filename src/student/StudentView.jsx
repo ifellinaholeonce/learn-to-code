@@ -43,7 +43,7 @@ class StudentView extends Component {
               puzzles={this.state.puzzles}
               moves={this.state.moves} />} />
           <Route path="/student/moves/:puzzleId" render={(props) =>
-            <MoveSummary moves={this.state.moves} viewMoves={this.state.viewMoves} toggleMoves={this.toggleMoves} />} />
+            <MoveSummary {...props} moves={this.state.moves} viewMoves={this.state.viewMoves} toggleMoves={this.toggleMoves} />} />
           <Route path="/student/puzzles/:puzzleId" render={(props) =>
             <Puzzle {...props}
               puzzle={puzzle}

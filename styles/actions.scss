@@ -1,9 +1,3 @@
-$forward-colour: $pastel-green;
-$left-colour: #0078ff;
-$right-colour: #0078ff;
-$loop-colour: $pastel-yellow;
-$funct-colour: $pastel-purple;
-
 .action {
   width: 100px;
   text-align: left;
@@ -29,9 +23,6 @@ $funct-colour: $pastel-purple;
   }
 
   &.a-loop {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     background-color: $loop-colour;
 
     & > :first-child {
@@ -40,13 +31,15 @@ $funct-colour: $pastel-purple;
     }
 
     & * {
-      &:first-child {
-        margin-top: 5px;
-      }
+      margin-left: 5px;
+    }
 
-      &:last-child {
-        margin-bottom: 5px;
-      }
+    &:first-child {
+      margin-top: 5px;
+    }
+
+    &:last-child {
+      margin-bottom: 5px;
     }
   }
 

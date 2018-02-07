@@ -54,16 +54,17 @@ class StudentHistory extends Component {
     const clickStudent = this.props.clickStudent;
     let students = this.props.students.map((student, i) => {
       let level = student.moves.reduce((acc, move) => {
-        if(move.completed && move.puzzle_id > acc.puzzle_id) {
-          acc = move
+        if(move.completed && move.puzzle_id > acc) {
+          acc = move.puzzle_id + 1
         }
         return acc;
       }, 1)
       return (
         <StudentItem
           key={i}
+          index={i}
           student={student.student}
-          level={level.puzzle_id}
+          level={level}
           attempts={student.moves.length}
         />
       )
@@ -108,11 +109,11 @@ class StudentHistory extends Component {
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function StudentItem({ student, level, attempts }) {
+function StudentItem({ index, student, level, attempts }) {
   let { id, first_name, last_name} = student;
   return (
     <tr>
-      <td>{id}</td>
+      <td>{index + 1}</td>
       <td><Link to={`/teacher/students/${id}`}>{first_name}</Link></td>
       <td>{last_name}</td>
       <td>{level}</td>

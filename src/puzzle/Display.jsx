@@ -33,6 +33,7 @@ class Display extends Component {
     if(move) {
       this.prepCommands(move.moves);
     }
+    console.log("Props:", this.props)
   }
 
   //Expects an array of commands from Answers - forward, left, right
@@ -188,6 +189,19 @@ class Display extends Component {
     });
     return grid;
   }
+
+  renderGameSplash = () => {
+    if (this.state.puzzleComplete) {
+      return <GameSplash reset={this.resetSplash} status={true} />
+    }
+    if (this.state.puzzleComplete === false)
+      return <GameSplash reset={this.resetSplash} status={false} />
+  }
+
+  resetSplash = () => {
+    this.setState({puzzleComplete: null})
+  }
+
   render() {
     let playerLocStyle = {
       top: ((this.state.playerLoc.x - this.state.playerLoc.y) * 10)  + "%",
@@ -195,13 +209,12 @@ class Display extends Component {
     }
     return (
       <div className="puzzle">
-        {/* this.renderGameSplash() */}
+        { this.renderGameSplash() }
+        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
         <Answer
           prepCommands={this.prepCommands}
           pendingCommands={this.state.pendingCommands}
           runCommands={this.runCommands}/>
-        <hr/>
-        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
       </div>
     );
   }

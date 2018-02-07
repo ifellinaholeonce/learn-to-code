@@ -1,4 +1,3 @@
-$font-comfortaa: 'Comfortaa', cursive;
 
 .puzzle-container {
   background-image: url("../img/aqua-green.jpg");
@@ -14,19 +13,30 @@ $font-comfortaa: 'Comfortaa', cursive;
 
   .hint-btn {
     color: white;
-    background-color: #00B7C8;
+    background-color: $pastel-purple;
     border: white;
     border-radius: 10px;
     padding: 10px;
-    -webkit-box-shadow: 3px 3px 3px 0px rgba(255,255,255,0.51);
-    // -moz-box-shadow: 6px 6px 6px 0px rgba(255,255,255,0.51);
-    // box-shadow: 6px 6px 6px 0px rgba(255,255,255,0.51);
+    -webkit-box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.5);
   }
 
   .hint-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0 0 0;
+
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
     p {
       color: white;
+      margin: 0;
+      padding: 5px;
       margin-left: 10px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
     }
   }
 }

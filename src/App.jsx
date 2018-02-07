@@ -51,7 +51,6 @@ class App extends Component {
       })
   };
   render() {
-    console.log("Rendering <App/>");
     return (
       <div className="content">
         <Navbar logout={this.logout} user={this.state.user} />

@@ -19,6 +19,7 @@ class PuzzleList extends Component {
         done={done && done.completed}
         unlocked={puzzle.id <= unlocked} />
     })
+
     let moves = this.props.moves.filter((move) => move.puzzle_id == this.state.viewPuzzle);
     return (
       <div className="student-summary">

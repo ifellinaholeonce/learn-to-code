@@ -7,9 +7,9 @@ function DisplaySequence({ type, move, i }) {
     if(move.movement.dir === "forward") {
       action = <div key={i} className="action a-forward">Forward</div>
     } else if(move.movement.dir === "right") {
-      action = <div key={i} className="action a-right">Left</div>
+      action = <div key={i} className="action a-right">Right</div>
     } else if(move.movement.dir === "left") {
-      action = <div key={i} className="action a-left">Right</div>
+      action = <div key={i} className="action a-left">Left</div>
     }
   } else if(move.pickup) {
     action = <div key={i} className="action a-function">Pickup</div>
@@ -17,14 +17,14 @@ function DisplaySequence({ type, move, i }) {
     action =
       (<div key={i} className="action a-loop">
         Loop
-        {move.loop.cmds.map((move, i) => <DisplaySequence move={move.moves} />)}
+        {move.loop.cmds.map((move, i) => <DisplaySequence type={type && "commands"} i={i} move={move} />)}
       </div>)
   }
   let droppable = move.loop || move.pickup
   return (
-    <div style={{width: "200px"}}>
-    {droppable ?
-      <Droppable droppableId="loop" type="action">
+    <div>
+    {!type ? action : droppable ?
+      <Droppable droppableId={`loop-${move.dropId}`} type="action">
         {(provided, snapshot) => (
           <div
             ref={provided.innerRef}

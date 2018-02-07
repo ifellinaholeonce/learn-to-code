@@ -12,14 +12,17 @@
     min-height:1em;
 }
 
+.question {
+  margin: 20px;
+  background-color: $pastel-red;
+  padding: 10px;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.2)
+}
 
 .board {
   position:relative;
-  // width: 50vw;
-  // height: 50vw;
-  // overflow: hidden;
-  // border: 10px solid brown;
-  // border-radius: 10px;
 }
 
 .overlay {
@@ -82,7 +85,7 @@
   width: 20%;
   padding: 1%;
   transition: all 1s ease;
-  z-index: 100;
+  z-index: 49;
 
   &.north{
     transform: rotateX(50deg) rotateY(0deg);
@@ -152,6 +155,7 @@
   position: absolute;
   height: 100%;
   width: 100%;
+  z-index: 50;
 }
 
 .splash {

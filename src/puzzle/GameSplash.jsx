@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
 
 function GameSplash({status}) {
 
@@ -14,9 +15,9 @@ function GameSplash({status}) {
         <span className="splash splash-title">{status ? "SUCCESS" : "OH NO"}</span>
         <div className="splash left-btn"><i className="fas fa-home"></i>  Home</div>
         {status ?
-          <div className="splash right-btn">Next  <i className="fas fa-arrow-circle-right"></i></div>
+          <div className="splash right-btn"><Link to={`/student/puzzles/`}>Next</Link><i className="fas fa-arrow-circle-right"></i></div>
           :
-          <div className="splash right-btn">Retry  <i className="fas fa-arrow-alt-circle-left"></i></div>
+          <div onClick={this.props.reset} className="splash right-btn">Retry  <i className="fas fa-arrow-alt-circle-left"></i></div>
         }
       </div>
     </div>

@@ -4,9 +4,25 @@ import DisplaySequence from './DisplaySequence.jsx';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const addItem = (commandList, actionList, startIndex, endIndex) => {
-  const result = commandList;
+  const result = commandList.slice();
+  const actions = actionList.slice()
+  const removed = actions[startIndex];
+  result.splice(endIndex, 0, Object.assign({}, removed));
+  if(removed.loop) {
+    let next = result.reduce((acc, command) => Math.max(acc, command.dropId || 0 ), 0) + 1
+    actions.splice(3, 1);
+    let newLoop = {loop: {num: 2, cmds: []}, dropId: next}
+    actions.splice(3, 0, newLoop)
+  }
+
+  return {pending: result, commands: actions};
+}
+
+const addItemToLoop = (commandList, actionList, startIndex, endIndex) => {
+  const result = commandList.slice();
+  let loop = result.find((move) => move.loop)
   const removed = actionList[startIndex];
-  result.splice(endIndex, 0, removed);
+  loop.loop.cmds.push(removed)
 
   return result;
 }
@@ -35,10 +51,11 @@ class Answer extends Component {
         {movement: {dir: 'forward'}},
         {movement: {dir: 'left'}},
         {movement: {dir: 'right'}},
-        {loop: {num: 2, cmds: []}},
+        {loop: {num: 2, cmds: []}, dropId: 1},
         {pickup: {item: ''}}],
       items: ['berry', 'wood'],
-      input: []
+      input: [],
+      numLoops: 1
     };
   }
 
@@ -47,15 +64,13 @@ class Answer extends Component {
   }
 
   onDragEnd = (result) => {
-    let start = result.source.droppableId;
-    let order;
 
+    console.log("Source:", result.source, "Destination:", result.destination)
     let pendingCommands = this.props.pendingCommands;
-    console.log("Pending Comm:", this.props.pendingCommands)
-    if (!result.destination || result.destination.droppableId !== "commands") {
+    if (!result.destination || (result.destination.droppableId !== "commands" && !result.destination.droppableId.includes("loop"))) {
       console.log("delete")
       console.log(result.destination)
-      if(result.source.droppableId === "commands") {
+      if(result.source.droppableId === "commands" || result.source.droppableId.includes("loop")) {
         pendingCommands = deleteItem(this.props.pendingCommands, result.source.index)
       }
     } else if (result.destination.droppableId === "commands" && result.source.droppableId === "commands") {
@@ -64,15 +79,25 @@ class Answer extends Component {
         this.props.pendingCommands,
         result.source.index,
         result.destination.index)
-    } else if (result.source.droppableId === "actions" && result.destination.droppableId === "commands") {
+    } else if ((result.source.droppableId.includes("action") || result.source.droppableId.includes("loop")) && result.destination.droppableId === "commands") {
       console.log("add")
       pendingCommands = addItem(
         this.props.pendingCommands,
         this.state.commands,
         result.source.index,
         result.destination.index )
+      this.props.prepCommands(pendingCommands.pending)
+      console.log("commands before set:", pendingCommands.commands)
+      this.setState({commands: pendingCommands.commands})
+      return
+    } else if (result.destination.droppableId.includes("loop")) {
+      console.log("addloop")
+      pendingCommands = addItemToLoop(
+        this.props.pendingCommands,
+        this.state.commands,
+        result.source.index,
+        result.destination.index )
     }
-    console.log("Pending:", pendingCommands)
     this.props.prepCommands(pendingCommands)
   }
 
@@ -93,8 +118,10 @@ class Answer extends Component {
                     ref={provided.innerRef}
                     // style={{ backgroundColor: snapshot.isDraggingOver ? 'grey' : 'lightgrey' }}
                     >
+                    {console.log("Pending:", this.props.pendingCommands)}
                     {this.state.commands.map((move, i) =>
-                        <DisplaySequence type="action" key={i} i={i} move={move} />)}
+                        <DisplaySequence type="action" key={i} i={i} move={move} />
+                      )}
                     {provided.placeholder}
                   </div>
                 )}
