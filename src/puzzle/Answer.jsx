@@ -124,6 +124,7 @@ class Answer extends Component {
               cmds: []
             }
           }
+
           for (let loopChild of child.firstChild.children) {
             if (loopChild.id === "pickup") {
               let pickup = {
