@@ -175,13 +175,6 @@ class Display extends Component {
     })
   }
 
-  initMap = () => {
-    let grid = this.state.display.map((square, i) => {
-      return <Square key={`${square.x} ${square.y}`} type={square.type} x={square.x} y={square.y} />
-    });
-    return grid;
-  }
-
   resetSplash = () => {
     this.setState({puzzleComplete: null})
   }

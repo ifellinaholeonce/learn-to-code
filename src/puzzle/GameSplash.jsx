@@ -4,7 +4,6 @@ import { Route, Switch, Link } from 'react-router-dom';
 function GameSplash({ status, reset, puzzleId }) {
 
   //status will decided content of game splash
-
   return (
     <div className="game-splash">
       <div className="splash outer-box">
