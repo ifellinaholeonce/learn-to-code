@@ -193,7 +193,11 @@ class Display extends Component {
     }
     return (
       <div className="puzzle">
-        {this.state.puzzleComplete !== null && <GameSplash reset={this.resetSplash} status={this.state.puzzleComplete} />}
+        {this.state.puzzleComplete !== null &&
+          <GameSplash
+            puzzleId={this.props.puzzleId}
+            reset={this.resetSplash}
+            status={this.state.puzzleComplete} />}
         <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
         <Answer
           prepCommands={this.prepCommands}

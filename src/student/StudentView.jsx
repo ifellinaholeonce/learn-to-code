@@ -46,6 +46,7 @@ class StudentView extends Component {
             <MoveSummary {...props} moves={this.state.moves} viewMoves={this.state.viewMoves} toggleMoves={this.toggleMoves} />} />
           <Route path="/student/puzzles/:puzzleId" render={(props) =>
             <Puzzle {...props}
+              puzzles={this.state.puzzles}
               puzzle={puzzle}
               moves={this.state.moves} />} />
         </Switch>

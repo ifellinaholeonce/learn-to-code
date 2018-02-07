@@ -21,7 +21,10 @@ class Puzzle extends Component {
   }
   render() {
     let moves = this.props.moves
-    let puzzle = this.props.puzzle
+    let puzzle = this.props.puzzles.find(puzzle => puzzle.id == this.props.match.params.puzzleId)
+    console.log("Puzzle:", puzzle)
+    console.log("Puzzle Id:", this.props.match.params.puzzleId)
+    console.log("Puzzles:", this.props.puzzles)
     let location = this.props.location.state
     return (
       <div className="puzzle">
@@ -30,7 +33,11 @@ class Puzzle extends Component {
             hints={puzzle.game.hints}
             numHints={this.state.numHints}
             handleHintClick={this.handleHintClick} />
-          <Display props={this.props} puzzle={puzzle} moves={moves} moveId={location && location.moveId} />
+          <Display
+            puzzleId={this.props.match.params.puzzleId}
+            puzzle={puzzle}
+            moves={moves}
+            moveId={location && location.moveId} />
       </div>
     );
   }
