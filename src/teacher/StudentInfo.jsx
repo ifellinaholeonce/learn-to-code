@@ -35,6 +35,8 @@ class StudentInfo extends Component {
             studentId={this.props.match.params.id} />} />
         <Route path="/teacher/students/:studentId/puzzle/:puzzleId"
           render={(props) => <Puzzle {...props}
+          puzzles={this.state.puzzles}
+          puzzleId={this.props.match.params.puzzleId}
           user="Teacher"
           puzzle={puzzle}
           moves={this.state.moves} />} />
