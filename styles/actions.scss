@@ -1,17 +1,12 @@
-$forward-colour: $pastel-green;
-$left-colour: #0078ff;
-$right-colour: #0078ff;
-$loop-colour: $pastel-yellow;
-$funct-colour: $pastel-purple;
-
 .action {
   width: 100px;
   text-align: left;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 3px;
+  border-top: 2px solid $highlight;
+  border-left: 2px solid $highlight;
+  border-right: 2px solid $shading;
+  border-bottom: 2px solid $shading;
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.5);
 
   .symbol {
     margin: 5px 0 5px 20px;
@@ -28,10 +23,8 @@ $funct-colour: $pastel-purple;
   }
 
   &.a-loop {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     background-color: $loop-colour;
+    min-height: 50px;
 
     & > :first-child {
       margin-left: 5px;
@@ -39,13 +32,15 @@ $funct-colour: $pastel-purple;
     }
 
     & * {
-      &:first-child {
-        margin-top: 5px;
-      }
+      margin-left: 5px;
+    }
 
-      &:last-child {
-        margin-bottom: 5px;
-      }
+    &:first-child {
+      margin-top: 5px;
+    }
+
+    &:last-child {
+      margin-bottom: 5px;
     }
   }
 

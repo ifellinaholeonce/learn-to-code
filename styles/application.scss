@@ -1,4 +1,5 @@
 // This is the top-level scss file. Import all other files in here.
+@import 'variables';
 @import 'home';
 @import 'answers';
 @import 'login';
@@ -8,6 +9,7 @@
 @import 'actions';
 @import 'isometric';
 @import 'game.scss';
+@import 'commands.scss';
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.css");
 @import url("https://fonts.googleapis.com/css?family=Rammetto+One");

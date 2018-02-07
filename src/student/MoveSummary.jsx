@@ -1,34 +1,36 @@
 import React, {Component} from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
+import DisplaySequence from '../puzzle/DisplaySequence.jsx';
 
-let moveGroup = [
-  {type: "forward"},
-  {type: "forward"},
-  {type: "loop", moves:[
-    {type: "forward"},
-    {type: "forward"},
-  ]},
-  {type: "left"},
-  {type: "forward"},
-  {type: "forward"},
-]
 
-function MoveSummary({ moves }) {
+function MoveSummary({ moves, viewMoves, toggleMoves, match }) {
+  let puzzleMoves = moves.filter(move => move.puzzle_id == match.params.puzzleId)
+  console.log("Moves:", moves)
   return (
     <table className="student-table">
       <thead className="header">
         <tr>
-          <th width="40%">Date</th>
-          <th width="40%">Moves</th>
+          <th width="30%">Date</th>
+          <th width="20%">Edit</th>
+          <th width="30%">Moves</th>
           <th width="20%">Success</th>
         </tr>
       </thead>
       <tbody>
-      {moves.map((move, i) => (
-        <tr>
+      {puzzleMoves.map((move, i) => (
+        <tr key={move.id}>
           <td>{new Date(move.created_at).toString().replace(/(\d+:.+)$/, "")}</td>
-          <td>{displaySequence(moveGroup)}</td>
-          <td className="center" align="center">{move.completed && <i className="checkbox fas fa-check"></i>}</td>
+          <td>
+            <Link to={{
+              pathname: `/student/puzzles/${move.puzzle_id}`,
+              state: { moveId: move.id }}}>
+              <i className="shadow fas fa-pencil-alt"></i>
+            </Link>
+          </td>
+          <td className="center" onClick={toggleMoves(move.id)}>
+            {viewMoves !== move.id ? "Show" : move.moves.map((indMove, i) => <DisplaySequence key={i} i={i} move={indMove} />)}
+          </td>
+          <td><i className={`checkbox ${move.completed && "completed"} fas fa-check`}></i></td>
         </tr>
       ))}
       </tbody>
@@ -37,24 +39,3 @@ function MoveSummary({ moves }) {
 }
 
 export default MoveSummary
-
-function displaySequence(moves) {
-  let actions = moves.map((move) => {
-    if(move.type === "forward") {
-      return <div className="action a-forward"><i className="symbol fas fa-arrow-right"></i></div>
-    } else if(move.type === "right") {
-      return <div className="action a-right"><i className="symbol fas fa-redo-alt"></i></div>
-    } else if(move.type === "left") {
-      return <div className="action a-left"><i className="symbol fas fa-undo-alt"></i></div>
-    } else if(move.type === "pickup") {
-      return <div className="action a-function"><i className="symbol far fa-hand-rock"></i></div>
-    } else if(move.type === "loop") {
-      return <div className="action a-loop"><i className="symbol fas fa-sync-alt"></i>{displaySequence(move.moves)}</div>
-    }
-  })
-  return (
-    <div className="action-groups">
-      {actions}
-    </div>
-  );
-}

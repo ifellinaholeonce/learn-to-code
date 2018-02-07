@@ -15,7 +15,7 @@ class IsometricBoard extends Component {
     })
     let squares = this.props.puzzle.game.grid.map((square, i) => {
       return (
-        <div id={`Cube${i+1}`} className={`Cube Cube--typeSolo Theme-Woods Cube${i+1}`}>
+        <div key={i} id={`Cube${i+1}`} className={`Cube Cube--typeSolo Theme-Woods Cube${i+1}`}>
           <div className="CubeInterior">
             <div className="FaceWrapper" data-face="top">
               <div className="SvgContainer Face Face--typeTop">
@@ -52,7 +52,7 @@ class IsometricBoard extends Component {
               </svg>
             </div>
           </div>
-          {square.type !== "path" && <img src={`../../img/${square.type}.svg`}/>}
+          {square.type !== "path" && <img src={`/img/${square.type}.svg`}/>}
         </div>
       )
     })

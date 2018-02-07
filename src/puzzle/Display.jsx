@@ -5,15 +5,6 @@ import Sam from './Sam.jsx';
 import GameSplash from './GameSplash.jsx'
 import IsometricBoard from './IsometricBoard.jsx'
 
-
-let board = [
-  {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
-  {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
-  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "berry"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
-  {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
-  {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
-];
-
 class Display extends Component {
   constructor(props) {
     super(props);
@@ -23,8 +14,17 @@ class Display extends Component {
       startLoc: {x: 0, y: 2},
       playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
       startDir: 3,
-      pendingCommands: []
+      pendingCommands: [],
+      puzzleComplete: null
      };
+  }
+
+  componentDidMount() {
+    let move = this.props.moves.find(move => move.id === this.props.moveId);
+    if(move) {
+      this.prepCommands(move.moves);
+    }
+    console.log("Props:", this.props)
   }
 
   //Expects an array of commands from Answers - forward, left, right
@@ -35,6 +35,7 @@ class Display extends Component {
   }
 
   runCommands = () => {
+    console.log("running commands")
     let execute = ( pendingCommands ) => {
       let playerDir = this.state.playerDir;
       if ( pendingCommands.length === 0 ) {
@@ -86,7 +87,7 @@ class Display extends Component {
 
   handleMovement = (command, playerDir) => {
     switch (command.movement.dir) {
-      case 'forward':
+      case 'Forward':
         switch (this.state.playerDir) {
           case 1:
             this.moveNorth();
@@ -103,7 +104,7 @@ class Display extends Component {
           default:
         }
         break;
-      case 'left':
+      case 'Left':
         if (playerDir === 1) {
           playerDir = 4
         } else {
@@ -113,7 +114,7 @@ class Display extends Component {
           playerDir
         })
         break;
-      case 'right':
+      case 'Right':
         if (playerDir === 4) {
           playerDir = 1
         } else {
@@ -174,24 +175,27 @@ class Display extends Component {
     })
   }
 
-  renderGameSplash = () => {
-    if (this.state.puzzleComplete) {
-      return <GameSplash status={true} />
-    }
-    if (this.state.puzzleComplete === false)
-      return <GameSplash status={false} />
+  resetSplash = () => {
+    this.setState({puzzleComplete: null})
   }
 
   render() {
+    let playerLocStyle = {
+      top: ((this.state.playerLoc.x - this.state.playerLoc.y) * 10)  + "%",
+      left: ((this.state.playerLoc.x + this.state.playerLoc.y) * 10) + "%"
+    }
     return (
       <div className="puzzle">
-        <div className="d-flex flex-column">
-              {this.renderGameSplash()}
-              <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
-          <div className="answer">
-            <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
-          </div>
-        </div>
+        {this.state.puzzleComplete !== null &&
+          <GameSplash
+            puzzleId={this.props.puzzleId}
+            reset={this.resetSplash}
+            status={this.state.puzzleComplete} />}
+        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
+        <Answer
+          prepCommands={this.prepCommands}
+          pendingCommands={this.state.pendingCommands}
+          runCommands={this.runCommands}/>
       </div>
     );
   }
