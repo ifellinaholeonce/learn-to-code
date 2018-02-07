@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import StudentHistory from './StudentHistory.jsx';
 import StudentInfo from './StudentInfo.jsx';
 import request from '../../models/resource.js'
@@ -23,6 +23,7 @@ class TeacherView extends Component {
   render() {
     return (
       <div className="teacher-view">
+        <Route path="/teacher" exact render={() => <Redirect to="/teacher/students" />} />
         <Switch>
           <Route path="/teacher/students" exact render={(props) => <StudentHistory {...props}
             auth={this.props.auth}

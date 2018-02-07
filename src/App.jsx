@@ -35,6 +35,7 @@ class App extends Component {
             id: data.id,
             login
           })
+          this.props.history.push(`/${data.type.toLowerCase()}`)
         }
       });
   }
@@ -50,20 +51,18 @@ class App extends Component {
       })
   };
   render() {
-    console.log("Rendering <App/>");
     return (
       <div className="content">
         <Navbar logout={this.logout} user={this.state.user} />
-        <Route path="/" render={() => this.state.user ? (
-          <Redirect to={`/${this.state.user}/${this.state.user === "teacher" ? "students" : "puzzles"}`} />) : (
-          <Redirect to="/login" />)} />
-        <Route path="/login" render={(props) => <LoginForm {...props} authenticate={this.authenticateUser} />} />
+        <Route path="/" exact render={() => this.state.user ?
+          <Redirect to={`/${this.state.user}`} /> :
+          <Redirect to="/login" />} />
         <Switch>
+          <Route path="/login" render={(props) => <LoginForm {...props} authenticate={this.authenticateUser} />} />
           <Route path="/student" render={(props) =>
             <StudentView {...props} userId={this.state.id} auth={this.state.authorization} />} />
           <Route path="/teacher" render={(props) =>
             <TeacherView {...props} userId={this.state.id} auth={this.state.authorization} />} />
-
         </Switch>
       </div>
     );

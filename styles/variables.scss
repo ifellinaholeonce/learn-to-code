@@ -1,0 +1,51 @@
+// Pastel colours
+$pastel-yellow: #ffd117;
+$pastel-lyellow: #ffdd56;
+$pastel-turquoise: #4ee4c4;
+$pastel-red: #ff576f;
+$pastel-green: #a2e260;
+$pastel-purple: #b762ff;
+$checkmark: #a2e260;
+$shading: rgba(0, 0, 0, 0.2);
+$highlight: rgba(255, 255, 255, 0.2);
+
+// Body colors
+$size: 20vw;
+$body-color: #4ee4c4;
+$nav-color: #3aad94;
+
+// Fonts
+$font-comfortaa: 'Comfortaa', cursive;
+
+// Play colours
+$play-color: #fae503;
+$btn-font-color: white;
+
+// Command buttons
+$forward-colour: $pastel-green;
+$left-colour: #0078ff;
+$right-colour: #0078ff;
+$loop-colour: $pastel-yellow;
+$funct-colour: $pastel-purple;
+
+// Boxes
+@mixin sunken {
+  border-radius: 5px;
+  border-top: 2px solid $shading;
+  border-left: 2px solid $shadind;
+  background-color: $shadind;
+}
+
+@mixin button($color) {
+  border-radius: 5px;
+  background-color: $color;
+  border: none;
+  height: 40px;
+  width: 100px;
+  margin-right: 10px;
+
+  &:hover {
+    box-shadow: 4px 4px 0 $shading;
+  }
+}
+

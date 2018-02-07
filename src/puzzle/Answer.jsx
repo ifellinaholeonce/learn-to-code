@@ -1,13 +1,58 @@
 import React, {Component} from 'react';
 import Dragula from 'react-dragula';
+import DisplaySequence from './DisplaySequence.jsx';
+
+const addItem = (commandList, actionList, startIndex, endIndex) => {
+  const result = commandList.slice();
+  const actions = actionList.slice()
+  const removed = actions[startIndex];
+  result.splice(endIndex, 0, Object.assign({}, removed));
+  if(removed.loop) {
+    let next = result.reduce((acc, command) => Math.max(acc, command.dropId || 0 ), 0) + 1
+    actions.splice(3, 1);
+    let newLoop = {loop: {num: 2, cmds: []}, dropId: next}
+    actions.splice(3, 0, newLoop)
+  }
+
+  return {pending: result, commands: actions};
+}
+
+const addItemToLoop = (commandList, actionList, startIndex, endIndex) => {
+  const result = commandList.slice();
+  let loop = result.find((move) => move.loop)
+  const removed = actionList[startIndex];
+  loop.loop.cmds.push(removed)
+
+  return result;
+}
+
+const reorder = (commandList, startIndex, endIndex) => {
+  const result = commandList.slice();
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result;
+};
+
+const deleteItem = (commandList, startIndex) => {
+  let result = commandList.slice();
+  result.splice(startIndex, 1);
+
+  return result;
+}
 
 class Answer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      commands: ['forward', 'left', 'right'],
+      commands: [
+        {movement: {dir: 'forward'}},
+        {movement: {dir: 'left'}},
+        {movement: {dir: 'right'}}],
       items: ['berry', 'wood'],
-      input: []
+      input: [],
+      numLoops: 1
     };
   }
 
@@ -113,52 +158,44 @@ class Answer extends Component {
     });
   }
 
-
-
   render() {
     return (
-      <div className="text-center">
-        <header className="answers-container d-flex flex-column">
-          <button onClick={this.props.runCommands} className="play-btn">
-            PLAY
-          </button>
-        </header>
-        <div className="row">
-          <div className="col-md-3 command-list drake-container" id="left">
-            {this.state.commands.map( (move) => {
-              return (<Command type={"movement"} content={move} />)
+      <div className="commands-display">
+        <button onClick={this.props.runCommands} className="play-btn">
+          PLAY
+        </button>
+        <div className="commands-row">
+          <div className="available-actions command-list drake-container" id="left">
+            {console.log("Pending:", this.props.pendingCommands)}
+            {this.state.commands.map((move, i) =>
+                <DisplaySequence type="action" key={i} move={move} />
+              )}
+            {this.state.items.map((item, i) => {
+              return (<DisplaySequence type="pickup" key={i} move={null} content={item} />)
             })}
-            {this.state.items.map( (item) => {
-              return (<Command type="pickup" content={item} />)
-            })}
-            <div className="looper" id="loop">
+            <div className="looper action a-loop" id="loop">
+              Loop
               <div className="looper-container drake-container"></div>
             </div>
-            <div className="looper" id="pickup">
-              <label>Pick Up</label>
+            <div className="looper action a-function" id="pickup">
+              Pick Up
               <div className="looper-container drake-container" id="pickup"></div>
             </div>
           </div>
-          <div className="col-md-3 answer-list drake-container"  id="right"></div>
+          <div className="commands-list drake-container"  id="right">
+            {/*this.props.pendingCommands &&
+              this.props.pendingCommands.map((move, i) =>
+                <DisplaySequence type="command" key={i} i={i} move={move} />)*/}
+          </div>
         </div>
       </div>
     );
-  }
-
-  dragulaDecorator = ( component ) => {
-    if ( component ) {
-      this.containers.push(component)
-    }
   }
 }
 
 function Command({ type, content }) {
   return (
-    <div className={`${type} m-1 jigsaw`}>
-      <span className="t"></span>
-      <span className="r"></span>
-      <span className="b"></span>
-      <span className="l"></span>
+    <div className={`${content} ${type} action`}>
       {content}
     </div>
   )

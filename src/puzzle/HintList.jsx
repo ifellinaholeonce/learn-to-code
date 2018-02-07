@@ -15,13 +15,9 @@ class HintList extends Component {
       return <p key={index}>{hint}</p>
     })
 
-    let clickHint = (e) => {
-      this.props.handleHintClick()
-    }
-
     return (
       <div className="hint">
-        <button className="hint-btn " onClick={this.clickHint}> HINT: </button>
+        <button className="hint-btn " onClick={this.props.handleHintClick}>GET HINT</button>
         <div className="hint-text">
           {hintItems}
         </div>

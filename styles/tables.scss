@@ -1,19 +1,13 @@
-// Pastel colours
-$pastel-yellow: #ffd117;
-$pastel-lyellow: #ffdd56;
-$pastel-turquoise: #4ee4c4;
-$pastel-red: #ff576f;
-$pastel-green: #a2e260;
-$pastel-purple: #b762ff;
-$checkmark: #a2e260;
-$shading: rgba(0, 0, 0, 0.2);
-
 body {
-  background-color: $pastel-lyellow;
-
   .navbar {
     background-color: $pastel-red;
   }
+}
+
+// Reset hyperlink styling
+a, a:hover {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 // Generic button syling
@@ -23,6 +17,7 @@ body {
   border: none;
   height: 40px;
   width: 100px;
+  margin-right: 10px;
 
   &.navigation {
     background-color: $pastel-purple;
@@ -43,6 +38,10 @@ body {
   border-radius: 5px;
   background-color: $pastel-red;
   box-shadow: 4px 4px 0 $shading;
+
+  .locked {
+    color: rgba(255, 255, 255, 0.5)
+  }
 
   .header {
     border-bottom: 2px solid $shading;
@@ -69,11 +68,6 @@ body {
     td {
       text-align: center;
 
-      // Reset hyperlink styling
-      a {
-        color: inherit;
-        text-decoration: inherit;
-      }
 
       .shadow, .shadow.play {
         color: $shading;
@@ -91,7 +85,11 @@ body {
 
     // Done checkbox styling
     .checkbox {
-      color: $checkmark;
+      &.completed {
+        color: $checkmark;
+      }
+
+      color: rgba(0, 0, 0, 0);
       width: 20px;
       height: 20px;
       background-color: $shading;

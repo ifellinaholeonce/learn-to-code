@@ -24,8 +24,6 @@ class StudentInfo extends Component {
   render() {
     let puzzleId = this.props.location.pathname.match(/(\d+)/g)[1]
     let puzzle = this.state.puzzles.find((puz) => puz.id == puzzleId)
-    console.log("Puzzle:", puzzle, "puzzle id:", puzzleId)
-    console.log("Student id", this.props.match)
     return (
       <div className="student-info">
       <Switch>

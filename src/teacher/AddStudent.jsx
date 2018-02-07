@@ -45,8 +45,8 @@ class AddStudent extends Component {
               value={password}
               placeholder="Initial password"/>
           </div>
-          <input className="button" type="submit" name="submit" value="Add Student"/>
-          <input onClick={this.props.cancel} className="button" value="Cancel" />
+          <button className="button" type="submit" name="submit">Add Student</button>
+          <button onClick={this.props.cancel} className="button">Cancel</button>
         </form>
       </div>
     )

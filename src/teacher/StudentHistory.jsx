@@ -54,10 +54,10 @@ class StudentHistory extends Component {
   getHighestLevel(student) {
     let level = student.moves.reduce((acc, move) => {
       if(move.completed && move.puzzle_id > acc) {
-        acc = move.puzzle_id
+        acc = move.puzzle_id + 1
       }
       return acc;
-    }, 0)
+    }, 1)
     return level
   }
 
@@ -77,7 +77,8 @@ class StudentHistory extends Component {
       let level = this.getHighestLevel(student)
       return (
         <StudentItem
-          key={student.id}
+          key={i}
+          index={i}
           student={student.student}
           level={level}
           attempts={student.moves.length}
@@ -144,11 +145,11 @@ class StudentHistory extends Component {
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function StudentItem({ student, level, attempts }) {
+function StudentItem({ index, student, level, attempts }) {
   let { id, first_name, last_name} = student;
   return (
     <tr>
-      <td>{id}</td>
+      <td>{index + 1}</td>
       <td><Link to={`/teacher/students/${id}`}>{first_name}</Link></td>
       <td>{last_name}</td>
       <td>{level}</td>
