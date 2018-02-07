@@ -195,19 +195,13 @@ class Display extends Component {
     }
     return (
       <div className="puzzle">
-        <div className="puzzle-answer-container d-flex flex-row">
-          {/* {this.initMap()} */}
-          <div className="board">
-            {/* this.renderGameSplash() */}
-            <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
-          </div>
-          <div className="answer">
-            <Answer
-              prepCommands={this.prepCommands}
-              pendingCommands={this.state.pendingCommands}
-              runCommands={this.runCommands}/>
-          </div>
-        </div>
+        {/* this.renderGameSplash() */}
+        <Answer
+          prepCommands={this.prepCommands}
+          pendingCommands={this.state.pendingCommands}
+          runCommands={this.runCommands}/>
+        <hr/>
+        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
       </div>
     );
   }

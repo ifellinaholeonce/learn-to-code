@@ -1,22 +1,66 @@
 import React, {Component} from 'react';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-function DisplaySequence({ moveGroup }) {
-  let actions = moveGroup.map((move, i) => {
-    if(move.type === "forward") {
-      return <div key={i} className="action a-forward"><i className="symbol fas fa-arrow-right"></i></div>
-    } else if(move.type === "right") {
-      return <div key={i} className="action a-right"><i className="symbol fas fa-redo-alt"></i></div>
-    } else if(move.type === "left") {
-      return <div key={i} className="action a-left"><i className="symbol fas fa-undo-alt"></i></div>
-    } else if(move.type === "pickup") {
-      return <div key={i} className="action a-function"><i className="symbol far fa-hand-rock"></i></div>
-    } else if(move.type === "loop") {
-      return <div key={i} className="action a-loop"><i className="symbol fas fa-sync-alt"></i><DisplaySequence moveGroup={move.moves} /></div>
+function DisplaySequence({ type, move, i }) {
+  let action;
+  if(move.movement) {
+    if(move.movement.dir === "forward") {
+      action = <div key={i} className="action a-forward">Forward</div>
+    } else if(move.movement.dir === "right") {
+      action = <div key={i} className="action a-right">Left</div>
+    } else if(move.movement.dir === "left") {
+      action = <div key={i} className="action a-left">Right</div>
     }
-  })
+  } else if(move.pickup) {
+    action = <div key={i} className="action a-function">Pickup</div>
+  } else if(move.loop) {
+    action =
+      (<div key={i} className="action a-loop">
+        Loop
+        {move.loop.cmds.map((move, i) => <DisplaySequence move={move.moves} />)}
+      </div>)
+  }
+  let droppable = move.loop || move.pickup
   return (
-    <div className="action-groups">
-      {actions}
+    <div style={{width: "200px"}}>
+    {droppable ?
+      <Droppable droppableId="loop" type="action">
+        {(provided, snapshot) => (
+          <div
+            ref={provided.innerRef}
+            // style={{ backgroundColor: snapshot.isDraggingOver ? 'grey' : 'lightgrey' }}
+            >
+            <Draggable draggableId={`${type}-${i}`} index={i}>
+              {(provided, snapshot) => (
+                <div>
+                  <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                  {action}
+                  </div>
+                  {provided.placeholder}
+                </div>
+              )}
+            </Draggable>
+          </div>
+        )}
+      </Droppable> :
+      <Draggable draggableId={`${type}-${i}`} index={i}>
+        {(provided, snapshot) => (
+          <div>
+            <div
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+            >
+            {action}
+            </div>
+            {provided.placeholder}
+          </div>
+        )}
+      </Draggable>}
     </div>
   );
 }
