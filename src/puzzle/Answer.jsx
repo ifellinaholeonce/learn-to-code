@@ -98,7 +98,7 @@ class Answer extends Component {
       if (el.id === "loop") {
         source.childNodes.forEach((child) => {
           if (child.id === el.id) {
-            let container = child.firstChild;
+            let container = child.lastChild;
             while (container.firstChild) {
               container.removeChild(container.firstChild)
             }
@@ -124,7 +124,7 @@ class Answer extends Component {
               cmds: []
             }
           }
-          for (let loopChild of child.firstChild.children) {
+          for (let loopChild of child.lastChild.children) {
             if (loopChild.id === "pickup") {
               let pickup = {
                 pickup: {
@@ -166,7 +166,6 @@ class Answer extends Component {
         </button>
         <div className="commands-row">
           <div className="available-actions command-list drake-container" id="left">
-            {console.log("Pending:", this.props.pendingCommands)}
             {this.state.commands.map((move, i) =>
                 <DisplaySequence type="action" key={i} move={move} />
               )}
