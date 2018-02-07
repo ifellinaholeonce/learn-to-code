@@ -168,8 +168,11 @@ class Answer extends Component {
           <div className="available-actions command-list drake-container" id="left">
             {console.log("Pending:", this.props.pendingCommands)}
             {this.state.commands.map((move, i) =>
-                <DisplaySequence type="action" key={i} i={i} move={move} />
+                <DisplaySequence type="action" key={i} move={move} />
               )}
+            {this.state.items.map((item, i) => {
+              return (<DisplaySequence type="pickup" key={i} move={null} content={item} />)
+            })}
             <div className="looper action a-loop" id="loop">
               Loop
               <div className="looper-container drake-container"></div>

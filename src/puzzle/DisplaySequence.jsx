@@ -1,28 +1,29 @@
 import React, {Component} from 'react';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
 
-function DisplaySequence({ type, move, i }) {
+function DisplaySequence({ type, move, content }) {
   let action;
-  if(move.movement) {
+  if(type === "pickup") {
+
+  } else if(move.movement) {
     if(move.movement.dir === "forward") {
-      action = <div key={i} className="action a-forward">Forward</div>
+      action = <div className="action a-forward">Forward</div>
     } else if(move.movement.dir === "right") {
-      action = <div key={i} className="action a-right">Right</div>
+      action = <div className="action a-right">Right</div>
     } else if(move.movement.dir === "left") {
-      action = <div key={i} className="action a-left">Left</div>
+      action = <div className="action a-left">Left</div>
     }
   } else if(move.pickup) {
-    action = <div key={i} className="action a-function">Pickup</div>
+    action = <div className="action a-function">Pickup</div>
   } else if(move.loop) {
     action =
-      (<div key={i} className="action a-loop">
+      (<div className="action a-loop">
         Loop
-        {move.loop.cmds.map((move, i) => <DisplaySequence type={type && "commands"} i={i} move={move} />)}
+        {move.loop.cmds.map((move, i) => <DisplaySequence type={type && "commands"} move={move} />)}
       </div>)
   }
-  let droppable = move.loop || move.pickup
   return (
-    <div>
+    <div type={type}>
       {action}
     </div>
   );

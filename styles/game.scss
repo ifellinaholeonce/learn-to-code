@@ -1,13 +1,11 @@
 .looper {
-    background:orange;
+    background: orange;
     padding: 5px 0 5px 0;
     margin:1px;
 }
 
 .looper-container {
-    flex:1;
-    margin:1px;
-    height: inherit;
+    min-height: 50px;
 }
 
 .question {

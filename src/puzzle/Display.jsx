@@ -5,16 +5,6 @@ import Sam from './Sam.jsx';
 import GameSplash from './GameSplash.jsx'
 import IsometricBoard from './IsometricBoard.jsx'
 
-
-
-let board = [
-  {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
-  {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
-  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "berry"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
-  {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
-  {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
-];
-
 class Display extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +14,8 @@ class Display extends Component {
       startLoc: {x: 0, y: 2},
       playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
       startDir: 3,
-      pendingCommands: []
+      pendingCommands: [],
+      puzzleComplete: null
      };
   }
 
@@ -96,7 +87,7 @@ class Display extends Component {
 
   handleMovement = (command, playerDir) => {
     switch (command.movement.dir) {
-      case 'forward':
+      case 'Forward':
         switch (this.state.playerDir) {
           case 1:
             this.moveNorth();
@@ -113,7 +104,7 @@ class Display extends Component {
           default:
         }
         break;
-      case 'left':
+      case 'Left':
         if (playerDir === 1) {
           playerDir = 4
         } else {
@@ -123,7 +114,7 @@ class Display extends Component {
           playerDir
         })
         break;
-      case 'right':
+      case 'Right':
         if (playerDir === 4) {
           playerDir = 1
         } else {
@@ -191,14 +182,6 @@ class Display extends Component {
     return grid;
   }
 
-  renderGameSplash = () => {
-    if (this.state.puzzleComplete) {
-      return <GameSplash reset={this.resetSplash} status={true} />
-    }
-    if (this.state.puzzleComplete === false)
-      return <GameSplash reset={this.resetSplash} status={false} />
-  }
-
   resetSplash = () => {
     this.setState({puzzleComplete: null})
   }
@@ -210,7 +193,7 @@ class Display extends Component {
     }
     return (
       <div className="puzzle">
-        { this.renderGameSplash() }
+        {this.state.puzzleComplete !== null && <GameSplash reset={this.resetSplash} status={this.state.puzzleComplete} />}
         <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
         <Answer
           prepCommands={this.prepCommands}

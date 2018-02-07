@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 
-function GameSplash({status}) {
+function GameSplash({status, reset}) {
 
   //status will decided content of game splash
 
@@ -17,7 +17,7 @@ function GameSplash({status}) {
         {status ?
           <div className="splash right-btn"><Link to={`/student/puzzles/`}>Next</Link><i className="fas fa-arrow-circle-right"></i></div>
           :
-          <div onClick={this.props.reset} className="splash right-btn">Retry  <i className="fas fa-arrow-alt-circle-left"></i></div>
+          <div onClick={reset} className="splash right-btn">Retry  <i className="fas fa-arrow-alt-circle-left"></i></div>
         }
       </div>
     </div>
