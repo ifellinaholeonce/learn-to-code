@@ -44,6 +44,7 @@ class Display extends Component {
   }
 
   runCommands = () => {
+    console.log("running commands")
     let execute = ( pendingCommands ) => {
       let playerDir = this.state.playerDir;
       if ( pendingCommands.length === 0 ) {

@@ -27,3 +27,24 @@ $right-colour: #0078ff;
 $loop-colour: $pastel-yellow;
 $funct-colour: $pastel-purple;
 
+// Boxes
+@mixin sunken {
+  border-radius: 5px;
+  border-top: 2px solid $shading;
+  border-left: 2px solid $shadind;
+  background-color: $shadind;
+}
+
+@mixin button($color) {
+  border-radius: 5px;
+  background-color: $color;
+  border: none;
+  height: 40px;
+  width: 100px;
+  margin-right: 10px;
+
+  &:hover {
+    box-shadow: 4px 4px 0 $shading;
+  }
+}
+

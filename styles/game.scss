@@ -1,15 +1,13 @@
 .looper {
-    display:flex;
     background:orange;
-    padding-top:1em;
+    padding: 5px 0 5px 0;
     margin:1px;
 }
 
 .looper-container {
-    background:#f7f7f7;
     flex:1;
     margin:1px;
-    min-height:1em;
+    height: inherit;
 }
 
 .question {

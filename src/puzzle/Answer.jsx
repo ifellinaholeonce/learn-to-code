@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Dragula from 'react-dragula';
 import DisplaySequence from './DisplaySequence.jsx';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const addItem = (commandList, actionList, startIndex, endIndex) => {
   const result = commandList.slice();
@@ -50,9 +49,7 @@ class Answer extends Component {
       commands: [
         {movement: {dir: 'forward'}},
         {movement: {dir: 'left'}},
-        {movement: {dir: 'right'}},
-        {loop: {num: 2, cmds: []}, dropId: 1},
-        {pickup: {item: ''}}],
+        {movement: {dir: 'right'}}],
       items: ['berry', 'wood'],
       input: [],
       numLoops: 1
@@ -60,45 +57,105 @@ class Answer extends Component {
   }
 
   componentDidMount () {
-
-  }
-
-  onDragEnd = (result) => {
-
-    console.log("Source:", result.source, "Destination:", result.destination)
-    let pendingCommands = this.props.pendingCommands;
-    if (!result.destination || (result.destination.droppableId !== "commands" && !result.destination.droppableId.includes("loop"))) {
-      console.log("delete")
-      console.log(result.destination)
-      if(result.source.droppableId === "commands" || result.source.droppableId.includes("loop")) {
-        pendingCommands = deleteItem(this.props.pendingCommands, result.source.index)
-      }
-    } else if (result.destination.droppableId === "commands" && result.source.droppableId === "commands") {
-      console.log("reorder")
-      pendingCommands = reorder(
-        this.props.pendingCommands,
-        result.source.index,
-        result.destination.index)
-    } else if ((result.source.droppableId.includes("action") || result.source.droppableId.includes("loop")) && result.destination.droppableId === "commands") {
-      console.log("add")
-      pendingCommands = addItem(
-        this.props.pendingCommands,
-        this.state.commands,
-        result.source.index,
-        result.destination.index )
-      this.props.prepCommands(pendingCommands.pending)
-      console.log("commands before set:", pendingCommands.commands)
-      this.setState({commands: pendingCommands.commands})
-      return
-    } else if (result.destination.droppableId.includes("loop")) {
-      console.log("addloop")
-      pendingCommands = addItemToLoop(
-        this.props.pendingCommands,
-        this.state.commands,
-        result.source.index,
-        result.destination.index )
+    const setInputState = (commands) => {
+      this.props.prepCommands(commands)
     }
-    this.props.prepCommands(pendingCommands)
+
+    const querySelectorAllArray = (selector) => {
+      return Array.prototype.slice.call(
+        document.querySelectorAll(selector), 0
+      );
+    }
+
+    const contains = (a, b) => {
+      return a.contains ? a != b && a.contains(b) : !!(a.compareDocumentPosition(b) & 16)
+    }
+
+    const drake = Dragula(querySelectorAllArray('.drake-container'), {
+      removeOnSpill: true,
+      copy: function (el, source) {
+        return source === this.containers[0];
+      },
+      accepts: function (el, target) {
+        if ( target.id === "pickup") {
+          return target !== this.containers[0] && !contains(el,target) && el.className.indexOf("pickup") >= 0
+        } else {
+          return target !== this.containers[0] && !contains(el,target);
+        }
+      }
+    });
+
+    drake.on('drop', function(el, target, source, sibling) {
+      //If the user dropped into a "pickup", clear any children it might have first.
+      if (target.id === "pickup") {
+        target.appendChild(el)
+        if (target.children.length > 1) {
+          target.removeChild(target.firstChild)
+        }
+      }
+
+      //If the user dropped a loop element, clear the source of children
+      if (el.id === "loop") {
+        source.childNodes.forEach((child) => {
+          if (child.id === el.id) {
+            let container = child.firstChild;
+            while (container.firstChild) {
+              container.removeChild(container.firstChild)
+            }
+          }
+        })
+      }
+      //Initialize an array for commands to push to state
+      let commands = [];
+      for (let child of target.children) {
+        //Parse pickup commands
+        if (child.id === "pickup") {
+          let pickup = {
+            pickup: {
+              "item": child.lastChild.firstChild.textContent
+            }};
+          commands.push(pickup)
+        } else
+        //Parse loop commands
+        if (child.id === "loop") {
+          let loop = {
+            loop: {
+              num: 2,
+              cmds: []
+            }
+          }
+          for (let loopChild of child.firstChild.children) {
+            if (loopChild.id === "pickup") {
+              let pickup = {
+                pickup: {
+                  "item": loopChild.lastChild.firstChild.textContent
+              }};
+              loop.loop.cmds.push(pickup);
+            } else {
+              let movement = {
+                movement : {
+                  dir: loopChild.textContent
+                }
+              }
+              loop.loop.cmds.push(movement)
+            }
+          }
+          commands.push(loop)
+        } else {
+          let movement = {
+            movement: {
+              dir: child.textContent
+            }
+          }
+          commands.push(movement)
+        }
+      }
+
+      //Moves the dropped command to a higher scope that can push the command to state
+      if (target.id === "right"){
+        setInputState(commands)
+      }
+    });
   }
 
   render() {
@@ -107,43 +164,27 @@ class Answer extends Component {
         <button onClick={this.props.runCommands} className="play-btn">
           PLAY
         </button>
-        <DragDropContext
-          onDragStart={this.onDragStart}
-          onDragEnd={this.onDragEnd} >
-          <div className="commands-row">
-            <div className="available-actions">
-              <Droppable droppableId="actions" type="action">
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    // style={{ backgroundColor: snapshot.isDraggingOver ? 'grey' : 'lightgrey' }}
-                    >
-                    {console.log("Pending:", this.props.pendingCommands)}
-                    {this.state.commands.map((move, i) =>
-                        <DisplaySequence type="action" key={i} i={i} move={move} />
-                      )}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
+        <div className="commands-row">
+          <div className="available-actions command-list drake-container" id="left">
+            {console.log("Pending:", this.props.pendingCommands)}
+            {this.state.commands.map((move, i) =>
+                <DisplaySequence type="action" key={i} i={i} move={move} />
+              )}
+            <div className="looper action a-loop" id="loop">
+              Loop
+              <div className="looper-container drake-container"></div>
             </div>
-            <div className="commands-list">
-              <Droppable droppableId="commands" type="action">
-                {(provided, snapshot) => (
-                  <div
-                    ref={provided.innerRef}
-                    // style={{ backgroundColor: snapshot.isDraggingOver ? 'grey' : 'lightgrey' }}
-                    >
-                    {this.props.pendingCommands &&
-                      this.props.pendingCommands.map((move, i) =>
-                        <DisplaySequence type="command" key={i} i={i} move={move} />)}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
+            <div className="looper action a-function" id="pickup">
+              Pick Up
+              <div className="looper-container drake-container" id="pickup"></div>
             </div>
           </div>
-        </DragDropContext>
+          <div className="commands-list drake-container"  id="right">
+            {/*this.props.pendingCommands &&
+              this.props.pendingCommands.map((move, i) =>
+                <DisplaySequence type="command" key={i} i={i} move={move} />)*/}
+          </div>
+        </div>
       </div>
     );
   }

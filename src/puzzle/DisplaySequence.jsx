@@ -23,44 +23,7 @@ function DisplaySequence({ type, move, i }) {
   let droppable = move.loop || move.pickup
   return (
     <div>
-    {!type ? action : droppable ?
-      <Droppable droppableId={`loop-${move.dropId}`} type="action">
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            // style={{ backgroundColor: snapshot.isDraggingOver ? 'grey' : 'lightgrey' }}
-            >
-            <Draggable draggableId={`${type}-${i}`} index={i}>
-              {(provided, snapshot) => (
-                <div>
-                  <div
-                    ref={provided.innerRef}
-                    {...provided.draggableProps}
-                    {...provided.dragHandleProps}
-                  >
-                  {action}
-                  </div>
-                  {provided.placeholder}
-                </div>
-              )}
-            </Draggable>
-          </div>
-        )}
-      </Droppable> :
-      <Draggable draggableId={`${type}-${i}`} index={i}>
-        {(provided, snapshot) => (
-          <div>
-            <div
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-            >
-            {action}
-            </div>
-            {provided.placeholder}
-          </div>
-        )}
-      </Draggable>}
+      {action}
     </div>
   );
 }

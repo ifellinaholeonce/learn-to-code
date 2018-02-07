@@ -24,6 +24,7 @@
 
   &.a-loop {
     background-color: $loop-colour;
+    min-height: 50px;
 
     & > :first-child {
       margin-left: 5px;
