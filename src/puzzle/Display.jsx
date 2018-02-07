@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
 import Answer from './Answer.jsx';
-import Sam from './Sam.jsx';
 import GameSplash from './GameSplash.jsx'
 import IsometricBoard from './IsometricBoard.jsx'
 
@@ -10,10 +9,8 @@ class Display extends Component {
     super(props);
     this.state = {
       display: this.props.puzzle.game.grid,
-      playerLoc: {x: 0, y: 2},
-      startLoc: {x: 0, y: 2},
-      playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
-      startDir: 3,
+      playerLoc: this.props.puzzle.game.startLoc,
+      playerDir: this.props.puzzle.game.startDir, // 1 = North, 2 = East, 3 = South, 4 = West
       pendingCommands: [],
       puzzleComplete: null
      };
@@ -24,7 +21,6 @@ class Display extends Component {
     if(move) {
       this.prepCommands(move.moves);
     }
-    console.log("Props:", this.props)
   }
 
   //Expects an array of commands from Answers - forward, left, right
@@ -39,8 +35,11 @@ class Display extends Component {
       let playerDir = this.state.playerDir;
       if ( pendingCommands.length === 0 ) {
         if ( this.checkSquareType("camp") ) {
+          let nextPuzzle = this.props.puzzles.find(puzzle => puzzle.id === this.props.puzzle.id + 1)
           this.setState({
-            puzzleComplete: true
+            puzzleComplete: true,
+            playerLoc: nextPuzzle.game.startLoc,
+            playerDir: nextPuzzle.game.startDir
           })
         } else {
           this.resetMap();
@@ -169,8 +168,8 @@ class Display extends Component {
 
   resetMap = () => {
     this.setState({
-      playerDir: this.state.startDir,
-      playerLoc: this.state.startLoc
+      playerDir: this.props.puzzle.game.startDir,
+      playerLoc: this.props.puzzle.game.startLoc
     })
   }
 
