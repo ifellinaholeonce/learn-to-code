@@ -73,7 +73,7 @@ class StudentHistory extends Component {
 
   render() {
     const clickStudent = this.props.clickStudent;
-    let students = this.props.students.map(student => {
+    let students = this.props.students.map((student, i) => {
       let level = this.getHighestLevel(student)
       return (
         <StudentItem
