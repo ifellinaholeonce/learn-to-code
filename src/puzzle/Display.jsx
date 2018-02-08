@@ -31,7 +31,7 @@ class Display extends Component {
   }
 
   runCommands = () => {
-    let startingCommands = this.state.pendingCommands;
+    let startingCommands = this.state.pendingCommands.map(command => ({...command}));
     let execute = ( pendingCommands ) => {
       let playerDir = this.state.playerDir;
       if ( pendingCommands.length === 0 ) {
@@ -61,6 +61,7 @@ class Display extends Component {
             moves: startingCommands,
             completed
           }
+
           this.props.saveMove(newMove)
         }
       } else {
@@ -100,7 +101,7 @@ class Display extends Component {
   }
 
   handleMovement = (command, playerDir) => {
-    let direction = command.movement.dir.toLowerCase();
+    let direction = command.movement.dir
     switch (direction) {
       case 'forward':
         switch (this.state.playerDir) {
