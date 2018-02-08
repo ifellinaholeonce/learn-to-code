@@ -4,7 +4,6 @@ import Hint from './Hint.jsx';
 class HintList extends Component {
 
   render() {
-    console.log("Rendering <HintList/>");
 
     const hints = this.props.hints;
     const numHints = this.props.numHints;

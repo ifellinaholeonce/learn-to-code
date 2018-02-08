@@ -16,6 +16,17 @@ class StudentView extends Component {
     };
   }
   componentDidMount() {
+    this.getPuzzles()
+  }
+  saveMove = (move) => {
+    request(`students/${this.props.userId}/moves`, "POST", this.props.auth, move)
+    .then((res) => {
+      if(res) {
+        this.getPuzzles();
+      }
+    })
+  }
+  getPuzzles() {
     if(this.props.userId) {
       request(`students/${this.props.userId}/moves`, "GET", this.props.auth)
         .then((data) => {
@@ -24,9 +35,6 @@ class StudentView extends Component {
         }
       )
     }
-  }
-  saveMove = (move) => {
-    Request(`students/${this.props.userId}/moves/new`, "POST", this.props.auth, move)
   }
   toggleMoves = moveId => e => {
     let move = this.state.viewMoves === moveId ? null : moveId

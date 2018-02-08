@@ -78,7 +78,7 @@ class Answer extends Component {
         if (child.id === "pickup") {
           let pickup = {
             pickup: {
-              "item": child.lastChild.firstChild.textContent
+              "item": child.lastChild.firstChild.textContent.toLowerCase()
             }};
           commands.push(pickup)
         } else
@@ -94,13 +94,13 @@ class Answer extends Component {
             if (loopChild.id === "pickup") {
               let pickup = {
                 pickup: {
-                  "item": loopChild.lastChild.firstChild.textContent
+                  "item": loopChild.lastChild.firstChild.textContent.toLowerCase()
               }};
               loop.loop.cmds.push(pickup);
             } else {
               let movement = {
                 movement : {
-                  dir: loopChild.textContent
+                  dir: loopChild.textContent.toLowerCase()
                 }
               }
               loop.loop.cmds.push(movement)
@@ -110,7 +110,7 @@ class Answer extends Component {
         } else {
           let movement = {
             movement: {
-              dir: child.textContent
+              dir: child.textContent.toLowerCase()
             }
           }
           commands.push(movement)
