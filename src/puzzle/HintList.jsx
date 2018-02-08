@@ -17,8 +17,8 @@ class HintList extends Component {
 
     return (
       <div className="hint">
-        <button className="hint-btn " onClick={this.props.handleHintClick}>GET HINT</button>
         <div className="hint-text">
+          <button className="hint-btn " onClick={this.props.handleHintClick}>GET HINT</button>
           {hintItems}
         </div>
       </div>
