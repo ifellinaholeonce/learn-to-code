@@ -140,7 +140,7 @@ class Answer extends Component {
         <div className="commands-row">
         <Switch>
           <Route path="/teacher/students/:studentId/puzzle/:puzzleId" render={(props) =>
-            <TeacherStudentMoves {...props} viewMove={this.viewMove} moves={this.props.moves} />} />
+            <TeacherStudentMoves {...props} viewMove={this.viewMove} viewId={this.state.viewMove} moves={this.props.moves} />} />
           <Route path="/student/puzzles/:puzzleId" render={(props) =>
             <ActionsList {...props} commands={this.state.commands} items={this.state.items} />} />
         </Switch>
