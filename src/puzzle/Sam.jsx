@@ -5,15 +5,33 @@ class Sam extends Component {
   constructor(props) {
     super(props);
   }
-
+  // 1 bottom left
+  // 2 top left
+  // 3 top right
+  // 4 bottom right
   getDir() {
-    if ( this.props.playerDir === 3 || this.props.playerDir === 4 ) {
-      return -1
+    switch(this.props.playerDir){
+      case 1:
+        return "player-bottom-left"
+        break;
+      case 2:
+        return "player-top-left"
+        break;
+      case 3:
+        return "player-top-right"
+        break;
+      case 4:
+        return "player-bottom-right"
+        break;
+      default:
+        console.log(this.props.playerDir, "playerDir")
+        return "player-bottom-left"
+        break;
     }
-    return 1
   }
 
   render() {
+
     let playerLocStyle = {
       zIndex: ( (4 - this.props.playerLoc.y) * 5 + (4 - this.props.playerLoc.x) + 1),
       top: (35 - 5 * this.props.playerLoc.x - 5 * this.props.playerLoc.y) + "em",
@@ -22,11 +40,11 @@ class Sam extends Component {
     }
     return (
       <div className="player" style={playerLocStyle}>
-        <div className="player-top"></div>
-        {(this.props.playerDir === 1 || this.props.playerDir === 4) && <div className="player-eye-right"></div>}
+        <div className={this.getDir()}></div>
+{/*       {(this.props.playerDir === 1 || this.props.playerDir === 4) && <div className="player-eye-right"></div>}
         {(this.props.playerDir === 1 || this.props.playerDir === 4) && <div className="player-eye-left"></div>}
         <div className="player-bottom"></div>
-        <div className="player-feet"></div>
+        <div className="player-feet"></div>*/}
       </div>
     )
   }
