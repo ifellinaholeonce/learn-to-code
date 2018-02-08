@@ -39,7 +39,8 @@ class Display extends Component {
           this.setState({
             puzzleComplete: true,
             playerLoc: nextPuzzle.game.startLoc,
-            playerDir: nextPuzzle.game.startDir
+            playerDir: nextPuzzle.game.startDir,
+            display: nextPuzzle.game.grid
           })
         } else {
           this.resetMap();
