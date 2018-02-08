@@ -36,10 +36,12 @@ class Display extends Component {
       if ( pendingCommands.length === 0 ) {
         if ( this.checkSquareType("camp") ) {
           let nextPuzzle = this.props.puzzles.find(puzzle => puzzle.id === this.props.puzzle.id + 1)
+          let newLocation = this.props.user === "teacher" ? this.props.puzzle.game.startLoc : nextPuzzle.game.startLoc;
+          let newDirection = this.props.user === "teacher" ? this.props.puzzle.game.startDir : nextPuzzle.game.startDir;
           this.setState({
             puzzleComplete: true,
-            playerLoc: nextPuzzle.game.startLoc,
-            playerDir: nextPuzzle.game.startDir,
+            playerLoc: newLocation,
+            playerDir: newDirection,
             display: nextPuzzle.game.grid
           })
         } else {
@@ -85,8 +87,9 @@ class Display extends Component {
   }
 
   handleMovement = (command, playerDir) => {
-    switch (command.movement.dir) {
-      case 'Forward':
+    let direction = command.movement.dir.toLowerCase();
+    switch (direction) {
+      case 'forward':
         switch (this.state.playerDir) {
           case 1:
             this.moveNorth();
@@ -103,7 +106,7 @@ class Display extends Component {
           default:
         }
         break;
-      case 'Left':
+      case 'left':
         if (playerDir === 1) {
           playerDir = 4
         } else {
@@ -113,7 +116,7 @@ class Display extends Component {
           playerDir
         })
         break;
-      case 'Right':
+      case 'right':
         if (playerDir === 4) {
           playerDir = 1
         } else {
@@ -185,13 +188,15 @@ class Display extends Component {
     }
     return (
       <div className="puzzle">
-        {this.state.puzzleComplete !== null &&
+        {(this.state.puzzleComplete !== null && this.props.user !== "teacher") &&
           <GameSplash
             puzzleId={this.props.puzzleId}
             reset={this.resetSplash}
             status={this.state.puzzleComplete} />}
         <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc} playerDir={this.state.playerDir} />
         <Answer
+          moves={this.props.moves}
+          user={this.props.user}
           prepCommands={this.prepCommands}
           pendingCommands={this.state.pendingCommands}
           runCommands={this.runCommands}/>

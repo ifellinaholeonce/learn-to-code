@@ -36,8 +36,14 @@ a, a:hover {
   margin: 20px auto;
   color: white;
   border-radius: 5px;
-  background-color: $pastel-red;
+  background-color: #881f29;
   box-shadow: 4px 4px 0 $shading;
+
+  &.teacher-moves {
+    width: 45vw;
+    padding: 10px;
+    margin: 10px auto;
+  }
 
   .locked {
     color: rgba(255, 255, 255, 0.5)

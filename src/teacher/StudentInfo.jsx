@@ -37,7 +37,7 @@ class StudentInfo extends Component {
           render={(props) => <Puzzle {...props}
           puzzles={this.state.puzzles}
           puzzleId={this.props.match.params.puzzleId}
-          user="Teacher"
+          user="teacher"
           puzzle={puzzle}
           moves={this.state.moves} />} />
         </Switch>
