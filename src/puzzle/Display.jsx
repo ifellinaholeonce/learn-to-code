@@ -190,7 +190,7 @@ class Display extends Component {
             puzzleId={this.props.puzzleId}
             reset={this.resetSplash}
             status={this.state.puzzleComplete} />}
-        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
+        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc} playerDir={this.state.playerDir} />
         <Answer
           prepCommands={this.prepCommands}
           pendingCommands={this.state.pendingCommands}

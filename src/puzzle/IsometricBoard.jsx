@@ -58,7 +58,7 @@ class IsometricBoard extends Component {
     })
     return (
       <div className="game-board">
-        <Sam playerLoc={this.props.playerLoc}/>
+        <Sam playerLoc={this.props.playerLoc} playerDir={this.props.playerDir}/>
         <div id="InjectSVG" className="visuallyhidden">
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="SVGCubeOutlineLeft" viewBox="0 0 180 207">
