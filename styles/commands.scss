@@ -3,8 +3,7 @@
   padding: 10px;
   width: 50vw;
   min-height: 200px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  @include sunken($pastel-red);
 
   &:nth-child {
     margin-top: 5px;
@@ -16,10 +15,7 @@
   margin: 10px 20px;
   width: 50vw;
   min-height: 200px;
-  background-color: rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
-  border-top: 2px solid rgba(0, 0, 0, 0.2);
-  border-left: 2px solid rgba(0, 0, 0, 0.2);
+  @include sunken($pastel-red);
 }
 
 .commands-row {

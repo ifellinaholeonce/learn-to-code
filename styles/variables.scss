@@ -28,14 +28,28 @@ $right-colour: #0078ff;
 $loop-colour: $pastel-yellow;
 $funct-colour: $pastel-purple;
 
-// Boxes
-@mixin sunken {
+// Border shading
+$b-shading: 2px solid rgba(0, 0, 0, 0.2);
+$b-highlight: 2px solid rgba(255, 255, 255, 0.2);
+
+// Border Pop
+@mixin border-pop {
   border-radius: 5px;
-  border-top: 2px solid $shading;
-  border-left: 2px solid $shadind;
-  background-color: $shadind;
+  border-top: $b-highlight;
+  border-left: $b-highlight;
+  border-right: $b-shading;
+  border-bottom: $b-shading;
 }
 
+// Boxes
+@mixin sunken($color) {
+  border-radius: 5px;
+  border-top: 2px solid $shading;
+  border-left: 2px solid $shading;
+  background-color: $color;
+}
+
+// Button
 @mixin button($color) {
   border-radius: 5px;
   background-color: $color;

@@ -36,6 +36,7 @@ class Puzzle extends Component {
           <Display
             puzzleId={this.props.match.params.puzzleId}
             puzzle={puzzle}
+            puzzles={this.props.puzzles}
             moves={moves}
             moveId={location && location.moveId} />
       </div>
