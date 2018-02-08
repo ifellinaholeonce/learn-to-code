@@ -27,6 +27,7 @@ class Puzzle extends Component {
       <div className="puzzle">
           <Question question={puzzle.game.question} />
           <HintList
+            question={puzzle.game.question}
             hints={puzzle.game.hints}
             numHints={this.state.numHints}
             handleHintClick={this.handleHintClick} />

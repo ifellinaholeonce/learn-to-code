@@ -52,12 +52,7 @@ class StudentHistory extends Component {
   }
 
   getHighestLevel(student) {
-    let level = student.moves.reduce((acc, move) => {
-      if(move.completed && move.puzzle_id > acc) {
-        acc = move.puzzle_id + 1
-      }
-      return acc;
-    }, 1)
+    let level = student.moves.reduce((acc, move) => Math.max(acc, move.completed ? move.puzzle_id + 1 : move.puzzle_id), 0)
     return level
   }
 
@@ -89,6 +84,25 @@ class StudentHistory extends Component {
     return (
       <div className="student-history">
         <header className="header-box">
+          <h2 className="header-text">Class Stats</h2>
+        </header>
+        <table className="student-table header-included teacher-table">
+          <section className="graph-wrapper">
+            <div className="graph">
+            <dl>
+              <dt className="header">
+                Highest Level Unlocked (%)
+              </dt>
+              <dd className={"percentage percentage-" + this.getPercent(1)}><span className="text">Level 1: ({this.getPercent(1)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(2)}><span className="text">Level 2: ({this.getPercent(2)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(3)}><span className="text">Level 3: ({this.getPercent(3)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(4)}><span className="text">Level 4: ({this.getPercent(4)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(5)}><span className="text">Level 5: ({this.getPercent(5)}%)</span></dd>
+            </dl>
+            </div>
+          </section>
+        </table>
+        <header className="header-box">
           <h2 className="header-text">Your Class</h2>
           {this.state.addStudent &&
             <AddStudent
@@ -100,8 +114,8 @@ class StudentHistory extends Component {
               username={username}
               password={password} />}
         </header>
-        <div className="student-table-container">
-          <table className="student-table teacher-table">
+        <div className="student-table-container bottom-table">
+          <table className="student-table header-included teacher-table">
             <thead className="header">
               <tr>
                 <th width="10%"></th>
@@ -119,26 +133,6 @@ class StudentHistory extends Component {
             <i className="fas fa-plus"></i>
           </div>
         </div>
-        <header className="header-box">
-          <h2 className="header-text">Class Stats</h2>
-        </header>
-        <table className="student-table teacher-table">
-          <section className="graph-wrapper">
-            <div className="graph">
-            <dl>
-              <dt className="header">
-                Highest Level Completed (%)
-              </dt>
-              <dd className={"percentage percentage-" + this.getPercent(0)}><span className="text">Level 0: ({this.getPercent(0)}%)</span></dd>
-              <dd className={"percentage percentage-" + this.getPercent(1)}><span className="text">Level 1: ({this.getPercent(1)}%)</span></dd>
-              <dd className={"percentage percentage-" + this.getPercent(2)}><span className="text">Level 2: ({this.getPercent(2)}%)</span></dd>
-              <dd className={"percentage percentage-" + this.getPercent(3)}><span className="text">Level 3: ({this.getPercent(3)}%)</span></dd>
-              <dd className={"percentage percentage-" + this.getPercent(4)}><span className="text">Level 4: ({this.getPercent(4)}%)</span></dd>
-              <dd className={"percentage percentage-" + this.getPercent(5)}><span className="text">Level 5: ({this.getPercent(5)}%)</span></dd>
-            </dl>
-            </div>
-          </section>
-        </table>
       </div>
     );
   }

@@ -11,5 +11,13 @@
 @import 'game.scss';
 @import 'commands.scss';
 
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 @import url("https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.css");
 @import url("https://fonts.googleapis.com/css?family=Rammetto+One");

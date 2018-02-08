@@ -189,7 +189,7 @@
   width: 80%;
   top: 20%;
   margin: 20px auto;
-  @include sunken($shading)
+  @include sunken($shade)
 }
 
 .splash-title {

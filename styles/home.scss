@@ -1,15 +1,6 @@
-html {
-  box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
 .navbar {
   height: 80px;
-  background-color: #F5F5F5;
-  background-color: #0070DD;
+  background-color: $primary-color;
   box-shadow: 0px 4px 0 rgba(0, 0, 0, 0.3);
 
   .navbar-brand {
@@ -20,7 +11,7 @@ html {
 }
 
 .content {
-  background-color: #c2e2ca;
+  background-color: $background-color;
   margin: 0;
   color: #424242;
   height: 100%;

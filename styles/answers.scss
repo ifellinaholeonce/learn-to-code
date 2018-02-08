@@ -9,21 +9,23 @@
   padding-left:15px;
 }
 
-.play-btn {
-  margin: 10px;
-  margin-left: calc(20px + 50vw);
-  width: calc(50vw - 50px);
+.button, .play-btn {
+  &.play-btn {
+    margin-left: calc(20px + 50vw);
+    width: calc(50vw - 50px);
+  }
+
+  margin: 5px 5px;
+  padding: 0px 30px;
   font-size: 15pt;
   font-weight: 700;
-  border-radius: 32px;
-  box-shadow: 2px 5px 0px #ebbe09;
   color: black;
+  border-radius: 32px;
   background: $play-color;
-  padding: 5px 7px 5px 7px;
   border-color: $play-color;
 }
 
-.play-btn:hover {
-  background: #ffea5e;
+.button:hover, .play-btn:hover {
+  box-shadow: 4px 4px 0 $shade;
   text-decoration: none;
 }

@@ -134,7 +134,7 @@ class Answer extends Component {
   render() {
     return (
       <div className="commands-display">
-        <button onClick={this.props.runCommands} className="play-btn">
+        <button onClick={this.props.runCommands} className="button play-btn">
           PLAY
         </button>
         <div className="commands-row">

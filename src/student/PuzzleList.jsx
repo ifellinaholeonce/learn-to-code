@@ -50,7 +50,7 @@ function PuzzleItem({puzzle, done, unlocked}) {
     <tr className={`puzzle-item ${!unlocked && "locked"}`}>
       <td>{id}</td>
       <td>{unlocked && <Link to={`/student/puzzles/${id}`}><i className="shadow play fas fa-arrow-circle-right"></i></Link>}</td>
-      <td><Link to={`/student/moves/${puzzle.id}`}><i className="shadow fas fa-caret-right"></i></Link></td>
+      <td>{unlocked && <Link to={`/student/moves/${puzzle.id}`}><i className="shadow fas fa-caret-right"></i></Link>}</td>
       <td className="left">{name}</td>
       <td className="left">{concept}</td>
       <td><i className={`checkbox ${done && "completed"} fas fa-check`}></i></td>
