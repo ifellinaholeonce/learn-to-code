@@ -31,6 +31,7 @@ class Puzzle extends Component {
             numHints={this.state.numHints}
             handleHintClick={this.handleHintClick} />
           <Display
+            saveMove={this.saveMove}
             user={this.props.user}
             puzzleId={this.props.match.params.puzzleId}
             puzzle={puzzle}

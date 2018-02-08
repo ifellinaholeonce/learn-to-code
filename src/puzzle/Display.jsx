@@ -31,9 +31,12 @@ class Display extends Component {
   }
 
   runCommands = () => {
+    let startingCommands = this.state.pendingCommands;
     let execute = ( pendingCommands ) => {
       let playerDir = this.state.playerDir;
       if ( pendingCommands.length === 0 ) {
+        let completed = false;
+        let puzzleId = this.props.puzzle.id
         if ( this.checkSquareType("camp") ) {
           let nextPuzzle = this.props.puzzles.find(puzzle => puzzle.id === this.props.puzzle.id + 1)
           let newLocation = this.props.user === "teacher" ? this.props.puzzle.game.startLoc : nextPuzzle.game.startLoc;
@@ -44,11 +47,21 @@ class Display extends Component {
             playerDir: newDirection,
             display: nextPuzzle.game.grid
           })
+          completed = true;
         } else {
           this.resetMap();
           this.setState({
             puzzleComplete: false
           })
+        }
+
+        if(this.props.user === "student") {
+          let newMove = {
+            puzzle_id: puzzleId,
+            moves: startingCommands,
+            completed
+          }
+          this.props.saveMove(newMove)
         }
       } else {
         let command = pendingCommands.shift();
