@@ -6,7 +6,7 @@ $pastel-red: #ff576f;
 $pastel-green: #a2e260;
 $pastel-purple: #b762ff;
 $checkmark: #a2e260;
-$shading: rgba(0, 0, 0, 0.2);
+$shade: rgba(0, 0, 0, 0.2);
 $highlight: rgba(255, 255, 255, 0.2);
 
 // Body colors
@@ -29,23 +29,31 @@ $loop-colour: $pastel-yellow;
 $funct-colour: $pastel-purple;
 
 // Border shading
-$b-shading: 2px solid rgba(0, 0, 0, 0.2);
+$b-shade: 2px solid rgba(0, 0, 0, 0.2);
 $b-highlight: 2px solid rgba(255, 255, 255, 0.2);
+
+$primary-color: #881f29;
+// $secondary-color: ;
+$background-color: #caa331;
+$nav-height: 80px;
+
+$bright-highlight: rgba(255, 255, 255, 0.75);
+$dark-shade: rgba(255, 255, 255, 0.75);
 
 // Border Pop
 @mixin border-pop {
   border-radius: 5px;
   border-top: $b-highlight;
   border-left: $b-highlight;
-  border-right: $b-shading;
-  border-bottom: $b-shading;
+  border-right: $b-shade;
+  border-bottom: $b-shade;
 }
 
 // Boxes
 @mixin sunken($color) {
   border-radius: 5px;
-  border-top: 2px solid $shading;
-  border-left: 2px solid $shading;
+  border-top: 2px solid $shade;
+  border-left: 2px solid $shade;
   background-color: $color;
 }
 
@@ -59,7 +67,7 @@ $b-highlight: 2px solid rgba(255, 255, 255, 0.2);
   margin-right: 10px;
 
   &:hover {
-    box-shadow: 4px 4px 0 $shading;
+    box-shadow: 4px 4px 0 $shade;
   }
 }
 

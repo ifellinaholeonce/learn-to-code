@@ -16,8 +16,12 @@ class HintList extends Component {
 
     return (
       <div className="hint">
+        <h3>Objective</h3>
+        <ul>
+          <li>{this.props.question}</li>
+        </ul>
         <div className="hint-text">
-          <button className="hint-btn " onClick={this.props.handleHintClick}>GET HINT</button>
+          <button className="button hint-btn" onClick={this.props.handleHintClick}>GET HINT</button>
           {hintItems}
         </div>
       </div>
