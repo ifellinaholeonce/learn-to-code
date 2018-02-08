@@ -25,8 +25,8 @@ class StudentView extends Component {
       )
     }
   }
-  saveMove = (moves, done) => {
-    Request(`students/${viewPuzzle}/moves`, "POST", this.props.auth)
+  saveMove = (move) => {
+    Request(`students/${this.props.userId}/moves/new`, "POST", this.props.auth, move)
   }
   toggleMoves = moveId => e => {
     let move = this.state.viewMoves === moveId ? null : moveId
@@ -46,6 +46,8 @@ class StudentView extends Component {
             <MoveSummary {...props} moves={this.state.moves} viewMoves={this.state.viewMoves} toggleMoves={this.toggleMoves} />} />
           <Route path="/student/puzzles/:puzzleId" render={(props) =>
             <Puzzle {...props}
+              saveMove={this.saveMove}
+              user="student"
               puzzles={this.state.puzzles}
               puzzle={puzzle}
               moves={this.state.moves} />} />

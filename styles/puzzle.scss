@@ -12,9 +12,9 @@
   margin: 0px 20px;
 
   .hint-btn {
-    @include button($pastel-purple);
-    color: white;
-    margin: 5px;
+    @include button($pastel-yellow);
+    color: black;
+    margin: 10px;
   }
 
   .hint-text {
@@ -25,7 +25,7 @@
 
     height: 50px;
     // background-color: $pastel-red;
-    @include sunken($pastel-red);
+    @include sunken(#2c8c44);
     border-radius: 5px;
 
     p {
