@@ -1,41 +1,41 @@
-React Boilerplate
+Code Trail
 =====================
 
-A minimal and light dev environment for ReactJS.
+A puzzle-solving platform aimed at a younger audience. The goal is to offer a fun, engaging platform for children to practice logical problem solving. Code Trail also offers teachers student management tools to help facilitate student learning in the classroom.
 
 ### Usage
 
-Clone the boilerplate and create your own git repo.
+To get started make sure you also download the server side code.
 
 ```
-git clone git@github.com:lighthouse-labs/react-simple-boilerplate.git
-cd react-simple-boilerplate
-git remote rm origin
-git remote add origin [YOUR NEW REPOSITORY]
-# Manually update your package.json file
-```
-
-Install the dependencies and start the server.
-
-```
+git clone git@github.com:git@github.com:ifellinaholeonce/learn-to-code.git
+cd learn-to-code
 npm install
 npm start
-open http://localhost:3000
 ```
 
-### Static Files
-
-You can store static files like images, fonts, etc in the `build` folder.
-
-For example, if you copy a file called my_image.png into the build folder you can access it using `http://localhost:3000/build/my_image.png`.
-
-### Linting
-
-This boilerplate project includes React ESLint configuration.
+In a second terminal download and start the server.
 
 ```
-npm run lint
+git clone git@github.com:ifellinaholeonce/learn-to-code-backend.git
+cd learn-to-code-backend
+npm install
+npm start
 ```
+
+You are all set! Check it out at `http://localhost:3000`
+
+### Features
+
+Welcome to Code Trail!
+
+Puzzles are solved using a drag-and-drop interface. To solve the puzzle, the student must use the particular sets of options available.
+
+Students can see a list of puzzles available, as well as the particular learning goal that each puzzle aims to reinforce.
+
+Teachers can see how their class is progressing through the various puzzles and identify learning goals that individuals or groups may be struggling to understand.
+
+Teachers are also able to replay an individual student's attempt(s) at a each puzzle.
 
 ### Dependencies
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+// import { Droppable, Draggable } from 'react-beautiful-dnd';
 
 function DisplaySequence({ type, move, content }) {
   let action;
