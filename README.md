@@ -28,14 +28,19 @@ You are all set! Check it out at `http://localhost:3000`
 ### Features
 
 Welcome to Code Trail!
+!["Screen shot of landing page"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-1.png)
 
 Puzzles are solved using a drag-and-drop interface. To solve the puzzle, the student must use the particular sets of options available.
+!["Screen shot of drag-and-drop interface"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-drag-and-drop.png)
 
 Students can see a list of puzzles available, as well as the particular learning goal that each puzzle aims to reinforce.
+!["Screen shot of puzzle list"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-puzzle-list.png)
 
 Teachers can see how their class is progressing through the various puzzles and identify learning goals that individuals or groups may be struggling to understand.
+!["Screen shot of teacher view"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/Screenshot%20from%202018-03-27%2019-41-46.png)
 
 Teachers are also able to replay an individual student's attempt(s) at a each puzzle.
+!["Screen shot of replay"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/Screenshot%20from%202018-03-27%2019-42-25.png)
 
 ### Dependencies
 
