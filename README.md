@@ -19,8 +19,8 @@ In a second terminal download and start the server.
 ```
 git clone git@github.com:ifellinaholeonce/learn-to-code-backend.git
 cd learn-to-code-backend
-npm install
-npm start
+bundle
+bin/rails s
 ```
 
 You are all set! Check it out at `http://localhost:3000`
