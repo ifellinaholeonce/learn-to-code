@@ -1,0 +1,24 @@
+.available-actions {
+  margin: 10px auto;
+  padding: 10px;
+  width: 45vw;
+  min-height: 200px;
+  @include sunken(#2c8c44);
+
+  &:nth-child {
+    margin-top: 5px;
+  }
+}
+
+.commands-list {
+  padding: 10px;
+  margin: 10px auto;
+  width: 45vw;
+  min-height: 200px;
+  @include sunken(#2c8c44);
+}
+
+.commands-row {
+  display: flex;
+  flex-direction: row;
+}

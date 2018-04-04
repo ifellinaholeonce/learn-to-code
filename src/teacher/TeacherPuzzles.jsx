@@ -5,15 +5,13 @@ function TeacherPuzzles({moves, puzzles, studentId}) {
   let puzzleItems = groupPuzzleData(puzzles, moves, studentId)
   return (
     <div className="student-history">
-      <Link to="/teacher/students"><button className="button navigation">Back</button></Link>
       <table className="student-table teacher-table">
         <thead className="header">
           <tr>
             <th width="10%"></th>
-            <th width="15%">More</th>
             <th className="left" width="25%">Puzzle</th>
             <th className="left" width="25%">Learning Goal</th>
-            <th width="10%">Attempts</th>
+            <th width="25%">Attempts</th>
             <th width="15%">Done</th>
           </tr>
         </thead>
@@ -27,15 +25,13 @@ function TeacherPuzzles({moves, puzzles, studentId}) {
 // Each row is a puzzle and the student's performance for that puzzle
 function PuzzleItem({puzzle, done, attempts, studentId}) {
   let { id, name, concept } = puzzle
-  console.log("Puzzle:", puzzle)
   return (
     <tr scope="row">
       <td><Link to={`${studentId}/puzzle/${id}`}>{id}</Link></td>
-      <td><i className="shadow fas fa-caret-right"></i></td>
-      <td className="left">{name}</td>
+      <td className="left"><Link to={`${studentId}/puzzle/${id}`}>{name}</Link></td>
       <td className="left">{concept}</td>
       <td>{attempts}</td>
-      <td>{done && <i className="checkbox fas fa-check"></i>}</td>
+      <td><i className={`checkbox ${done && "completed"} fas fa-check`}></i></td>
     </tr>
   )
 }

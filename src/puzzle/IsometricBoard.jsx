@@ -15,7 +15,7 @@ class IsometricBoard extends Component {
     })
     let squares = this.props.puzzle.game.grid.map((square, i) => {
       return (
-        <div id={`Cube${i+1}`} className={`Cube Cube--typeSolo Theme-Woods Cube${i+1}`}>
+        <div key={i} id={`Cube${i+1}`} className={`Cube Cube--typeSolo Theme-Woods Cube${i+1}`}>
           <div className="CubeInterior">
             <div className="FaceWrapper" data-face="top">
               <div className="SvgContainer Face Face--typeTop">
@@ -52,13 +52,13 @@ class IsometricBoard extends Component {
               </svg>
             </div>
           </div>
-          {square.type !== "path" && <img src={`../../img/${square.type}.svg`}/>}
+          {square.type !== "path" && <img src={`/img/${square.type}.svg`}/>}
         </div>
       )
     })
     return (
       <div className="game-board">
-        <Sam playerLoc={this.props.playerLoc}/>
+        <Sam playerLoc={this.props.playerLoc} playerDir={this.props.playerDir}/>
         <div id="InjectSVG" className="visuallyhidden">
           <svg xmlns="http://www.w3.org/2000/svg">
             <symbol id="SVGCubeOutlineLeft" viewBox="0 0 180 207">

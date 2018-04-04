@@ -1,0 +1,73 @@
+// Pastel colours
+$pastel-yellow: #ffd117;
+$pastel-lyellow: #ffdd56;
+$pastel-turquoise: #4ee4c4;
+$pastel-red: #ff576f;
+$pastel-green: #a2e260;
+$pastel-purple: #b762ff;
+$checkmark: #a2e260;
+$shade: rgba(0, 0, 0, 0.2);
+$highlight: rgba(255, 255, 255, 0.2);
+
+// Body colors
+$size: 20vw;
+$body-color: #4ee4c4;
+$nav-color: #3aad94;
+
+// Fonts
+$font-comfortaa: 'Comfortaa', cursive;
+
+// Play colours
+$play-color: #fae503;
+$btn-font-color: white;
+
+// Command buttons
+$forward-colour: $pastel-green;
+$left-colour: #0078ff;
+$right-colour: #0078ff;
+$loop-colour: $pastel-yellow;
+$funct-colour: $pastel-purple;
+
+// Border shading
+$b-shade: 2px solid rgba(0, 0, 0, 0.2);
+$b-highlight: 2px solid rgba(255, 255, 255, 0.2);
+
+$primary-color: #881f29;
+// $secondary-color: ;
+$background-color: #caa331;
+$nav-height: 80px;
+
+$bright-highlight: rgba(255, 255, 255, 0.75);
+$dark-shade: rgba(255, 255, 255, 0.75);
+
+// Border Pop
+@mixin border-pop {
+  border-radius: 5px;
+  border-top: $b-highlight;
+  border-left: $b-highlight;
+  border-right: $b-shade;
+  border-bottom: $b-shade;
+}
+
+// Boxes
+@mixin sunken($color) {
+  border-radius: 5px;
+  border-top: 2px solid $shade;
+  border-left: 2px solid $shade;
+  background-color: $color;
+}
+
+// Button
+@mixin button($color) {
+  border-radius: 5px;
+  background-color: $color;
+  border: none;
+  height: 40px;
+  width: 100px;
+  margin-right: 10px;
+
+  &:hover {
+    box-shadow: 4px 4px 0 $shade;
+  }
+}
+

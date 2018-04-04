@@ -12,7 +12,7 @@ import App from './App.jsx';
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <Route to="/" render={(props) => <App {...props} />} />
   </BrowserRouter>,
   document.getElementById('react-root')
   );

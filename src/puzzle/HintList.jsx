@@ -4,7 +4,6 @@ import Hint from './Hint.jsx';
 class HintList extends Component {
 
   render() {
-    console.log("Rendering <HintList/>");
 
     const hints = this.props.hints;
     const numHints = this.props.numHints;
@@ -15,14 +14,14 @@ class HintList extends Component {
       return <p key={index}>{hint}</p>
     })
 
-    let clickHint = (e) => {
-      this.props.handleHintClick()
-    }
-
     return (
-      <div className="container col-4">
-        <button className="btn btn-success" onClick={clickHint}> HINT: </button>
-        <div className="hints">
+      <div className="hint">
+        <h3>Objective</h3>
+        <ul>
+          <li>{this.props.question}</li>
+        </ul>
+        <div className="hint-text">
+          <button className="button hint-btn" onClick={this.props.handleHintClick}>GET HINT</button>
           {hintItems}
         </div>
       </div>

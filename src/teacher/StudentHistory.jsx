@@ -50,20 +50,32 @@ class StudentHistory extends Component {
   updateField = (field, value) => {
     this.setState({[field]: value})
   }
+
+  getHighestLevel(student) {
+    let level = student.moves.reduce((acc, move) => Math.max(acc, move.completed ? move.puzzle_id + 1 : move.puzzle_id), 0)
+    return level
+  }
+
+  getPercent(level) {
+    let percent = this.props.students.reduce((acc, student) => {
+      let highLevel = this.getHighestLevel(student)
+       if (highLevel === level) {
+         acc++
+       }
+       return acc }, 0)
+    return Number.parseFloat((percent/this.props.students.length)*100).toFixed(0)
+  }
+
   render() {
     const clickStudent = this.props.clickStudent;
-    let students = this.props.students.map(student => {
-      let level = student.moves.reduce((acc, move) => {
-        if(move.completed && move.puzzle_id > acc.puzzle_id) {
-          acc = move
-        }
-        return acc;
-      }, 1)
+    let students = this.props.students.map((student, i) => {
+      let level = this.getHighestLevel(student)
       return (
         <StudentItem
-          key={student.id}
+          key={i}
+          index={i}
           student={student.student}
-          level={level.puzzle_id}
+          level={level}
           attempts={student.moves.length}
         />
       )
@@ -71,6 +83,25 @@ class StudentHistory extends Component {
     let {firstName, lastName, username, password} = this.state
     return (
       <div className="student-history">
+        <header className="header-box">
+          <h2 className="header-text">Class Stats</h2>
+        </header>
+        <table className="student-table header-included teacher-table">
+          <section className="graph-wrapper">
+            <div className="graph">
+            <dl>
+              <dt className="header">
+                Highest Level Unlocked (%)
+              </dt>
+              <dd className={"percentage percentage-" + this.getPercent(1)}><span className="text">Level 1: ({this.getPercent(1)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(2)}><span className="text">Level 2: ({this.getPercent(2)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(3)}><span className="text">Level 3: ({this.getPercent(3)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(4)}><span className="text">Level 4: ({this.getPercent(4)}%)</span></dd>
+              <dd className={"percentage percentage-" + this.getPercent(5)}><span className="text">Level 5: ({this.getPercent(5)}%)</span></dd>
+            </dl>
+            </div>
+          </section>
+        </table>
         <header className="header-box">
           <h2 className="header-text">Your Class</h2>
           {this.state.addStudent &&
@@ -83,8 +114,8 @@ class StudentHistory extends Component {
               username={username}
               password={password} />}
         </header>
-        <div className="student-table-container">
-          <table className="student-table teacher-table">
+        <div className="student-table-container bottom-table">
+          <table className="student-table header-included teacher-table">
             <thead className="header">
               <tr>
                 <th width="10%"></th>
@@ -108,11 +139,11 @@ class StudentHistory extends Component {
 }
 
 // Each row is a puzzle and the student's performance for that puzzle
-function StudentItem({ student, level, attempts }) {
+function StudentItem({ index, student, level, attempts }) {
   let { id, first_name, last_name} = student;
   return (
     <tr>
-      <td>{id}</td>
+      <td>{index + 1}</td>
       <td><Link to={`/teacher/students/${id}`}>{first_name}</Link></td>
       <td>{last_name}</td>
       <td>{level}</td>
@@ -122,4 +153,3 @@ function StudentItem({ student, level, attempts }) {
 }
 
 export default StudentHistory;
-

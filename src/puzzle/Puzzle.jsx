@@ -21,19 +21,24 @@ class Puzzle extends Component {
   }
   render() {
     let moves = this.props.moves
-    let puzzle = this.props.puzzle
+    let puzzle = this.props.puzzles.find(puzzle => puzzle.id == this.props.match.params.puzzleId)
+    let location = this.props.location.state
     return (
       <div className="puzzle">
-        <div className="puzzle-container d-flex flex-column">
-          <Question/>
-          <div className="display-container hints-container d-flex flex-row">
-            <Display puzzle={puzzle}/>
-            <HintList
-              hints={puzzle.game.hints}
-              numHints={this.state.numHints}
-              handleHintClick={this.handleHintClick} />
-          </div>
-        </div>
+          <Question question={puzzle.game.question} />
+          <HintList
+            question={puzzle.game.question}
+            hints={puzzle.game.hints}
+            numHints={this.state.numHints}
+            handleHintClick={this.handleHintClick} />
+          <Display
+            saveMove={this.props.saveMove}
+            user={this.props.user}
+            puzzleId={this.props.match.params.puzzleId}
+            puzzle={puzzle}
+            puzzles={this.props.puzzles}
+            moves={moves}
+            moveId={location && location.moveId} />
       </div>
     );
   }

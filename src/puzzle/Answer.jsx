@@ -1,13 +1,24 @@
 import React, {Component} from 'react';
 import Dragula from 'react-dragula';
+import DisplaySequence from './DisplaySequence.jsx';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
+import TeacherStudentMoves from './TeacherStudentMoves.jsx';
+import ActionsList from './ActionsList.jsx';
+
 
 class Answer extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      commands: ['forward', 'left', 'right'],
+      commands: [
+        {movement: {dir: 'forward'}},
+        {movement: {dir: 'left'}},
+        {movement: {dir: 'right'}}],
       items: ['berry', 'wood'],
-      input: []
+      input: [],
+      numLoops: 1,
+      viewMove: null
     };
   }
 
@@ -53,7 +64,7 @@ class Answer extends Component {
       if (el.id === "loop") {
         source.childNodes.forEach((child) => {
           if (child.id === el.id) {
-            let container = child.firstChild;
+            let container = child.lastChild;
             while (container.firstChild) {
               container.removeChild(container.firstChild)
             }
@@ -67,7 +78,7 @@ class Answer extends Component {
         if (child.id === "pickup") {
           let pickup = {
             pickup: {
-              "item": child.lastChild.firstChild.textContent
+              "item": child.lastChild.firstChild.textContent.toLowerCase()
             }};
           commands.push(pickup)
         } else
@@ -79,17 +90,17 @@ class Answer extends Component {
               cmds: []
             }
           }
-          for (let loopChild of child.firstChild.children) {
+          for (let loopChild of child.lastChild.children) {
             if (loopChild.id === "pickup") {
               let pickup = {
                 pickup: {
-                  "item": loopChild.lastChild.firstChild.textContent
+                  "item": loopChild.lastChild.firstChild.textContent.toLowerCase()
               }};
               loop.loop.cmds.push(pickup);
             } else {
               let movement = {
                 movement : {
-                  dir: loopChild.textContent
+                  dir: loopChild.textContent.toLowerCase()
                 }
               }
               loop.loop.cmds.push(movement)
@@ -99,7 +110,7 @@ class Answer extends Component {
         } else {
           let movement = {
             movement: {
-              dir: child.textContent
+              dir: child.textContent.toLowerCase()
             }
           }
           commands.push(movement)
@@ -113,48 +124,39 @@ class Answer extends Component {
     });
   }
 
-
+  viewMove = moveId => e => {
+    let newMove = this.state.viewMove === moveId ? null : moveId;
+    let move = this.props.moves.find(move => move.id === moveId)
+    this.setState({ viewMove: moveId })
+    this.props.prepCommands(move.moves)
+  }
 
   render() {
     return (
-      <div className="text-center">
-        <header className="row flex-sm-row">
-          <button onClick={this.props.runCommands} className="col-sm-4 btn btn-warning">
-            Run Commands
-          </button>
-        </header>
-        <div className="row">
-          <div className="col-md-3 command-list drake-container" id="left">
-            {this.state.commands.map( (move) => {
-              return (<Command type={"movement"} content={move} />)
-            })}
-            {this.state.items.map( (item) => {
-              return (<Command type="pickup" content={item} />)
-            })}
-            <div className="looper" id="loop">
-              <div className="looper-container drake-container"></div>
-            </div>
-            <div className="looper" id="pickup">
-              <label>Pick Up</label>
-              <div className="looper-container drake-container" id="pickup"></div>
-            </div>
+      <div className="commands-display">
+        <button onClick={this.props.runCommands} className="button play-btn">
+          PLAY
+        </button>
+        <div className="commands-row">
+        <Switch>
+          <Route path="/teacher/students/:studentId/puzzle/:puzzleId" render={(props) =>
+            <TeacherStudentMoves {...props} viewMove={this.viewMove} viewId={this.state.viewMove} moves={this.props.moves} />} />
+          <Route path="/student/puzzles/:puzzleId" render={(props) =>
+            <ActionsList {...props} commands={this.state.commands} items={this.state.items} />} />
+        </Switch>
+          <div className="commands-list drake-container"  id="right">
+            {this.state.viewMove && this.props.moves.find(move => move.id === this.state.viewMove).moves.map((move, i) =>
+                <DisplaySequence type="command" key={i} i={i} move={move} />) }
           </div>
-          <div className="col-md-3 answer-list drake-container"  id="right"></div>
         </div>
       </div>
     );
-  }
-
-  dragulaDecorator = ( component ) => {
-    if ( component ) {
-      this.containers.push(component)
-    }
   }
 }
 
 function Command({ type, content }) {
   return (
-    <div className={`${type} btn btn-success m-1`}>
+    <div className={`${content} ${type} action`}>
       {content}
     </div>
   )

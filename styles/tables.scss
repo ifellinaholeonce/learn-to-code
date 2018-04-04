@@ -1,28 +1,17 @@
-// Pastel colours
-$pastel-yellow: #ffd117;
-$pastel-lyellow: #ffdd56;
-$pastel-turquoise: #4ee4c4;
-$pastel-red: #ff576f;
-$pastel-green: #a2e260;
-$pastel-purple: #b762ff;
-$checkmark: #a2e260;
-$shading: rgba(0, 0, 0, 0.2);
-
-body {
-  background-color: $pastel-lyellow;
-
-  .navbar {
-    background-color: $pastel-red;
-  }
+// Reset hyperlink styling
+a, a:hover {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 // Generic button syling
 .button {
-  border-radius: 3px;
-  background-color: $pastel-lyellow;
-  border: none;
-  height: 40px;
-  width: 100px;
+  // border-radius: 3px;
+  // background-color: $pastel-lyellow;
+  // border: none;
+  // height: 40px;
+  // width: 100px;
+  // margin-right: 10px;
 
   &.navigation {
     background-color: $pastel-purple;
@@ -30,27 +19,45 @@ body {
   }
 }
 
+.active {
+  background-color: rgba(255,255,255,0.5)
+}
+
 .button:hover {
-  box-shadow: 4px 4px 0 $shading;
+  box-shadow: 4px 4px 0 $shade;
+}
+
+.bottom-table {
+  margin-bottom: 40px;
 }
 
 // Style all student tables
 .student-table, .header-box {
   min-height: 50px;
   width: 80vw;
-  margin: 20px auto;
+  margin: 30px auto;
   color: white;
   border-radius: 5px;
-  background-color: $pastel-red;
-  box-shadow: 4px 4px 0 $shading;
+  background-color: #881f29;
+  box-shadow: 4px 4px 0 $shade;
+
+  &.teacher-moves {
+    width: 45vw;
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .locked {
+    color: rgba(255, 255, 255, 0.5)
+  }
 
   .header {
-    border-bottom: 2px solid $shading;
+    border-bottom: 2px solid $shade;
   }
 
   tr {
     height: 50px;
-    border-bottom: 2px solid $shading;
+    border-bottom: 2px solid $shade;
 
     & th:first-child {
       border-radius: 5px 0 0 0;
@@ -63,20 +70,14 @@ body {
     th {
       font-weight: bold;
       text-align: center;
-      background-color: $shading;
+      background-color: $shade;
     }
 
     td {
       text-align: center;
 
-      // Reset hyperlink styling
-      a {
-        color: inherit;
-        text-decoration: inherit;
-      }
-
       .shadow, .shadow.play {
-        color: $shading;
+        color: $bright-highlight;
         font-size: 1.5rem;
       }
 
@@ -91,15 +92,112 @@ body {
 
     // Done checkbox styling
     .checkbox {
-      color: $checkmark;
+      &.completed {
+        color: $checkmark;
+      }
+
+      color: rgba(0, 0, 0, 0);
       width: 20px;
       height: 20px;
-      background-color: $shading;
+      background-color: $shade;
       border-radius: 3px;
     }
   }
 
   tr:last-child {
     border-bottom: none;
+  }
+}
+
+.header-box {
+  margin: 30px auto 2px auto
+}
+
+.header-included {
+  margin: 0px auto;
+}
+
+.graph-wrapper {
+  text-align: center;
+}
+
+.graph {
+  display: inline-block;
+  width: 80%;
+}
+
+dl {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+dt {
+  align-self: flex-start;
+  width: 100%;
+  font-weight: 700;
+  display: block;
+  text-align: center;
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.text {
+  font-size: 1em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background-color: white;
+  position: absolute;
+  left: 0;
+  justify-content: flex-end;
+}
+
+.percentage {
+  font-size: .8em;
+  line-height: 1;
+  text-transform: uppercase;
+  width: 90%;
+  height: 40px;
+  margin-left: 10em;
+  background: repeating-linear-gradient(
+  to right,
+  #ddd,
+  #ddd 1px,
+  $pastel-yellow 1px,
+  $pastel-yellow 5%
+);
+
+  &:after {
+    content: "";
+    display: block;
+    background-color: #3d9970;
+    width: 0px;
+    margin-bottom: 10px;
+    height: 90%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background-color .3s ease;
+    cursor: pointer;
+  }
+  &:hover,
+  &:focus {
+    &:after {
+       background-color: #aaa;
+    }
+  }
+}
+
+@for $i from 1 through 100 {
+  .percentage-#{$i} {
+    &:after {
+      $value: ($i * 1%);
+      width: $value;
+    }
   }
 }

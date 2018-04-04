@@ -1,30 +1,26 @@
 import React, {Component} from 'react';
 import Square from './Squares.jsx';
 import Answer from './Answer.jsx';
-import Sam from './Sam.jsx';
 import GameSplash from './GameSplash.jsx'
 import IsometricBoard from './IsometricBoard.jsx'
-
-
-let board = [
-  {x: 0, y: 0, type: "trees"}, {x: 1, y: 0, type: "trees"}, {x: 2, y: 0, type: "camp"}, {x: 3, y: 0, type: "trees"}, {x: 4, y: 0, type: "trees"},
-  {x: 0, y: 1, type: "trees"}, {x: 1, y: 1, type: "trees"}, {x: 2, y: 1, type: "path"}, {x: 3, y: 1, type: "trees"}, {x: 4, y: 1, type: "trees"},
-  {x: 0, y: 2, type: "path" }, {x: 1, y: 2, type: "path" }, {x: 2, y: 2, type: "berry"}, {x: 3, y: 2, type: "trees"}, {x: 4, y: 2, type: "trees"},
-  {x: 0, y: 3, type: "trees"}, {x: 1, y: 3, type: "trees"}, {x: 2, y: 3, type: "path"}, {x: 3, y: 3, type: "trees"}, {x: 4, y: 3, type: "trees"},
-  {x: 0, y: 4, type: "trees"}, {x: 1, y: 4, type: "trees"}, {x: 2, y: 4, type: "path"}, {x: 3, y: 4, type: "trees"}, {x: 4, y: 4, type: "trees"},
-];
 
 class Display extends Component {
   constructor(props) {
     super(props);
     this.state = {
       display: this.props.puzzle.game.grid,
-      playerLoc: {x: 0, y: 2},
-      startLoc: {x: 0, y: 2},
-      playerDir: 3, // 1 = North, 2 = East, 3 = South, 4 = West
-      startDir: 3,
-      pendingCommands: []
+      playerLoc: this.props.puzzle.game.startLoc,
+      playerDir: this.props.puzzle.game.startDir, // 1 = North, 2 = East, 3 = South, 4 = West
+      pendingCommands: [],
+      puzzleComplete: null
      };
+  }
+
+  componentDidMount() {
+    let move = this.props.moves.find(move => move.id === this.props.moveId);
+    if(move) {
+      this.prepCommands(move.moves);
+    }
   }
 
   //Expects an array of commands from Answers - forward, left, right
@@ -35,18 +31,38 @@ class Display extends Component {
   }
 
   runCommands = () => {
+    let startingCommands = this.state.pendingCommands.map(command => ({...command}));
     let execute = ( pendingCommands ) => {
       let playerDir = this.state.playerDir;
       if ( pendingCommands.length === 0 ) {
+        let completed = false;
+        let puzzleId = this.props.puzzle.id
         if ( this.checkSquareType("camp") ) {
+          let nextPuzzle = this.props.puzzles.find(puzzle => puzzle.id === this.props.puzzle.id + 1)
+          let newLocation = this.props.user === "teacher" ? this.props.puzzle.game.startLoc : nextPuzzle.game.startLoc;
+          let newDirection = this.props.user === "teacher" ? this.props.puzzle.game.startDir : nextPuzzle.game.startDir;
           this.setState({
-            puzzleComplete: true
+            puzzleComplete: true,
+            playerLoc: newLocation,
+            playerDir: newDirection,
+            display: nextPuzzle.game.grid
           })
+          completed = true;
         } else {
           this.resetMap();
           this.setState({
             puzzleComplete: false
           })
+        }
+
+        if(this.props.user === "student") {
+          let newMove = {
+            puzzle_id: puzzleId,
+            moves: startingCommands,
+            completed
+          }
+
+          this.props.saveMove(newMove)
         }
       } else {
         let command = pendingCommands.shift();
@@ -85,7 +101,8 @@ class Display extends Component {
   }
 
   handleMovement = (command, playerDir) => {
-    switch (command.movement.dir) {
+    let direction = command.movement.dir
+    switch (direction) {
       case 'forward':
         switch (this.state.playerDir) {
           case 1:
@@ -169,35 +186,34 @@ class Display extends Component {
 
   resetMap = () => {
     this.setState({
-      playerDir: this.state.startDir,
-      playerLoc: this.state.startLoc
+      playerDir: this.props.puzzle.game.startDir,
+      playerLoc: this.props.puzzle.game.startLoc
     })
   }
 
-  initMap = () => {
-    let grid = this.state.display.map((square, i) => {
-      return <Square key={`${square.x} ${square.y}`} type={square.type} x={square.x} y={square.y} />
-    });
-    return grid;
-  }
-
-  renderGameSplash = () => {
-    if (this.state.puzzleComplete) {
-      return <GameSplash status={true} />
-    }
-    if (this.state.puzzleComplete === false)
-      return <GameSplash status={false} />
+  resetSplash = () => {
+    this.setState({puzzleComplete: null})
   }
 
   render() {
+    let playerLocStyle = {
+      top: ((this.state.playerLoc.x - this.state.playerLoc.y) * 10)  + "%",
+      left: ((this.state.playerLoc.x + this.state.playerLoc.y) * 10) + "%"
+    }
     return (
       <div className="puzzle">
-        <div className="d-flex flex-column">
-              {/* {this.initMap()} */}
-              {this.renderGameSplash()}
-              <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc}/>
-          <Answer prepCommands={this.prepCommands} runCommands={this.runCommands}/>
-        </div>
+        {(this.state.puzzleComplete !== null && this.props.user !== "teacher") &&
+          <GameSplash
+            puzzleId={this.props.puzzleId}
+            reset={this.resetSplash}
+            status={this.state.puzzleComplete} />}
+        <IsometricBoard puzzle={this.props.puzzle} playerLoc={this.state.playerLoc} playerDir={this.state.playerDir} />
+        <Answer
+          moves={this.props.moves}
+          user={this.props.user}
+          prepCommands={this.prepCommands}
+          pendingCommands={this.state.pendingCommands}
+          runCommands={this.runCommands}/>
       </div>
     );
   }

@@ -24,8 +24,6 @@ class StudentInfo extends Component {
   render() {
     let puzzleId = this.props.location.pathname.match(/(\d+)/g)[1]
     let puzzle = this.state.puzzles.find((puz) => puz.id == puzzleId)
-    console.log("Puzzle:", puzzle, "puzzle id:", puzzleId)
-    console.log("Student id", this.props.match)
     return (
       <div className="student-info">
       <Switch>
@@ -37,7 +35,9 @@ class StudentInfo extends Component {
             studentId={this.props.match.params.id} />} />
         <Route path="/teacher/students/:studentId/puzzle/:puzzleId"
           render={(props) => <Puzzle {...props}
-          user="Teacher"
+          puzzles={this.state.puzzles}
+          puzzleId={this.props.match.params.puzzleId}
+          user="teacher"
           puzzle={puzzle}
           moves={this.state.moves} />} />
         </Switch>

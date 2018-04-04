@@ -15,7 +15,19 @@ class Navbar extends Component {
           <p> <strong>CODE</strong> TRAIL </p>
         </div>
         <div className="nav-right">
-          {this.props.user && <Link to="/"><button className="button" onClick={this.props.logout}>Logout</button></Link>}
+          <Route
+            path="/student/moves/:puzzleId"
+            render={() => <button className="button"><Link to="/student">Back</Link></button>} />
+          <Route
+            path="/teacher/students/:id"
+            render={() => <button className="button"><Link to="/teacher">Back</Link></button>} />
+          <Route
+            path="/student/puzzles/:puzzleId"
+            render={() => <button className="button"><Link to="/student">Back</Link></button>} />
+          {this.props.user &&
+            <Link to="/">
+              <button className="button" onClick={this.props.logout}>Logout</button>
+            </Link>}
         </div>
       </div>
     );

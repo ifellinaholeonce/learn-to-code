@@ -1,0 +1,122 @@
+
+.puzzle-container {
+  background-image: url("../img/aqua-green.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  // height:100vh;
+  padding: 0px 50px;
+  opacity: 50%;
+}
+
+.hint {
+  margin: 0px 20px;
+  padding: 10px;
+  @include sunken(#2c8c44);
+  color: white;
+
+  .hint-text {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px 0 0 0;
+
+    height: 50px;
+    // background-color: $pastel-red;
+    border-radius: 5px;
+
+    p {
+      color: white;
+      margin: 0;
+      padding: 5px;
+      margin-left: 10px;
+      background-color: rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+  }
+}
+
+footer {
+  background: #008A8D;
+}
+
+.command-list {
+  background: #005644;
+}
+
+.answer-list {
+  border: 2px dotted black;
+}
+
+// Puzzle shaped buttons
+.jigsaw {
+  width: 4em;
+  height: 4em;
+  margin: 50px;
+  position: relative;
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  cursor: pointer;
+}
+
+.jigsaw,
+.jigsaw span {
+ background-color: #0284cf;
+}
+
+
+.text {
+  display: block;
+  color: #fff;
+  font-size: .5em;
+  text-align: center;
+  padding: 1.9em 0 0 1.2em;
+  position: relative;
+  background: transparent !important;
+}
+
+.jigsaw .t {
+  width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  top: -.8em;
+  left: 1.3em;
+  -webkit-border-radius: 4em;
+  -moz-border-radius: 4em;
+  border-radius: 4em;
+}
+
+.jigsaw .r {
+ width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  top: 1.2em;
+  left: 3.3em;
+  -webkit-border-radius: 4em;
+  -moz-border-radius: 4em;
+  border-radius: 4em;
+}
+
+.jigsaw .b {
+ width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  top: 3.1em;
+  left: 1.4em;
+  -webkit-border-radius: 4em;
+  -moz-border-radius: 4em;
+  border-radius: 4em;
+  background-color: #005644;
+}
+
+.jigsaw .l {
+ width: 1.5em;
+  height: 1.5em;
+  position: absolute;
+  top: 1.2em;
+  left: -.7em;
+  -webkit-border-radius: 4em;
+  -moz-border-radius: 4em;
+  border-radius: 4em;
+  background-color: #005644;
+}
