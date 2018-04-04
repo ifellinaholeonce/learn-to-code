@@ -23,7 +23,7 @@ bundle
 bin/rails s
 ```
 
-You are all set! Check it out at `http://localhost:3000`
+You are all set! Check it out at `http://localhost:8080`
 
 ### Features
 
