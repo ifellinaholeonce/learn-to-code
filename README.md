@@ -31,7 +31,7 @@ Welcome to Code Trail!
 !["Screen shot of landing page"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-1.png)
 
 Puzzles are solved using a drag-and-drop interface. To solve the puzzle, the student must use the particular sets of options available.
-!["Screen shot of drag-and-drop interface"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-drag-drop.png)
+!["Screen shot of drag-and-drop interface"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-drag-drop.gif)
 
 Students can see a list of puzzles available, as well as the particular learning goal that each puzzle aims to reinforce.
 !["Screen shot of puzzle list"](https://github.com/ifellinaholeonce/learn-to-code/blob/master/docs/final-puzzle-list.png)
